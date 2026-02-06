@@ -4,7 +4,7 @@ import sidebar from "./sidebar"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "SumUp",
+  title: "SumUP",
   description: "个人总结",
   head: [],
   lang: 'zh-CN',

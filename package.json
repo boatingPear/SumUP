@@ -1,11 +1,11 @@
 {
-  "name": "SumUp-doc",
+  "name": "SumUP-doc",
   "private": true,
   "version": "v1.0.0",
   "description": "个人总结",
-  "type": "module",
+    "type": "module",
   "scripts": {
-    "dev": "vitepress dev docs",
+    "dev": "vitepress dev docs --port 8081",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs"
   },
