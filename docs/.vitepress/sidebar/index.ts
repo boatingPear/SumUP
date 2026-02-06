@@ -1,6 +1,7 @@
 import type { DefaultTheme } from "vitepress";
 import guide from "./guide";
 import module from "./module";
+import frontendOtherWxapp from "./frontend/other/wxapp";
 
 /**
  * 侧边栏
@@ -10,4 +11,6 @@ export default <DefaultTheme.SidebarMulti>{
   "/guide/": guide,
   //模块
   "/module/": module,
-};
+  // 前端-其他-微信小程序
+  "/frontend/other/wxapp/": frontendOtherWxapp
+};  

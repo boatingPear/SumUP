@@ -9,14 +9,22 @@ export default <DefaultTheme.NavItem[]>[
         text: '例子', 
         link: '/examples/index' 
     },
-    // {
-    //     text: '前端',
-    //     items: [
-    //         { text: '工具集成' },    
-    //         { text: '组件库' },
-    //         { text: '工程化' },
-    //     ]   
-    // },
+    {
+        text: '前端',
+        activeMatch:'/frontend/',
+        items: [
+            // { text: '工具集成' },    
+            // { text: '组件库' },
+            // { text: '工程化' },
+            {
+                text: '其他',
+                activeMatch:'/frontend/other/',
+                items: [
+                    { text: '微信小程序', link: 'frontend/other/wxapp' }, 
+                ]
+            }
+        ]
+    },
     // {
     //     text: '后端',
     //     items: []
