@@ -1,15 +1,3 @@
-#基础
-*.class
-*.log
-*.jar
-*.war
-hs_err_pid*
-out/
-target/
-.xcodemap
-
-# 前端忽略
-dist/
-node_modules/
-.DS_Store
-**/.vscode/
+node_modules
+docs/.vitepress/dist
+docs/.vitepress/cache
