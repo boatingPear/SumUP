@@ -2,7 +2,7 @@ import type { DefaultTheme } from "vitepress"
 
 export default <DefaultTheme.SidebarItem>[
     {
-        text: "基础",
+        text: "介绍",
         link: "/frontend/other/wxapp/"
     },  
     {
