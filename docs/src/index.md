@@ -13,10 +13,10 @@ hero:
     - theme: alt
       text: 源代码
       link: https://gitee.com/dabai-pear/SumUP
- image:
+  image:
     src: /imgs/robot.svg
     alt: SumUP
-# features:   
+# features:
 #   - title: Feature A
 #     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 #   - title: Feature B
