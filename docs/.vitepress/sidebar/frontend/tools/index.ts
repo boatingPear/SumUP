@@ -8,5 +8,14 @@ export default <DefaultTheme.SidebarItem>[
     {
         text: "打字录入",
         link: "/frontend/tools/typewriting/"
+    },
+    {
+        text: "扩展模块",
+        items: [
+            {
+                text: 'Drawio插件',
+                link: '/frontend/tools/expansion/drawio'
+            }
+        ]
     }
 ]
