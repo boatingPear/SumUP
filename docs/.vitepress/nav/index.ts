@@ -28,10 +28,19 @@ export default <DefaultTheme.NavItem[]>[
             }
         ]
     },
-    // {
-    //     text: '后端',
-    //     items: []
-    // },
+    {
+        text: '后端',
+        activeMatch: "/server/",
+        items: [
+            {
+                text: "java",
+                activeMatch:'/server/java/',
+                items: [
+                    { text: 'java基础', link: '/server/java/basic/' },
+                ]
+            }
+        ]
+    },
     // {
     //     text: '运维',
     //     items: []
