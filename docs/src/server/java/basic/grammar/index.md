@@ -13,17 +13,17 @@ Java关键字是编程语言中预定义的具有特殊含义的词汇，这些�
 :::warning :warning:
 
 关键字很多，不用刻意去记
-
+    
 :::
 
 1. **修饰符关键字**：`public`、`protected`、`privae`、`static`、`final`、`abstract`
-2. **访问控制关键字**：public、protected、private、default（默认）
-3. **类、接口和包关键字**：、class、interface、enum、package、import、extends、implements
-4. **方法关键字**：void、return、this、super
-5. **流程控制关键字**：if、else、switch、case、default、while、do、for、break、continue、return
-6. **异常处理关键字**：try、catch、finally、throw、throws
-7. **逻辑关键字**：true、false、null
-8. **其他关键字**：new、instanceof、synchronized、transient、volatile、assert
+2. **访问控制关键字**：`public`、`protected`、`private`、`default`（默认）
+3. **类、接口和包关键字**：`class`、`interface`、`enum`、`package`、`import`、`extends`、`implements`
+4. **方法关键字**：`void`、`return`、`this`、`super`
+5. **流程控制关键字**：`if`、`else`、`switch`、`case`、`default`、`while`、`do`、`for`、`break`、`continue`、`return`
+6. **异常处理关键字**：`try`、`catch`、`finally`、`throw`、`throws`
+7. **逻辑关键字**：`true`、`false`、`null`
+8. **其他关键字**：`new`、`instanceof`、`synchronized`、`transient`、`volatile`、`assert`
 
 ### 基本用例-关键字演示
 
@@ -35,13 +35,28 @@ public class HelloWorld {  }
 
 说明：
 
-> 
+> - 解释：class表示定义类
+> - 类名：HelloWorld
+> - HelloWorld后面的括号表示这个类的范围
 
+## 字面量
 
+### 概述
 
+Java 字面量是程序中直接使用的常量值，它表示各种数据类型的固定值。字面量可以是整数、浮点数、字符、字符串等数据类型的常量值，它们在代码中直接出现，不需要进行计算或转换。
 
+### 分类
 
-
+1. **整数字面量**：表示整数值，可以使用十进制、八进制（以0开头）和十六进制（以0x或0X开头）表示法。例如：42, 012, 0xFF。
+2. **浮点数字面量**：表示浮点数值，包括普通的浮点数和科学计数法表示。例如：3.14, 2.0e-5。
+3. **字符字面量**：表示单个字符，使用单引号括起来。例如：'A', '1', '@'。
+4. **字符串字面量**：表示一个字符串，使用双引号括起来。例如："Hello, World!", "Java"。
+5. **布尔字面量**：表示布尔值，只有两个取值：true 和 false。
+6. **null 字面量**：表示空引用，用于表示对象引用不指向任何有效的对象。
+7. **转义序列**：一些特殊的字符序列，以反斜线 \ 开头，用于表示无法直接输入的字符，如换行符 \n、制表符 \t 等。
+8. **数组字面量**：用花括号 {} 表示，用于初始化数组。例如：{1, 2, 3}。
+9. **枚举常量**：枚举类型的常量值，表示枚举中的特定选项。
+10. **字符编码字面量**：表示字符的Unicode编码，以 \u 开头，后面跟着四个十六进制数字。例如：\u0041 表示字符 ‘A’。
 
 
 

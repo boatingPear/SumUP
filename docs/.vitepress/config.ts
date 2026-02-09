@@ -2,6 +2,8 @@ import { defineConfig } from 'vitepress'
 import nav from "./nav"
 import sidebar from "./sidebar"
 
+// import "./theme/index.css"
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "SumUP",
@@ -10,6 +12,18 @@ export default defineConfig({
   lang: 'zh-CN',
   // 所有的文档都放在src目录下
   srcDir: './src',
+  base: "/",
+  //markdown样式
+  markdown: {
+    lineNumbers: true,
+    container: {
+      tipLabel: "提示",
+      warningLabel: "警告",
+      dangerLabel: "危险",
+      infoLabel: "信息",
+      detailsLabel: "详细信息",
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     // 顶部导航菜单
@@ -21,6 +35,7 @@ export default defineConfig({
       prev: "上一页",
       next: "下一页",
     },
+    outline: [2, 4],
     // 文档搜索
     search: {
       provider: 'local',
