@@ -21,7 +21,7 @@ const el = this.createSelectorQuery().select("#view")
             const uint8Array = new Uint8Array(res.data);
             const binaryString = uint8Array.reduce((acc, byte) => acc + String.fromCharCode(byte), '');
             const base64Str = wx.arrayBufferToBase64 ? wx.arrayBufferToBase64(uint8Array) : this._btoa(binaryString); 
-			
+          
             // base64格式的图片数据
             const imageDataUrl = `data:image/jpeg;base64,${base64Str}`;
               
