@@ -1,1 +1,123 @@
-## 字面量
+# 基础语法
+
+## 关键字
+
+### 概述
+
+Java关键字就是被Java赋予了特定含义的英文单词，当我们再代码中写了关键字后，程序在运行的时候，就知道要做什么事情了。
+
+### 分类
+
+Java关键字是编程语言中预定义的具有特殊含义的词汇，这些关键字用于控制程序的结构、流程和行为
+
+:::warning :warning:
+
+关键字很多，不用刻意去记
+
+:::
+
+1. **修饰符关键字**：`public`、`protected`、`privae`、`static`、`final`、`abstract`
+2. **访问控制关键字**：public、protected、private、default（默认）
+3. **类、接口和包关键字**：、class、interface、enum、package、import、extends、implements
+4. **方法关键字**：void、return、this、super
+5. **流程控制关键字**：if、else、switch、case、default、while、do、for、break、continue、return
+6. **异常处理关键字**：try、catch、finally、throw、throws
+7. **逻辑关键字**：true、false、null
+8. **其他关键字**：new、instanceof、synchronized、transient、volatile、assert
+
+### 基本用例-关键字演示
+
+- `Class`类此关键字表示定义一个类
+
+```java
+public class HelloWorld {  }
+```
+
+说明：
+
+> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+小结
+
+> 1. 注释：单行注释、多行注释、文档注释
+>
+>
+> 2. 关键字：
+>
+>    - 定义：被Java赋予了特定含义的英文单词
+>
+>    - class、static、……
+>
+> 3. 字面量：
+>
+>    - 定义：数据在程序中的书写格式
+>
+>
+>    - 666、”MySoul“、……
+>
+> 4. 变量：
+>
+>    - 定义：临时存储数据的容器
+>
+>    - int a = 16;、double b = 10.1;、……
+>
+>    - 注意：Java中变量需要有变量类型、变量名以及分号结束
+>
+> 5. 数据类型：
+>
+>    - 基本数据类型：byte、short、int、long、float、double、char和boolean
+>
+>    - 引用数据类型：字符串、数组、类和接口、……
+>
+>    - 区别：
+>      1. 基本数据类型存储在栈中，而引用数据类型存储在堆中
+>      2. 基本数据类型的变量之间是相互独立的，而引用数据类型的变量之间可能共享同一个对象
+>
+> 6. 标识符：
+>
+>    - 定义：标识符是用来命名变量、方法、类、接口等程序元素的名称
+>
+>
+>    - 注意：
+>      1. 必须由数字、字母、**下划线_、美元符号$**组成。
+>      2. 数字不能开头
+>      3. 不能是关键字
+>      4. 区分大小写的
+>
+>    - 阿里巴巴命名规范细节
+>
+> 7. 权限修饰符：
+>
+>    - 定义：权限修饰符是Java中的一种关键字，用于控制类、方法和变量的访问权限
+>
+>
+>    - 权限范围：`private<默认/空着不写<protected<public`
+>
+> 8. 包：
+>
+>    - 定义：包是一种用于组织和管理 Java 类的机制
+>
+>
+>    - 命名规范：
+>
+>      ```java
+>      路径名.路径名.xxx.xxx
+>      // 例如：com.itheima.oa
+>      ```
+>
+>      
+>
+>    - 导包：不是在java.lang包下，都需要导包。因为Java开发环境，默认为lang包
+
