@@ -6,7 +6,12 @@ export default <DefaultTheme.SidebarItem>[
         link: "/server/java/basic/"
     },
     {
-        text: "Java语法",
-        link: "/server/java/basic/grammar"
+        text: "Java基础",
+        items: [
+            {
+                text: "语法",
+                link: "/server/java/basic/grammar"
+            }
+        ]
     }
 ]
