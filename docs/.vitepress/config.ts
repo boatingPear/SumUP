@@ -13,6 +13,11 @@ export default defineConfig({
   // 所有的文档都放在src目录下
   srcDir: './src',
   base: "/",
+  vite: {
+    server: {
+      host: '0.0.0.0',
+    }
+  },
   //markdown样式
   markdown: {
     lineNumbers: true,
@@ -35,7 +40,11 @@ export default defineConfig({
       prev: "上一页",
       next: "下一页",
     },
-    outline: [2, 4],
+    outline: {
+      level: [2, 4], // 显示2-4级标题
+      label: "当前页大纲"
+    },
+    returnToTopLabel: "返回顶部",
     // 文档搜索
     search: {
       provider: 'local',
