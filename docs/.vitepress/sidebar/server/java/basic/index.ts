@@ -23,6 +23,14 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "控制语句",
                 link: "/server/java/basic/controlStatement"
+            },
+            {
+                text: "数组",
+                link: "/server/java/basic/array"
+            },
+            {
+                text: "关键字",
+                link: "/server/java/basic/keyword"
             }
         ]
     }
