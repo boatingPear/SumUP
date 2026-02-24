@@ -8,7 +8,7 @@ Java关键字就是被Java赋予了特定含义的英文单词，当我们再代
 
 Java关键字是编程语言中预定义的具有特殊含义的词汇，这些关键字用于控制程序的结构、流程和行为
 
-:::warning :warning:
+:::warning
 
 关键字很多，不用刻意去记
     
@@ -300,13 +300,53 @@ Day today = Day.WEDNESDAY;
 - 构造方法使用` public` ，方便创建对象。
 - 成员方法使用`public` ，方便调用方法。
 
+### 权限使用规则
 
+实际开发中，一般只使用`private`和`pubilc`
 
+> :warning:如果方法中的代码是抽取其他方法中共性代码，这个方法一般也私有
 
+## 包
 
+在Java中，包（Package）是一种用于**组织类和接口**的方式，它们通过逻辑上的组织将相关的类和接口归类到一个命名空间中。包的主要目的是避免命名冲突，并提供更好的代码管理和组织结构。
 
+包在操作系统中其实就是一个文件夹。**包是用来分门别类的管理技术，不同的技术类放在不同的包下**，方便管理和维护。
 
+在`IDEA`项目中，建包的操作如下：
 
+![image-20260224092526618](../assets\image-20260224092526618.png)
+
+```java
+// 命名规范
+路径名.路径名.xxx.xxx
+// 如：com.itcode.oa
+```
+
+- 包名一般是公司域名的倒写，如：www.baidu.com->com.baidu.com
+- 包名必须用“.”连接
+- 包名的每个路径名必须是一个合法的标识符，而且不能是Java的关键字
+
+### 导包
+
+什么时候需要导包
+
+1. 在使用Java中提供的**非核心包(java.lang)**中的类时
+2. 使用自己写的**其他包中的类时**
+
+什么时候不需要导包
+
+1. 在使用java**核心包(java.lang)**中的类时
+2. 在使用自己写的同一个包中的类时
+
+假设demo1和demo2中都有一个Student该如何使用？
+
+```java
+// 使用全类名的形式即可
+// 全类名：包名加类名
+// 拷贝全类名快捷键：选中类名ctrl+shift+alt+c或者用鼠标点copy，再点击copy Reference
+com.itcode.homework.demo1.Student s1 = new com.itheima.homework.demo1.Student();
+com.itcode.homework.demo2.Student s2 = new com.itheima.homework.demo2.Student();
+```
 
 ## 小结
 
