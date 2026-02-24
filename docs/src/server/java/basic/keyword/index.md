@@ -183,3 +183,321 @@ public static void main(String[] args){
 3. 那么，如果这个类只有方法，也就是工具类，我没必要创建这个类
 
 4. 因为我可以先于这个类直接调用方法，而只有静态方法可以优先被创建
+
+## final关键字
+
+`final` 是一个关键字，它可以用来修饰变量、方法和类，表示不可改变的、终态的。
+
+### 修饰变量
+
+- `final` 修饰的变量表示常量，一旦被赋值后，就**不能再被改变**。
+- `final` 声明的变量必须在声明时或者在构造器中初始化，否则编译器会报错。
+- 声明 `final` 变量时，一般使用全大写字母和下划线来表示。
+
+### 修饰方法
+
+- `final` 修饰的方法表示该方法不**能被子类重写或覆盖**。
+- 当一个类被声明为 `final` 时，其中所有的方法都会自动地成为 `final`，但是实例变量不会受到影响。
+
+### 修饰类
+
+- `final` 修饰的类表示该类**不能被继承**。
+- 使用 `final` 修饰类可以保证该类的行为不会被改变，也可以提高代码的安全性和可靠性。
+
+## private关键字
+
+被private修饰的成员，只能在本类进行访问，针对private修饰的成员变量，如果需要被其他类使用，提供相应的操作
+
+> - 提供“get变量名()”方法，用于获取成员变量的值，方法用public修饰
+> - 提供“set变量名(参数)”方法，用于设置成员变量的值，方法用public修饰
+
+### 基本用例-private关键字使用
+
+```java
+/*
+    学生类
+ */
+class Student {
+    //成员变量
+    String name;
+    private int age;
+
+    //提供get/set方法
+    public void setAge(int a) {
+        if(a<0 || a>120) {
+            System.out.println("你给的年龄有误");
+        } else {
+            age = a;
+        }
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    //成员方法
+    public void show() {
+        System.out.println(name + "," + age);
+    }
+}
+/*
+    学生测试类
+ */
+public class StudentDemo {
+    public static void main(String[] args) {
+        //创建对象
+        Student s = new Student();
+        //给成员变量赋值
+        s.name = "林青霞";
+        s.setAge(30);
+        //调用show方法
+        s.	show();
+    }
+}
+```
+
+### 案例-private的使用
+
+需求：定义标准的学生类，要求name和age使用private修饰，并提供set和get方法以及便于显示数据的show方法，测试类中创建对象并使用，最终控制台输出 林青霞，30
+
+```java
+/*
+    学生类
+ */
+class Student {
+    //成员变量
+    private String name;
+    private int age;
+
+    //get/set方法
+    public void setName(String n) {
+        name = n;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAge(int a) {
+        age = a;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void show() {
+        System.out.println(name + "," + age);
+    }
+}
+/*
+    学生测试类
+ */
+public class StudentDemo {
+    public static void main(String[] args) {
+        //创建对象
+        Student s = new Student();
+
+        //使用set方法给成员变量赋值
+        s.setName("林青霞");
+        s.setAge(30);
+
+        s.show();
+        //使用get方法获取成员变量的值
+        System.out.println(s.getName() + "---" + s.getAge());
+        System.out.println(s.getName() + "," + s.getAge());
+    }
+}
+```
+
+## this关键字
+
+### **this关键字内存原理（重点）**
+
+![image-20230228093820021](../assets/a8343914eb4afcb722118edc7da565a4.png)
+
+![img](../assets/d5b250c57c1633c8e0e94088f95c75b5.png)
+
+> 方法执行完成后会出栈
+>
+> 总结一句话：**this的本质就是所在方法调用者的地址值**
+
+this修饰的变量用于指代成员变量，其主要作用是（区分局部变量和成员变量的重名问题）
+
+- 方法的形参如果与成员变量同名，不带this修饰的变量指的是形参，带this修饰的变量是成员变量
+- 方法的形参没有与成员变量同名，不带this修饰的变量指的是成员变量
+
+## super关键字
+
+在Java中super关键字，表示父类对象的引用，可以用来调用父类的构造方法、实例方法和实例变量
+
+```java
+class Person {
+    private String name;
+    private int age;
+
+    public Person() {
+        System.out.println("父类无参");
+    }
+
+    // getter/setter省略
+}
+
+class Student extends Person {
+    private double score;
+
+    public Student() {
+        //super(); // 调用父类无参构造方法,默认就存在，可以不写，必须再第一行
+        System.out.println("子类无参");
+    }
+    
+     public Student(double score) {
+        //super();  // 调用父类无参构造方法,默认就存在，可以不写，必须再第一行
+        this.score = score;    
+        System.out.println("子类有参");
+     }
+      // getter/setter省略
+}
+
+public class Demo07 {
+    public static void main(String[] args) {
+        // 调用子类有参数构造方法
+        Student s2 = new Student(99.9);
+        System.out.println(s2.getScore()); // 99.9
+        System.out.println(s2.getName()); // 输出 null
+        System.out.println(s2.getAge()); // 输出 0
+    }
+}
+```
+
+> 我们发现，**子类有参数构造方法只是初始化了自己对象中的成员变量**score，而父类中的成员变量name和age依然是没有数据的，怎么解决这个问题呢，我们可以**借助与super(…)去调用父类构造方法，以便初始化继承自父类对象的name和age**
+
+### 基本用例-super关键字使用
+
+```java
+/* 格式：
+    super.成员变量    	--    父类的
+    super.成员方法名()   --    父类的 */
+class Person {
+    private String name ="凤姐";
+    private int age = 20;
+
+    public Person() {
+        System.out.println("父类无参");
+    }
+    
+    public Person(String name , int age){
+        this.name = name ;
+        this.age = age ;
+    }
+
+    // getter/setter省略
+}
+
+class Student extends Person {
+    private double score = 100;
+
+    public Student() {
+        //super(); // 调用父类无参构造方法,默认就存在，可以不写，必须再第一行
+        System.out.println("子类无参");
+    }
+    
+     public Student(String name ， int age，double score) {
+        super(name ,age);// 调用父类有参构造方法Person(String name , int age)初始化name和age
+        this.score = score;    
+        System.out.println("子类有参");
+     }
+      // getter/setter省略
+}
+
+public class Demo07 {
+    public static void main(String[] args) {
+        // 调用子类有参数构造方法
+        Student s2 = new Student("张三"，20，99);
+        System.out.println(s2.getScore()); // 99
+        System.out.println(s2.getName()); // 输出 张三
+        System.out.println(s2.getAge()); // 输出 20
+    }
+}
+```
+
+> - 子类的每个构造方法中均有默认的super()，调用父类的空参构造。手动调用父类构造会覆盖默认的super()。
+> - super() 和 this() 都必须是在构造方法的第一行，所以**不能同时出现**。
+> - super(…)是根据参数去确定调用父类哪个构造方法的。
+
+### 内存图
+
+**父类空间优先于子类对象产生**
+
+在每次创建子类对象时，先初始化父类空间，再创建其子类对象本身。目的在于子类对象中包含了其对应的父类空间，便可以包含其父类的成员，如果父类成员非private修饰，则子类可以随意使用父类成员。代码体现在子类的构造器调用时，一定先调用父类的构造方法。理解图解如下：
+
+![image-20230813112250239](../assets/037a33312dc82c7a8574566ec6b7078e.png)
+
+### this( )基本用例
+
+- 默认是去找本类中的其他构造方法，**根据参数来确定**具体调用哪一个构造方法。
+- 为了借用其他构造方法的功能。
+
+```java
+/* 格式：
+	this.成员变量    	--    本类的
+	this.成员方法名()  	--    本类的    */
+package com.itheima._08this和super调用构造方法;
+/**
+ * this(...):
+ *    默认是去找本类中的其他构造方法，根据参数来确定具体调用哪一个构造方法。
+ *    为了借用其他构造方法的功能。
+ */
+public class ThisDemo01 {
+    public static void main(String[] args) {
+        Student xuGan = new Student();
+        System.out.println(xuGan.getName()); // 输出:徐干
+        System.out.println(xuGan.getAge());// 输出:21
+        System.out.println(xuGan.getSex());// 输出： 男
+    }
+}
+
+class Student{
+    private String name ;
+    private int age ;
+    private char sex ;
+
+    public Student() {
+  // 很弱，我的兄弟很牛逼啊，我可以调用其他构造方法：Student(String name, int age, char sex)
+        this("徐干",21,'男');
+    }
+
+    public Student(String name, int age, char sex) {
+        this.name = name ;
+        this.age = age   ;
+        this.sex = sex   ;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
+}
+```
+
+
+
