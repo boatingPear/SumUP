@@ -19,6 +19,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "运算符和表达式",
                 link: "/server/java/basic/operatorExpression"
+            },
+            {
+                text: "控制语句",
+                link: "/server/java/basic/controlStatement"
             }
         ]
     }
