@@ -11,6 +11,14 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "语法",
                 link: "/server/java/basic/grammar"
+            },
+            {
+                text: "IDEA开发工具",
+                link: "/server/java/basic/ideaCodeTool"
+            },
+            {
+                text: "运算符和表达式",
+                link: "/server/java/basic/operatorExpression"
             }
         ]
     }
