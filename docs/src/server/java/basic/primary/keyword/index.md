@@ -147,7 +147,7 @@ public static void main(String[] args){
 
 `静态方法`
 
-![img](../assets/67346d564628d15a6a0acf4c17753cb7.png)
+![img](../../assets/67346d564628d15a6a0acf4c17753cb7.png)
 
 > 若想让类中的某个成员变量被共享，可以将它变为static给修饰，这就是**static的内存中的执行流程**
 >
@@ -155,7 +155,7 @@ public static void main(String[] args){
 
 ### 静态方法不能访问非静态
 
-![img](../assets/278bbbb9a8e1544b384bca7f102b939b.png)
+![img](../../assets/278bbbb9a8e1544b384bca7f102b939b.png)
 
 > 1. 若name是非static修饰，则不会出现在堆内存中的静态存储位置，因此**静态方法不能访问非静态**
 > 2. 现在堆内存中并没有任何实例过的对象，因此**静态方法不能调用实例变量**
@@ -163,14 +163,14 @@ public static void main(String[] args){
 
 ### 静态方法不能调用非静态成员方法
 
-![img](../assets/244f8143404c34fc8a6cacf154975caf.png)
+![img](../../assets/244f8143404c34fc8a6cacf154975caf.png)
 
 > - 假如method方法中可以调用show方法，那么在栈内存中，这个？？？.show方法又是谁来进行调用，正常来说应该是由一个对象来进行调用，因此**静态方法不能访问非静态**
 > - 静态成员的生命周期与类的生命周期一样长，也就是说，当类被加载时，静态成员就被分配内存；当类被卸载时，静态成员所占用的内存也被释放。
 
 ### Static修饰成员变量和成员方法
 
-![img](../assets/2c8a1694012ead7eedf8c27dcd7790bb.png)
+![img](../../assets/2c8a1694012ead7eedf8c27dcd7790bb.png)
 
 ### 工具类常用Static
 
@@ -314,9 +314,9 @@ public class StudentDemo {
 
 ### **this关键字内存原理（重点）**
 
-![image-20230228093820021](../assets/a8343914eb4afcb722118edc7da565a4.png)
+![image-20230228093820021](../../assets/a8343914eb4afcb722118edc7da565a4.png)
 
-![img](../assets/d5b250c57c1633c8e0e94088f95c75b5.png)
+![img](../../assets/d5b250c57c1633c8e0e94088f95c75b5.png)
 
 > 方法执行完成后会出栈
 >
@@ -431,7 +431,7 @@ public class Demo07 {
 
 在每次创建子类对象时，先初始化父类空间，再创建其子类对象本身。目的在于子类对象中包含了其对应的父类空间，便可以包含其父类的成员，如果父类成员非private修饰，则子类可以随意使用父类成员。代码体现在子类的构造器调用时，一定先调用父类的构造方法。理解图解如下：
 
-![image-20230813112250239](../assets/037a33312dc82c7a8574566ec6b7078e.png)
+![image-20230813112250239](../../assets/037a33312dc82c7a8574566ec6b7078e.png)
 
 ### this( )基本用例
 

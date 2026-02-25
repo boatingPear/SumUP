@@ -314,7 +314,7 @@ Day today = Day.WEDNESDAY;
 
 在`IDEA`项目中，建包的操作如下：
 
-![image-20260224092526618](../assets\image-20260224092526618.png)
+![image-20260224092526618](../../assets\image-20260224092526618.png)
 
 ```java
 // 命名规范
