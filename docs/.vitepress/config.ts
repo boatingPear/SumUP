@@ -45,6 +45,7 @@ export default defineConfig({
       label: "当前页大纲"
     },
     returnToTopLabel: "返回顶部",
+    lastUpdatedText: '最后更新时间',
     // 文档搜索
     search: {
       provider: 'local',
