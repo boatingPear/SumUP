@@ -454,3 +454,230 @@ public class Person {
 > 将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问
 
 ## 继承
+
+继承就是子类继承父类的**属性**和**行为**，使得子类对象可以直接具有与父类相同的属性、相同的行为。子类可以直接访问父类中的非私有的属性和行为。从而提高**代码的复用性**（减少代码冗余，相同代码重复利用）。使类与类之间产生了关系。
+
+#### 子类不能继承的内容
+
+> - 子类中不能继承构造方法，不能继承非虚方法表里的方法。
+> - 虚方法表就算非`static`、`final`、`private`修饰的方法
+
+![image-20230303195211274](../../assets/efd1d4038269dc1d4b78cce5c3e1b002.png)
+
+> Java的继承，并不是一层一层往上寻找父方法，而是先判断虚方法表中有无此方法，方便直接调用
+
+::: warning 
+
+值得注意的是子类可以继承父类的私有成员（成员变量，方法），只是子类无法直接访问而已，可以通过getter/setter方法访问父类的private成员变量
+
+:::
+
+### 基本用例
+
+通过`extends`关键字，可以声明一个子类继承另一个父类，定义格式如下：
+
+```java
+class 父类 {
+	...
+}
+
+class 子类 extends 父类 {
+	...
+}
+```
+
+::: warning 
+
+Java是单继承的，一个类只能继承一个直接父类
+
+:::
+
+### 继承后的特点——成员变量
+
+#### 成员变量不重名
+
+如果子类父类中出现不重名的成员变量，这时的访问是没有影响的。代码如下：
+
+```java
+class Fu {
+	// Fu中的成员变量
+	int num = 5;
+}
+class Zi extends Fu {
+	// Zi中的成员变量
+	int num2 = 6;
+  
+	// Zi中的成员方法
+	public void show() {
+		// 访问父类中的num
+		System.out.println("Fu num="+num); // 继承而来，所以直接访问。
+		// 访问子类中的num2
+		System.out.println("Zi num2="+num2);
+	}
+}
+class Demo04 {
+	public static void main(String[] args) {
+        // 创建子类对象
+		Zi z = new Zi(); 
+      	// 调用子类中的show方法
+		z.show();  
+	}
+}
+
+演示结果：
+Fu num = 5
+Zi num2 = 6
+```
+
+#### 成员变量重名
+
+如果子类父类中出现重名的成员变量，这时的访问是有影响的。
+
+```java
+class Fu1 {
+	// Fu中的成员变量。
+	int num = 5;
+}
+class Zi1 extends Fu1 {
+	// Zi中的成员变量
+	int num = 6;
+  
+	public void show() {
+		// 访问父类中的num
+		System.out.print9ln("Fu num=" + num);
+		// 访问子类中的num
+		System.out.println("Zi num=" + num);
+	}
+}
+class Demo04 {
+	public static void main(String[] args) {
+      	// 创建子类对象
+		Zi1 z = new Zi1(); 
+      	// 调用子类中的show方法
+		z1.show(); 
+	}
+}
+演示结果：
+Fu num = 6
+Zi num = 6
+```
+
+> - 子父类中出现了同名的成员变量时，子类会优先访问自己对象中的成员变量。如果此时想访问父类成员变量如何解决呢？我们可以使用super关键字。
+>
+> - ```java
+>   class Fu {
+>   	// Fu中的成员变量。
+>   	int num = 5;
+>   }
+>   
+>   class Zi extends Fu {
+>   	// Zi中的成员变量
+>   	int num = 6;
+>   
+>   	public void show() {
+>           int num = 1;
+>   
+>           // 访问方法中的num
+>           System.out.println("method num=" + num);  //method num=1
+>           // 访问子类中的num
+>           System.out.println("Zi num=" + this.num); // Zi num=6
+>           // 访问父类中的num
+>           System.out.println("Fu num=" + super.num); // Fu num=5
+>   	}
+>   }
+>   
+>   class Demo04 {
+>   	public static void main(String[] args) {
+>         	// 创建子类对象
+>   		Zi1 z = new Zi1(); 
+>         	// 调用子类中的show方法
+>   		z1.show(); 
+>   	}
+>   }
+>   ```
+>
+> - 需要注意的是：**super代表的是父类对象的引用，this代表的是当前对象的引用。**
+
+### 继承后的特点——成员方法
+
+#### 成员方法不重名
+
+如果子类父类中出现**不重名**的成员方法，这时的调用是**没有影响的**。对象调用方法时，会先在子类中查找有没有对应的方法，若子类中存在就会执行子类中的方法，若子类中不存在就会执行父类中相应的方法。代码如下：
+
+```java
+class Fu {
+	public void show() {
+		System.out.println("Fu类中的show方法执行");
+	}
+}
+class Zi extends Fu {
+	public void show2() {
+		System.out.println("Zi类中的show2方法执行");
+	}
+}
+public  class Demo05 {
+	public static void main(String[] args) {
+		Zi z = new Zi();
+     	//子类中没有show方法，但是可以找到父类方法去执行
+		z.show(); 
+		z.show2();
+	}
+}
+```
+
+#### 成员方法重名
+
+如果子类父类中出现**重名**的成员方法，则创建子类对象调用该方法的时候，子类对象会**优先调用自己**的方法。代码如下：
+
+```java
+class Fu {
+	public void show() {
+		System.out.println("Fu show");
+	}
+}
+class Zi extends Fu {
+	//子类重写了父类的show方法
+	public void show() {
+		System.out.println("Zi show");
+	}
+}
+public class ExtendsDemo05{
+	public static void main(String[] args) {
+		Zi z = new Zi();
+     	// 子类中有show方法，只执行重写后的show方法
+		z.show();  // Zi show
+	}
+}
+```
+
+### 方法重写
+
+**方法重写** ：子类中出现与父类一模一样的方法时（返回值类型，方法名和参数列表都相同），会出现覆盖效果，也称为重写或者复写。**声明不变，重新实现**。
+
+#### @Override重写注解
+
+- @Override：注解，重写注解校验！
+- 这个注解标记的方法，就说明这个方法必须是重写父类的方法，否则编译阶段报错。
+- 建议重写都加上这个注解，一方面可以提高代码的可读性，一方面可以防止重写出错！
+
+#### 注意事项
+
+::: tip
+
+1. 方法重写时发生在子父类之间的关系
+2. 子类方法覆盖父类方法，必须要保证权限大于等于父类权限
+3. 子类方法覆盖父类方法，返回值类型、函数名和参数列表都要一模一样
+
+:::
+
+### 继承后的特点——构造方法
+
+> 子类构造方法的第一行都隐含了一个**super()**去调用父类无参数构造方法，**super()**可以省略不写。
+
+### 继承的特点
+
+1. java只支持单继承，不支持多继承
+2. 一个类可以有多个子类
+3. 可以多层继承
+
+> 顶层父类是Object类。所有的类默认继承Object，作为父类。
