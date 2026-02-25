@@ -56,7 +56,7 @@
 
 点击File，选择Project Structure
 
-![a01d6f58d65cf5c488b8ac00d17d330c](..\assets\a01d6f58d65cf5c488b8ac00d17d330c.png)
+![a01d6f58d65cf5c488b8ac00d17d330c](../../\assets\a01d6f58d65cf5c488b8ac00d17d330c.png)
 
 ​	
 

@@ -104,7 +104,7 @@ export default function useDrawio(
 
 下面是个集成到 tinymce 富文本编辑器的 demo 示例步骤和效果预览
 
-![上方demo代码效果预览](./drawio.assets/QQ2026116-17243.gif)
+![上方demo代码效果预览](../assets/QQ2026116-17243.gif)
 
 1. 在 src\frame\components\Editor\TinymceEditor 目录下创建 drawio-plugin.ts 插件声明文件
 
@@ -210,52 +210,52 @@ tinymce.PluginManager.add("drawio", function (editor) {
 
 2. 添加定义的 drawio-plugin.ts 插件引用
 
-![image-20260116171240938](.\drawio.assets\image-20260116171240938.png)
+![image-20260116171240938](../assets\image-20260116171240938.png)
 
 3. 在使用时配置添加`plugins="| drawio" toolbar=" drawio"`即可
 
-![image-20260116171909160](.\drawio.assets\image-20260116171909160.png)
+![image-20260116171909160](../assets\image-20260116171909160.png)
 
 ## 自定义绘图面板
 
 ### 自定义左侧图形集合区域
 
-![image-20260116144847799](.\drawio.assets\image-20260116144847799.png)
+![image-20260116144847799](../assets\image-20260116144847799.png)
 
 - public\webapp\js\diagramly\sidebar\Sidebar.js
 
   - **Sidebar.prototype.defaultEntries**的**general**项同时控制通用、杂项和高级三项
-    ![image-20260116150207450](.\drawio.assets\image-20260116150207450.png)
+    ![image-20260116150207450](../assets\image-20260116150207450.png)
   - **initPalettes**方法中 注释对应的方法可以隐藏或添加对应图形集合
-    ![image-20260116151321212](.\drawio.assets\image-20260116151321212.png)
+    ![image-20260116151321212](../assets\image-20260116151321212.png)
 
 - public\webapp\js\grapheditor\Sidebar.js
 
-  - 注释下方代码可以隐藏左侧图形集合区的更多图形按钮 ![image-20260116151743525](.\drawio.assets\image-20260116151743525.png)
-    ![image-20260116151613275](.\drawio.assets\image-20260116151613275.png)
+  - 注释下方代码可以隐藏左侧图形集合区的更多图形按钮 ![image-20260116151743525](../assets\image-20260116151743525.png)
+    ![image-20260116151613275](../assets\image-20260116151613275.png)
 
 - public\webapp\js\diagramly\EditorUi.js
 
-  - 隐藏全局的便笺本修改下面的方法，始终返回 false![image-20260116163503353](.\drawio.assets\image-20260116163503353.png)
-    ![image-20260116163251552](.\drawio.assets\image-20260116163251552.png)
+  - 隐藏全局的便笺本修改下面的方法，始终返回 false![image-20260116163503353](../assets\image-20260116163503353.png)
+    ![image-20260116163251552](../assets\image-20260116163251552.png)
 
 ### 自定义顶部工具栏菜单项
 
-![image-20260116152412177](.\drawio.assets\image-20260116152412177.png)
+![image-20260116152412177](../assets\image-20260116152412177.png)
 
 - public\webapp\js\grapheditor\Menus.js
-  ![image-20260116152631334](.\drawio.assets\image-20260116152631334.png)
+  ![image-20260116152631334](../assets\image-20260116152631334.png)
 
 - 如果想要隐藏整个工具栏可以注释下方代码
-  ![image-20260116152846646](.\drawio.assets\image-20260116152846646.png)
+  ![image-20260116152846646](../assets\image-20260116152846646.png)
 
 ### 自定义图形集
 
-![image-20260116154151796](.\drawio.assets\image-20260116154151796.png)
+![image-20260116154151796](../assets\image-20260116154151796.png)
 
 - 创建自定义图形的文件，文件名称格式为 Sidebar-自定义.js
 
-  ![image-20260116154912275](.\drawio.assets\image-20260116154614631.png)
+  ![image-20260116154912275](../assets\image-20260116154614631.png)
 
 - 下方是文件的实例代码
 
@@ -298,13 +298,13 @@ tinymce.PluginManager.add("drawio", function (editor) {
 ```
 
 - 创建完成后需要在上图中添加调用
-  ![image-20260116155227413](.\drawio.assets\image-20260116155227413.png)
+  ![image-20260116155227413](../assets\image-20260116155227413.png)
 
 - 添加加载文件
-  ![image-20260116155430445](.\drawio.assets\image-20260116155430445.png)
+  ![image-20260116155430445](../assets\image-20260116155430445.png)
 
 - 如果需要配置多语言可以在下方添加
-  ![image-20260116155929460](.\drawio.assets\image-20260116155929460.png)
+  ![image-20260116155929460](../assets\image-20260116155929460.png)
 
 ## useDrawio
 
