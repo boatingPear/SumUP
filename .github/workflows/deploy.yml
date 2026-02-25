@@ -47,7 +47,7 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build with VitePress
-        run: pnpm run docs:build # 确保 package.json 中有 docs:build 脚本
+        run: pnpm run build # 确保 package.json 中有 docs:build 脚本
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
