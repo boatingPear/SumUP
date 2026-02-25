@@ -31,16 +31,16 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24 # 和你本地 Node 版本保持一致（可改为 20/18）
-          cache: npm # 基于 npm 缓存依赖
+          cache: pnpm # 基于 npm 缓存依赖
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        run: npm install # 替换 npm ci 为 npm install，兼容无锁文件场景（后续建议提交锁文件）
+        run: pnpm install # 替换 npm ci 为 npm install，兼容无锁文件场景（后续建议提交锁文件）
 
       - name: Build with VitePress
-        run: npm run docs:build # 确保 package.json 中有这个脚本
+        run: pnpm run docs:build # 确保 package.json 中有这个脚本
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
