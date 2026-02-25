@@ -345,3 +345,112 @@ public class StudentDemo {
    - 提供每一个成员变量的对应的`setXxx()`/`getXxx()`
 
 ## 对象
+
+对象就是一种客观存在的事物，客观存在的事物皆为对象，所以我们也常常说万物皆为对象。
+
+- 类
+  - 类的理解
+    - 类是对现实生活中一类具有**共同属性和行为**的事物的抽象
+    - 类是对象的数据类型，类是具有**相同属性和行为**的一组对象的集合
+  - 类的组成：**属性**、**行为**
+- 类和对象的关系
+  - 类：类是对现实生活中一类具有共同属性和行为的事物的抽象
+  - 对象：是能够看得到摸得着的真是存在的实体
+
+### 基本用例
+
+```java
+/*格式：
+	创建对象
+		类名 对象名 = new 类名();*/
+
+/*格式：
+   使用成员变量
+      格式：对象名.变量名
+   使用成员方法
+      格式：对象名.方法名()
+             */
+public class PhoneDemo {
+    public static void main(String[] args) {
+        //创建对象
+        Phone p = new Phone();
+
+        //使用成员变量
+        System.out.println(p.brand);
+        System.out.println(p.price);
+
+        p.brand = "小米";
+        p.price = 2999;
+
+        System.out.println(p.brand);
+        System.out.println(p.price);
+
+        //使用成员方法
+        p.call();
+        p.sendMessage();
+    }
+}
+```
+
+### 对象内存图（重点）
+
+#### 单个对象内存图
+
+`成员变量使用过程`
+
+![image-20230813145155388](../../assets/f5f297dd24cc388f834ad9f2ae67bc95.png)
+
+`成员方法调用过程`
+
+![image-20230813145205253](../../assets/f99c4b5812c98c2b2a9d69f05ee5cd24.png)
+
+#### 多个对象内存图
+
+`成员变量使用过程`
+![image-20230813145212598](../../assets/41ab854b22f0c1280d4745ecd6123d40.png)
+
+`成员方法调用过程`
+
+![image-20230813145218840](../../assets/0ffd6dfa69532240b74d00fd499f5fd4.png)
+
+> 多个对象在堆内存中，都有不同的内存划分，成员变量存储在各自的内存区域中，**成员方法多个对象共用的一份堆内存空间**
+
+## 封装
+
+ 在 Java 中，封装是面向对象编程中的一种重要的概念，它指的是将类的属性和方法保护起来，以避免外部程序直接访问和修改它们，从而提高了类的安全性和可维护性。封装的实现可以通过访问控制修饰符（public、private、protected）来实现。
+
+```java
+public class Person {
+    private String name;
+    private int age;
+    private double height;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+}
+```
+
+> 将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问
+
+## 继承
