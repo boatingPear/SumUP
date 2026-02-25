@@ -1,24 +1,18 @@
 # 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
-#
 name: Deploy VitePress site to Pages
 
 on:
-  # 在针对 `main` 分支的推送上运行。如果你
-  # 使用 `master` 分支作为默认分支，请将其更改为 `master`
   push:
-    branches: [main]
+    branches: [main] # 如果你用 master 分支，改为 master
+  workflow_dispatch: # 允许手动触发
 
-  # 允许你从 Actions 选项卡手动运行此工作流程
-  workflow_dispatch:
-
-# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
+# 设置 GITHUB_TOKEN 的权限
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 只允许同时进行一次部署，跳过正在运行和最新队列之间的运行队列
-# 但是，不要取消正在进行的运行，因为我们希望允许这些生产部署完成
+# 并发控制：避免重复部署
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -31,26 +25,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
-      # - uses: pnpm/action-setup@v4 # 如果使用 pnpm，请取消此区域注释
-      #   with:
-      #     version: 9
-      # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
+          fetch-depth: 0 # 用于 VitePress 的 lastUpdated 功能
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
-          cache: npm # 或 pnpm / yarn
+          node-version: 24 # 和你本地 Node 版本保持一致（可改为 20/18）
+          cache: npm # 基于 npm 缓存依赖
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Install dependencies
-        run: npm ci # 或 pnpm install / yarn install / bun install
+        run: npm install # 替换 npm ci 为 npm install，兼容无锁文件场景（后续建议提交锁文件）
+
       - name: Build with VitePress
-        run: npm run docs:build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+        run: npm run docs:build # 确保 package.json 中有这个脚本
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: docs/.vitepress/dist # 确认 VitePress 构建输出目录正确
 
   # 部署工作
   deploy:
@@ -59,7 +54,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
-    name: Deploy
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
