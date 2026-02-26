@@ -569,14 +569,14 @@ Zi num = 6
 >   	// Fu中的成员变量。
 >   	int num = 5;
 >   }
->   
+>     
 >   class Zi extends Fu {
 >   	// Zi中的成员变量
 >   	int num = 6;
->   
+>     
 >   	public void show() {
 >           int num = 1;
->   
+>     
 >           // 访问方法中的num
 >           System.out.println("method num=" + num);  //method num=1
 >           // 访问子类中的num
@@ -585,7 +585,7 @@ Zi num = 6
 >           System.out.println("Fu num=" + super.num); // Fu num=5
 >   	}
 >   }
->   
+>     
 >   class Demo04 {
 >   	public static void main(String[] args) {
 >         	// 创建子类对象
@@ -681,3 +681,28 @@ public class ExtendsDemo05{
 3. 可以多层继承
 
 > 顶层父类是Object类。所有的类默认继承Object，作为父类。
+
+## 多态
+
+多态是指同一行为，具有多个不同表现形式。
+
+多态是继封装、继承之后，面相对象的第三大特性。
+
+多态是出现在继承或者实现关系中的。
+
+#### 前提【重点】
+
+1. 有继承或者实现关系
+2. 方法到的重写【意义体现：不重写，无意义】
+3. 父类引用指向子类对象【格式体现】
+
+> 父类类型：指子类对象继承的父类类型，或者实现的父接口类型。
+
+```java
+父类类型 变量名 = new 子类/实现类构造器;
+变量民.方法名();
+```
+
+#### 使用场景
+
+如果没有多态，在下图中register方法只能传递学生对象，其他的Teacher和administrator对象是无法传递给register方法的，在这种情况下，只能定义三个不同的register方法分别接收学生，老师和管理员。
