@@ -706,3 +706,114 @@ public class ExtendsDemo05{
 #### 使用场景
 
 如果没有多态，在下图中register方法只能传递学生对象，其他的Teacher和administrator对象是无法传递给register方法的，在这种情况下，只能定义三个不同的register方法分别接收学生，老师和管理员。
+
+![image-20230811093510641](../../assets/c26b555cb0c35e67248238b29d118709.png)
+
+有了多态之后，方法的形参就可以定义为共同的父类Person。
+
+::: warning 
+
+- 当一个方法的形参是一个类，我们可以传递这个类所有的子类对象。
+- 当一个方法的**形参是一个接口**，我们可以传递这个**接口所有的实现类对象**。
+- 而且多态还可以根据传递的不同对象来调用不同类中的方法。
+
+![image-20230811094030529](../../assets/7a11a4337f0b48f1304d74b0746c7820.png)
+
+:::
+
+### 基本用例
+
+**步骤一：**
+
+创建`Person`实体类
+
+```java
+public class Person {
+    private String name;
+    private int age;
+
+    空参构造
+    带全部参数的构造
+    get和set方法
+
+    public void show(){
+        System.out.println(name + ", " + age);
+    }
+}
+```
+
+**步骤二：创建子类**
+
+1. 创建`Administrator`实体类，并继承`Person`类
+
+```java
+public class Administrator extends Person {
+    @Override
+    public void show() {
+        System.out.println("管理员的信息为：" + getName() + ", " + getAge());
+    }
+}
+```
+
+2. 创建`Student`实体类，并继承`Person`类
+
+```java
+public class Student extends Person{
+
+    @Override
+    public void show() {
+        System.out.println("学生的信息为：" + getName() + ", " + getAge());
+    }
+}
+```
+
+3.创建`Teacher`实体类，并继承`Person`类
+
+```java
+public class Teacher extends Person{
+
+    @Override
+    public void show() {
+        System.out.println("老师的信息为：" + getName() + ", " + getAge());
+    }
+}
+```
+
+创建`Test`用于演示`register`方法
+
+::: warning 
+
+`register`方法的参数需要为`Person`父类，这样才能在参数中传入子类对象
+
+:::
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        //创建三个对象，并调用register方法
+
+        Student s = new Student();
+        s.setName("张三");
+        s.setAge(18);
+
+        Teacher t = new Teacher();
+        t.setName("王建国");
+        t.setAge(30);
+
+        Administrator admin = new Administrator();
+        admin.setName("管理员");
+        admin.setAge(35);
+
+        register(s);
+        register(t);
+        register(admin);
+    }
+
+    //这个方法既能接收老师，又能接收学生，还能接收管理员
+    //只能把参数写成这三个类型的父类
+    public static void register(Person p){
+        p.show();
+    }
+}
+```
+
