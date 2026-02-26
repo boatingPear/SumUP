@@ -40,6 +40,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "面向对象",   
                 link: "/server/java/basic/intermediate/objectOriented"   
+            },
+            {
+                text: "抽象类",
+                link: "/server/java/basic/intermediate/abstractClass"
             }
         ]
     }
