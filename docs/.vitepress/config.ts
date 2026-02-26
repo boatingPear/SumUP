@@ -12,7 +12,7 @@ export default defineConfig({
   lang: 'zh-CN',
   // 所有的文档都放在src目录下
   srcDir: './src',
-  base: "/",
+  base: "/SumUP/",
   vite: {
     server: {
       host: '0.0.0.0',
