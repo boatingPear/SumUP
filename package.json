@@ -3,13 +3,14 @@
   "private": true,
   "version": "v1.0.0",
   "description": "个人总结",
-    "type": "module",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev docs --port 8081",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "vitepress": "^1.6.4"
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-group-icons": "^1.7.1"
   }
-} 
+}

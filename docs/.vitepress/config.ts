@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+
 import nav from "./nav"
 import sidebar from "./sidebar"
-
 // import "./theme/index.css"
 
 // https://vitepress.dev/reference/site-config
@@ -16,10 +17,16 @@ export default defineConfig({
   vite: {
     server: {
       host: '0.0.0.0',
-    }
+    },
+    plugins: [
+      groupIconVitePlugin()
+    ] 
   },
   //markdown样式
   markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin)
+    },
     lineNumbers: true,
     container: {
       tipLabel: "提示",

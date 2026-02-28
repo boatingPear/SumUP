@@ -17,5 +17,9 @@ export default <DefaultTheme.SidebarItem>[
                 link: '/frontend/tools/expansion/drawio'
             }
         ]
+    },
+    {
+        text: "扫二维码功能",
+        link: "/frontend/tools/qrcode/"
     }
 ]
