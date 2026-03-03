@@ -14,7 +14,16 @@ export default <DefaultTheme.NavItem[]>[
         activeMatch:'/frontend/',
         items: [
             {
-                text: '工具集成',
+                text: "react",  
+                items: [
+                    {
+                        text: "react基础",
+                        link: "/frontend/react/basic/"
+                    }       
+                ]
+            },
+            {
+                text: '工具',
                 link: '/frontend/tools/'
             },    
             // { text: '组件库' },
@@ -43,7 +52,7 @@ export default <DefaultTheme.NavItem[]>[
     },
     { 
         text: '资源', 
-        link: '/resource/index' 
+        link: '/resource/index'
     },
     // {
     //     text: '运维',

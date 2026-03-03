@@ -1,6 +1,7 @@
 import type { DefaultTheme } from "vitepress";
 import guide from "./guide";
 import module from "./module";
+import frontendReactBasic from "./frontend/react/basic"
 import frontendTools from "./frontend/tools";
 import frontendOtherWxapp from "./frontend/other/wxapp";
 import serverJavaBasic from "./server/java/basic/";
@@ -13,6 +14,8 @@ export default <DefaultTheme.SidebarMulti>{
   "/guide/": guide,
   //模块
   "/module/": module,
+  // 前端-react-基础
+  "/frontend/react/basic/": frontendReactBasic,
   // 前端-工具
   "/frontend/tools/": frontendTools,
   // 前端-其他-微信小程序
