@@ -41,6 +41,10 @@ export default <DefaultTheme.NavItem[]>[
             }
         ]
     },
+    { 
+        text: '资源', 
+        link: '/resource/index' 
+    },
     // {
     //     text: '运维',
     //     items: []
