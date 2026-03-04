@@ -569,14 +569,14 @@ Zi num = 6
 >   	// Fu中的成员变量。
 >   	int num = 5;
 >   }
->     
+>       
 >   class Zi extends Fu {
 >   	// Zi中的成员变量
 >   	int num = 6;
->     
+>       
 >   	public void show() {
 >           int num = 1;
->     
+>       
 >           // 访问方法中的num
 >           System.out.println("method num=" + num);  //method num=1
 >           // 访问子类中的num
@@ -585,7 +585,7 @@ Zi num = 6
 >           System.out.println("Fu num=" + super.num); // Fu num=5
 >   	}
 >   }
->     
+>       
 >   class Demo04 {
 >   	public static void main(String[] args) {
 >         	// 创建子类对象
@@ -814,6 +814,243 @@ public class Test {
     public static void register(Person p){
         p.show();
     }
+}
+```
+
+### 运行特点
+
+- 调用**成员变量**时：**编译看左边，运行看右边**
+
+  > - 编译看左边：javac编译代码的时候，会看左边的父类中有没有这个变量，如果**有**，**编译成功**，如果没有编译失败。
+  > - 运行看左边：Java运行代码的时候，若父类与子类都存在相同名字的变量，那么则**调用左边**，也就是**父类中的变量**
+
+- 调用**成员方法**时：**编译看左边，运行看右边**
+
+  > - 编译看左边：java编译代码的时候，会看左边的父类中有没有这个变量，如果**有**，**编译成功**，如果没有编译失败。
+  > - 运行看右边：Java运行代码的时候，子类是否重写了该方法，重写了，那么则**运行右边**，也就是**子类中的方法**
+
+```java
+Fu f = new Zi()；
+//编译看左边的父类中有没有name这个属性，没有就报错
+//在实际运行的时候，把父类name属性的值打印出来
+System.out.println(f.name);
+//编译看左边的父类中有没有show这个方法，没有就报错
+//在实际运行的时候，运行的是子类中的show方法
+f.show();
+```
+
+### 调用成员的内存图解(重点)
+
+![image-20230303205114437](../../assets/266d965c52a90c0331eb0a9134597210.png)
+
+### 多态的优势
+
+- 在多态的形式下，右边对象可以实现解耦合，便于扩展和维护。
+
+```java
+Person p = new Student();
+p.work(); // 业务逻辑发生改变时，后续代码无需修改
+```
+
+- 定义方法的时候，使用父类型作为参数，可以接收所有子类对象，体现多态的扩展性和便利
+
+```java
+ArrayList list = new ArrayList();
+list.add(student);
+list.add("ok");
+System.out.println(list);
+```
+
+> 当不指定ArrayList的泛型时，添加的数据类型将不受到限制
+
+### 多态的弊端
+
+我们已经知道多态编译阶段是看左边父类类型的，如果子类有些独有的功能，**此时多态的写法就无法访问子类独有功能了**。
+
+```java
+class Animal{
+    public  void eat()｛
+        System.out.println("动物吃东西！")
+    ｝
+}
+class Cat extends Animal {  
+    public void eat() {  
+        System.out.println("吃鱼");  
+    }  
+   
+    public void catchMouse() {  
+        System.out.println("抓老鼠");  
+    }  
+}  
+
+class Dog extends Animal {  
+    public void eat() {  
+        System.out.println("吃骨头");  
+    }  
+}
+
+class Test{
+    public static void main(String[] args){
+        Animal a = new Cat();
+        a.eat();
+        a.catchMouse();//编译报错，编译看左边，Animal没有这个方法
+    }
+}
+```
+
+### 引用类型转换
+
+当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误。也就是说，不能调用子类拥有，而父类没有的方法。编译都错误，更别说运行了，这也是多态给我们带来的一点"小麻烦"。所以，想要调用子类特有的方法，必须做向下转型。
+
+**回顾基本数据类型转换**
+
+- 自动转换：范围小的赋值给范围大的，自动完成：double d = 5；
+- 强制转换：范围大的赋值给范围小的，强制转换 int i = (int)3.14；
+
+多态的转型分为向上转型（自动转换）与向下转型（强制转换）两种。
+
+#### 向上转型（自动转换）
+
+**向上转型**：多态本身是子类类型向父类类型向上转换（自动转换）的过程，这个过程是默认的。
+
+当父类引用指向一个子类对象时，便是向上转型。
+
+```java
+父类类型 变量名 = new 子类类型；
+如 Animal a = new Cat();
+```
+
+#### 向下转型（强制转换）
+
+**向下转型**：父类类型向子类类型向下转换的过程，这个过程是强制的。
+
+一个已经向上转型的子类对象。将父类引用转为子类引用，可以使用强制类型转换的格式，便是向下转型。
+
+```java
+// 格式：子类类型 变量名 = (子类类型)父类变量名；
+Animal a = new Cat();
+Cat c = (Cat)a;
+```
+
+#### 案例-转型演示
+
+当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误。也就是说，**不能调用**子类拥有，而父类没有的方法。编译都错误，更别说运行了。这也是多态给我们带来的一点“小麻烦”。所以，想要调用子类特有的方法，必须做向下转型。
+
+- 定义`Animal`作为父类
+
+```java
+abstract class Animal {  
+    abstract void eat();  
+}
+```
+
+- 创建`Cat`实体类，并继承`Animal`类
+
+```java
+class Cat extends Animal {  
+    public void eat() {  
+        System.out.println("吃鱼");  
+    }  
+    public void catchMouse() {  
+        System.out.println("抓老鼠");  
+    }  
+}  
+```
+
+- 创建`Dog`实体类，并继承`Animal`类
+
+```java
+class Dog extends Animal {  
+    public void eat() {  
+        System.out.println("吃骨头");  
+    }  
+    public void watchHouse() {  
+        System.out.println("看家");  
+    }  
+}
+```
+
+演示
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        // 向上转型  
+        Animal a = new Cat();  
+        a.eat(); 				// 调用的是 Cat 的 eat
+
+        // 向下转型  
+        Cat c = (Cat)a;       
+        c.catchMouse(); 		// 调用的是 Cat 的 catchMouse
+    }  
+}
+
+```
+
+#### 转型的异常
+
+转型的过程中，一不小心就会遇到这样的问题，请看如下代码：
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        // 向上转型  
+        Animal a = new Cat();  
+        a.eat();               // 调用的是 Cat 的 eat
+
+        // 向下转型  
+        Dog d = (Dog)a;       
+        d.watchHouse();        // 调用的是 Dog 的 watchHouse 【运行报错】
+    }  
+}
+```
+
+这段代码可以通过编译，但是运行时，却报出了 `ClassCastException` ，类型转换异常！这是因为，明明创建了Cat类型对象，运行时，当然不能转换成Dog对象的。
+
+#### instanceof关键字（重点）
+
+为了避免`ClassCastException`的发生，Java提供了`instanceof`关键字，给引用变量做**类型的校验**
+
+```java
+变量名 instanceof 数据类型 
+如果变量属于该数据类型或者其子类类型，返回true。
+如果变量不属于该数据类型或者其子类类型，返回false。
+```
+
+所以，转换前最好先做一个判断
+
+```java
+	public class Test {
+    public static void main(String[] args) {
+        // 向上转型  
+        Animal a = new Cat();  
+        a.eat();               // 调用的是 Cat 的 eat
+
+        // 向下转型  
+        if (a instanceof Cat){
+            Cat c = (Cat)a;       
+            c.catchMouse();        // 调用的是 Cat 的 catchMouse
+        } else if (a instanceof Dog){
+            Dog d = (Dog)a;       
+            d.watchHouse();       // 调用的是 Dog 的 watchHouse
+        }
+    }  
+}
+```
+
+#### instanceof新特性
+
+JDK14的时候提出了新特性，把判断和强转合并成了一行
+
+```java
+// 先判断a是否为Dog类型，如果是，则强转成Dog类型，转换之后变量名为d
+// 如果不是，则不强转，结果直接是false
+if(a instanceof Dog d) {
+    d.lookHome(); // 狗看家
+} else if (a instanceof Cat c) {
+    c.catchMouse(); // 猫抓老鼠
+} else {
+    System.out.println("没有这个类型，无法转换");
 }
 ```
 
