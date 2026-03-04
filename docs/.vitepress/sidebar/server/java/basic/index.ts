@@ -44,6 +44,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "抽象类",
                 link: "/server/java/basic/intermediate/abstractClass"
+            },
+            {
+                text: "接口",
+                link: "/server/java/basic/intermediate/interface"
             }
         ]
     }
