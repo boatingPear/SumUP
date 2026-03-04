@@ -35,23 +35,124 @@ public abstract class Animal {
 }
 ```
 
+## 基本用例
 
+要求：继承抽象类的子类**必须重写父类所有的抽象方法**。否则该子类也必须声明为抽象类。
 
+```java
+public abstract class Employee {
+    private String id;
+    private String name;
+	private double salary;
+    public Employee() {
+	}
+	
+	public Employee(String id, String name, double salary) {
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+	
+    // 抽象方法必须要定义在抽象类中
+    abstract public void work();
+}
 
+// 定义一个子类继承抽象类
+class Manager extends Employee {
+	public Manager() {
+	}
+	public Manager(String id, String name, double salary) {
+		super(id, name, salary);
+	}
+	// 2.重写父类的抽象方法
+	@Override
+	public void work() {
+		System.out.println("管理其他人");
+	}
+}
 
+// 定义 一个子类继承抽象类
+class Cook extends Employee {
+	public Cook() {
+	}
+	public Cook(String id, String name, double salary) {
+		super(id, name, salary);
+	}
+	@Override
+	public void work() {
+		System.out.println("厨师炒菜多加点盐...");
+	}
+}
 
+// 测试类
+public class Demo10 {
+	public static void main(String[] args) {
+		// 创建抽象类,抽象类不能创建对象
+		// 假设抽象类让我们创建对象,里面的抽象方法没有方法体,无法执行.所以不让我们创建对象
+//		Employee e = new Employee();
+//		e.work();
+		
+		// 3.创建子类
+		Manager m = new Manager();
+		m.work();
+		
+		Cook c = new Cook("ap002", "库克", 1);
+		c.work();
+	}
+}
+```
 
+> 此时的方法重写，是子类对父类抽象方法的完成实现，我们将这种方法重写的操作，也叫做**实现方法**
 
+## 特征
 
+抽象类的特征总结起来可以说是有得有失
 
+**有得：抽象类得到了游泳抽象方法的能力。**
 
+**有失：抽象类失去了创建对象的能力。**
 
+其他成员（构造方法、实例方法、静态方法等）抽象类都是具备的
 
+## 细节
 
+不需要背，只要当idea报错之后，知道如何修改即可。
 
+关于抽象类的使用，以下为语法上要注意的细节，虽然条目较多，但若理解了抽象的本质，无需死记硬背。
 
+1. 抽象类**不能创建对象**，如果创建，编译无法通过而报错。只能创建其非抽象子类的对象。
 
+   > 假设创建了抽象类的对象，调用抽象类的方法，而抽象方法没有具体的方法体，没有意义。
 
+2. 抽象类中，**可以有构造方法**，是供子类创建对象时，初始化父类成员使用的。
+
+   > 子类的构造方法中，有默认的super(),需要访问父类的构造方法。
+
+3. 抽象类中，不一定包含抽象方法，但有抽象方法的类必定是抽象类。
+
+   > 未包含抽象方法的抽象类，目的就是不想让调用者创建该类对象，通常用于某种特殊的类结构设计。
+
+4. 抽象类的子类，必须重写抽象父类中所有的抽象方法，否则子类也必须定义成抽象类，不然则编译无法通过而报错。
+
+   > 假设不重写所有抽象方法，则类中可能包含抽象方法。那么创建对象后，调用了抽象方法，没有意义。
+
+5. 抽象类的存在意义就是被子类继承
+
+   > 抽象类中已经实现的是模版中确定的成员，抽象类不确定如何实现的定义成抽象方法，交给具体的子类去实现。
+
+## 意义
+
+ 抽象类存在的意义是为了**被子类继承**，否则抽象类将毫无意义。抽象类可以强制让子类，一定要按照规定的格式进行重写
+
+## 抽象类和接口的区别
+
+|    抽象类    |             接口             |                              |
+| :----------: | :--------------------------: | :--------------------------: |
+|   方法实现   | 可以有实现的方法和非抽象方法 |   只有方法签名，无方法实现   |
+| **构造函数** |      可以**有**构造函数      |     **无**法定义构造函数     |
+| **成员变量** |      可以**有**成员变量      | 只能定义常量，**无**成员变量 |
+| **继承**关系 |  子类只能**继承一个**抽象类  |    类可以**实现多个接**口    |
+|   功能实现   |      提供对类的部分实现      |      定义契约和行为规范      |
 
 
 
