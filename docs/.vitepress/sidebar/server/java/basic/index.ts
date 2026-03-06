@@ -48,6 +48,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "接口",
                 link: "/server/java/basic/intermediate/interface"
+            },
+            {
+                text: "内部类",
+                link: "/server/java/basic/intermediate/innerClass"
             }
         ]
     }
