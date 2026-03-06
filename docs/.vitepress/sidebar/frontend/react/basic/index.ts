@@ -11,7 +11,11 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "React简介与特点",
                 link: "/frontend/react/basic/part1/01-React简介与特点.md"
-            }
+            },
+            {
+                text: "环境：Vite与Next.js指南",
+                link: "/frontend/react/basic/part1/02-环境搭建(Vite-Next.js).md"
+            },
         ]
     },
     {
