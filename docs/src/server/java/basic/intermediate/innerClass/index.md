@@ -74,7 +74,7 @@ public class Outer {
         return new Inner();
     }
 }
-
+ 
 public class Test {
     public static void main(String[] args) {
         Outer o = new Outer();
@@ -197,15 +197,101 @@ public class InnerClassDemo01 {
 }
 ```
 
+> 注意区分成员内部类的创建方式 Outer.inner oi = new Outer().new inner();
 
+## 局部内部类
 
+### 特点
 
+定义在类方法中的类，和局部变量一样，也可以用一样的修饰符修饰
 
+```java
+class 外部类名 {
+	数据类型 变量名;
+	
+	修饰符 返回值类型 方法名(参数列表) {
+		// …
+		class 内部类 {
+			// 成员变量
+			// 成员方法
+		}
+	}
+}
+```
 
+## 匿名内部类（重点）
 
+是内部类的简化写法。他是一个隐含了名字的内部类。开发中，最常用到的内部类就是匿名内部类了。
 
+### 特点
 
+- 定义一个没有名字的内部类
+- 这个类实现了父类，或者父类接口
+- 匿名内部类会创建这个没有名字的类的对象
 
+### 使用格式
+
+::: tip 前提
+
+匿名内部类必须继承一个父类或者实现一个父接口
+
+:::
+
+### 获取匿名内部类
+
+1. 直接new接口
+
+   ```java
+   // new 实现的是后面的匿名类--最后的大括号{}
+   // 用()实现的接口Swim
+   // 在类的内部重写接口Swim的所哟抽象方法;
+   // 最后正常调用public的swimming方法
+   new Swim() {
+       @Override
+       public void swimming() {
+           System.out.println("自由泳。。。")
+       }
+   }.swimming();
+   ```
+
+2. 重写子类方法
+
+   ```java
+   // 接口 变量 = new 实现类(); // 多态,走子类的重写方法
+   Swim s2 = new Swim() {
+       @Override
+       public void swimming() {
+           System.out.println("蛙泳...");
+       }
+   };
+   ```
+
+   **基本用例：**
+
+   ```java
+   interface Swim {
+       public abstract void swimming();
+   }
+   public class Demo {
+       public static void main(String[] args) {
+           // 使用匿名内部类
+           new Swim() {
+               @Override
+               public void swimming(){
+                   System.out.println("自由泳...")
+               }
+           }.swimming();
+       }
+       
+       // 接口 变量 = new 实现类(); // 多态，走子类的重写方法
+       Swim s2 = new Swim() {
+           @Override
+           public void
+       }
+   }
+   ```
+
+   
 
 
 
