@@ -281,61 +281,100 @@ class 外部类名 {
                    System.out.println("自由泳...")
                }
            }.swimming();
-       }
-       
-       // 接口 变量 = new 实现类(); // 多态，走子类的重写方法
-       Swim s2 = new Swim() {
-           @Override
-           public void
+           
+           // 接口 变量 = new 实现类(); // 多态，走子类的重写方法
+           Swim s2 = new Swim() {
+               @Override
+               public void swimming() {
+                   System.out.println("蛙泳...")；
+               }
+           }
+           
+           s2.swimming();
        }
    }
    ```
 
-   
+   ### 应用场景
 
+之前我们使用接口时，似乎得做如下几步操作：
 
+1. 定义子类
+2. 重写接口中的方法
+3. 创建子类对象
+4. 调用重写后的方法
 
+```java
+interface Swim {
+    public abstract void swimming();
+}
 
+// 1. 定义接口的实现类
+class Student implements Swim {
+    // 2. 重写抽象方法
+    @Override
+    public void swimming() {
+        System.out.println("狗刨式...");
+    }
+}
 
+public class Test {
+    public static void main(String[] args) {
+        // 3. 创建实现类对象
+        Student s = new Student();
+        // 4. 调用方法
+        s.swimming();
+    }
+}
+```
 
+**现在：通常在方法的形式参数是接口或者抽象类时，也可以将匿名内部类作为参数传递**
 
+```java
+interface Swim {
+    public abstract void swimming();
+}
 
+public class Demo {
+    public static void main(String[] args) {
+        // 普通方式传入对象
+        // 创建实现类对象
+        Student s = new Student();
+        
+        goSwimming(s);
+        // 匿名内部类使用场景：作为方法参数传递
+        Swim s3 = new Swim() {
+            @Override
+            public vode swimming() {
+                System.out.println("蝶泳...")
+            }
+        };
+        // 传入匿名内部类
+        goSwimming(s3);
+        
+        // 完美方案：一步到位
+        goSwimming(new Swim() {
+           public void swimming() {
+               System.out.println("大学生，蛙泳...")
+           } 
+        }); 
+        goSwimming(new Swim() {
+            public void swimming() {
+                System.out.println("小学生, 自由泳...");
+            }
+        });
+    }
+    
+    // 定义一个方法，模拟请一些人去游泳
+    public static void goSwimming(Swim s) {
+        s.swimming();
+    }
+}
+```
 
+### 意义
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**实际上，如果我们希望定义一个只要使用一次的类，就可以考虑使用匿名内部类。匿名内部类的本质作用是为了简化代码。-- 少创建一个java文件**
 
 小结
 
