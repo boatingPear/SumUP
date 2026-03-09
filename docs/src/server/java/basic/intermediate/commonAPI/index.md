@@ -578,3 +578,231 @@ public  BigInteger pow(int exponent);				// 次幂、次方
 public  BigInteger max/min(BigInteger val);			// 返回较大值/较小值
 ```
 
+### 基本用例
+
+```java
+package com.itheima.a06bigintegerdemo;
+
+import java.math.BigInteger;
+
+public class BigIntegerDemo1 {
+    public static void main(String[] args) {
+        /*
+            public BigInteger(int num, Random rnd) 获取随机大整数，范围:[0~ 2的num次方-11
+            public BigInteger(String val) 获取指定的大整数
+            public BigInteger(String val, int radix) 获取指定进制的大整数
+
+            public static BigInteger valueOf(long val) 静态方法获取BigInteger的对象，内部有优化
+
+            细节:
+            对象一旦创建里面的数据不能发生改变。
+        */
+
+
+        //1.获取一个随机的大整数
+        /* Random r=new Random();
+            for (int i = e; i < 100; i++) {
+            BigInteger bd1 = new BigInteger(4,r);
+            System.out.println(bd1);//[@ ~ 15]}
+            }
+        */
+
+        //2.获取一个指定的大整数，可以超出long的取值范围
+        //细节:字符串中必须是整数，否则会报错
+        /* BigInteger bd2 = new BigInteger("1.1");
+            System.out.println(bd2);
+        */
+
+        /*
+            BigInteger bd3 = new BigInteger("abc");
+            System.out.println(bd3);
+         */
+
+        //3.获取指定进制的大整数
+        //细节:
+        //1.字符串中的数字必须是整数
+        //2.字符串中的数字必须要跟进制吻合。
+        //比如二进制中，那么只能写日和1，写其他的就报错。
+        BigInteger bd4 = new BigInteger("123", 2);
+        System.out.println(bd4);
+
+        //4.静态方法获取BigInteger的对象，内部有优化
+        //细节:
+        //1.能表示范围比较小，只能在long的取值范围之内，如果超出long的范围就不行了。
+        //2.在内部对常用的数字: -16 ~ 16 进行了优化。
+        //  提前把-16~16 先创建好BigInteger的对象，如果多次获取不会重新创建新的。
+        BigInteger bd5 = BigInteger.valueOf(16);
+        BigInteger bd6 = BigInteger.valueOf(16);
+        System.out.println(bd5 == bd6);//true
+
+
+        BigInteger bd7 = BigInteger.valueOf(17);
+        BigInteger bd8 = BigInteger.valueOf(17);
+        System.out.println(bd7 == bd8);//false
+
+
+        //5.对象一旦创建内部的数据不能发生改变
+        BigInteger bd9 =BigInteger.valueOf(1);
+        BigInteger bd10 =BigInteger.valueOf(2);
+        //此时，不会修改参与计算的BigInteger对象中的借，而是产生了一个新的BigInteger对象记录
+        BigInteger result=bd9.add(bd10);
+        System.out.println(result);//3
+
+    }
+}
+```
+
+```java
+package com.itheima.a06bigintegerdemo;
+
+import java.math.BigInteger;
+
+public class BigIntegerDemo2 {
+    public static void main(String[] args) {
+        /*
+            public BigInteger add(BigInteger val) 加法
+            public BigInteger subtract(BigInteger val) 减法
+            public BigInteger multiply(BigInteger val) 乘法
+            public BigInteger divide(BigInteger val) 除法，获取商
+            public BigInteger[] divideAndRemainder(BigInteger val) 除法，获取商和余数
+            public boolean equals(Object x) 比较是否相同
+            public BigInteger pow(int exponent) 次幂
+            public BigInteger max/min(BigInteger val) 返回较大值/较小值
+            public int intValue(BigInteger val) 转为int类型整数，超出范围数据有误
+        */
+
+        //1.创建两个BigInteger对象
+        BigInteger bd1 = BigInteger.valueOf(10);
+        BigInteger bd2 = BigInteger.valueOf(5);
+
+        //2.加法
+        BigInteger bd3 = bd1.add(bd2);
+        System.out.println(bd3);
+
+        //3.除法，获取商和余数
+        BigInteger[] arr = bd1.divideAndRemainder(bd2);
+        System.out.println(arr[0]);
+        System.out.println(arr[1]);
+
+        //4.比较是否相同
+        boolean result = bd1.equals(bd2);
+        System.out.println(result);
+
+        //5.次幂
+        BigInteger bd4 = bd1.pow(2);
+        System.out.println(bd4);
+
+        //6.max
+        BigInteger bd5 = bd1.max(bd2);
+
+
+        //7.转为int类型整数，超出范围数据有误
+        /* BigInteger bd6 = BigInteger.valueOf(2147483647L);
+         int i = bd6.intValue();
+         System.out.println(i);
+         */
+
+        BigInteger bd6 = BigInteger.valueOf(200);
+        double v = bd6.doubleValue();
+        System.out.println(v);//200.0
+    }
+}
+```
+
+## BigDecimal类
+
+### 概述
+
+首先分析一下如下程序的执行结果：
+
+```java
+public class BigDecimalDemo01 {
+
+    public static void main(String[] args) {
+        System.out.println(0.09 + 0.01);
+    }
+}
+```
+
+这段代码比较简单，就是计算0.09和0.01之和，并且将其结果在控制台进行输出。那么按照我们的想法在控制台输出的结果应该为0.1。那么实际的运行结果是什么呢？我们来运行一下程序，控制台的输出
+
+结果如下所示：
+
+```java
+0.09999999999999999
+```
+
+这样的结果其实就是一个丢失精度的结果。为什么会产生精度丢失呢？
+
+在使用float或者double类型的数据在进行数学运算的时候，很有可能会产生精度丢失问题。我们都知道计算机底层在进行运算的时候，使用的都是二进制数据； 当我们在程序中写了一个十进制数据 ，在进行运算的时候，计算机会将这个十进制数据转换成二进制数据，然后再进行运算，计算完毕以后计算机会把运算的结果再转换成十进制数据给我们展示； 如果我们使用的是整数类型的数据进行计算，那么在把十进制数据转换成二进制数据的时候不会存在精度问题； 如果我们的数据是一个浮点类型的数据，有的时候计算机并不会将这个数据完全转换成一个二进制数据，而是将这个将其转换成一个无限的趋近于这个十进数的二进制数据；这样使用一个不太准确的数据进行运算的时候， 最终就会造成精度丢失；为了提高精度，Java就给我们提供了BigDecimal供我们进行数据运算。
+
+BigDecimal所在包是在java.math包下，因此在使用的时候就需要进行导包。我们可以使用BigDecimal类进行更加**精准**的数据计算。
+
+### 常用方法
+
+#### 构造方法
+
+- `BigDecimal(int val)` 将int转换为BigDecimal
+- `BigDecimal(long val)` 将long转换为BigDecimal。
+- `BigDecimal(String val)` 将BigDecimal的字符串表示形式转换为BigDecimal。
+
+成员方法
+
+```java
+public static BigDecimal valueOf(double val);			// 获取对象
+public BigDecimal add(BigDecimal val);					// 加法
+public BigDecimal subtract(BigDecimal val);				// 减法
+public BigDecimal multiply(BigDecimal val);				// 乘法
+public BigDecimal divide(BigDecimal val);				// 除法
+public BigDecimal divide(BigDecimal val, 精确几位，舍入模式)// 除法，更精确
+```
+
+### 使用
+
+```java
+public class BigDecimalDemo01 {
+
+    public static void main(String[] args) {
+
+        // 创建两个BigDecimal对象
+        BigDecimal b1 = new BigDecimal("0.3") ;
+        BigDecimal b2 = new BigDecimal("4") ;
+
+        // 调用方法进行b1和b2的四则运算，并将其运算结果在控制台进行输出
+        System.out.println(b1.add(b2));         // 进行加法运算
+        System.out.println(b1.subtract(b2));    // 进行减法运算
+        System.out.println(b1.multiply(b2));    // 进行乘法运算
+        System.out.println(b1.divide(b2));      // 进行除法运算
+    }
+}
+```
+
+## Java JDK7
+
+### SimpleDateFormat类
+
+`java.text.SimpleDateFormat` 是日期/时间格式化类，我们通过这个类可以帮我们完成**日期和文本之间的转换**,也就是可以在**Date**对象与**String**对象之间进行来回转换。
+
+- **格式化**：按照指定的格式，把Date对象转换为String对象。
+- **解析**：按照指定的格式，把String对象转换为Date对象。
+
+#### 常用成员方法
+
+##### 构造方法
+
+`public SimpleDateFormat(String pattern)`：用给定的模式和默认语言环境的日期格式符号构造SimpleDateFormat。参数pattern是一个字符串，代表**日期时间的自定义格式**。
+
+**格式规则**
+
+常用的格式规则为：
+
+| 标识字母（区分大小写） | 含义 |
+| :--------------------: | :--: |
+|           y            |  年  |
+|           M            |  月  |
+|           d            |  日  |
+|           H            |  时  |
+|           m            |  分  |
+|           s            |  秒  |
+
+> 备注：更详细的格式规则，可以参考SimpleDateFormat类的API文档。
