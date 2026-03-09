@@ -27,11 +27,6 @@
 
 Nuxt.js 优先 - 做seo 
 
-Nest.js 
-
-
-
-## 无货源有空还可以看看
-
+Nest.js
 
 
