@@ -52,6 +52,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "内部类",
                 link: "/server/java/basic/intermediate/innerClass"
+            },
+            {
+                text: "常用API",
+                link: "/server/java/basic/intermediate/commonAPI"
             }
         ]
     }
