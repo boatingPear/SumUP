@@ -5,6 +5,7 @@ import frontendReactBasic from "./frontend/react/basic"
 import frontendTools from "./frontend/tools";
 import frontendOtherWxapp from "./frontend/other/wxapp";
 import serverJavaBasic from "./server/java/basic/";
+import listOfEvents from "./listOfEvents";
 
 /**
  * 侧边栏
@@ -21,5 +22,7 @@ export default <DefaultTheme.SidebarMulti>{
   // 前端-其他-微信小程序
   "/frontend/other/wxapp/": frontendOtherWxapp,
   // 后端-java-基础
-  "/server/java/basic/": serverJavaBasic
+  "/server/java/basic/": serverJavaBasic,
+  // 流水账
+  "/listOfEvents/": listOfEvents,
 };  

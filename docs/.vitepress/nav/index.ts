@@ -54,6 +54,15 @@ export default <DefaultTheme.NavItem[]>[
         text: '资源', 
         link: '/resource/index'
     },
+    {
+        text: "流水账",
+        items: [
+            { 
+                text: '2026年',
+                link: "/listOfEvents/2026/"
+            },
+        ]
+    }
     // {
     //     text: '运维',
     //     items: []
