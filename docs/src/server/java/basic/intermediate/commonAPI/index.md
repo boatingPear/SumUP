@@ -1024,7 +1024,7 @@ ZonedDateTime是Java8中提供的带时区的时间类，它继承自LoaclDateTi
 ZonedDateTime now = ZonedDateTime.now();
 System.out.println(now);
 
-// 获取指定的时间对象（带时区）1/年月日时分秒的方式指定
+// 获取指定的时间对象（带时区）1/年月日时分秒纳秒的方式指定
 ZonedDateTime time1 = ZonedDateTime.of(2023, 10, 1,
                                        11, 12, 12, 0, ZoneId.of("Asia/Shanghai"));
 System.out.println(time1);
@@ -1047,5 +1047,106 @@ System.out.println(time4);
 //5.增加时间
 ZonedDateTime time5 = time4.plusYears(1);
 System.out.println(time5);
+```
+
+### DateTimeFormatter 用于时间的格式化和解析
+
+`DateTimeFormatter`是Java8中用于日期时间格式化和解析的类
+
+#### 常用成员方法
+
+```java
+static DateTimeFormatter ofPattern(格式) 获取格式对象
+String format(时间对象) 按照指定方式格式化
+```
+
+#### 基本用例
+
+```java
+// 获取时间对象
+ZonedDateTime time = Instant.now().atZone(ZoneId.of("Asia/Shanghai"));
+
+// 解析/格式化器
+DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss EE a");
+// 格式化
+System.out.println(dtf1.format(time)); // 2026-03-10 15:53:18 周二 下午
+```
+
+### LocalDateTime、LoacalDate、LocalTime(重点)
+
+`LocalDateTime`、`LocalDate`、`LocalTime`是Java 8中的日期时间API中的三个类，用于处理本地日期、时间和日期时间。他们都是线程安全的，可以在多线程环境中使用。
+
+##### 体系结构
+
+![image-20230319084507961](../../assets/bebab98debe265919b71fc0340e42270.png)
+
+#### 常用成员方法
+
+![image-20230319084442661](../../assets/abab9b3f3ad067619e75b4f88a65cf05.png)
+
+#### 基本用例
+
+```java
+//1.获取当前时间的日历对象(包含 年月日)
+LocalDate nowDate = LocalDate.now();
+//System.out.println("今天的日期:" + nowDate);
+//2.获取指定的时间的日历对象
+LocalDate ldDate = LocalDate.of(2023, 1, 1);
+System.out.println("指定日期:" + ldDate);
+
+System.out.println("=============================");
+
+//3.get系列方法获取日历中的每一个属性值//获取年
+int year = ldDate.getYear();
+System.out.println("year: " + year);
+//获取月//方式一:
+Month m = ldDate.getMonth();
+System.out.println(m);
+System.out.println(m.getValue());
+
+//方式二:
+int month = ldDate.getMonthValue();
+System.out.println("month: " + month);
+
+
+//获取日
+int day = ldDate.getDayOfMonth();
+System.out.println("day:" + day);
+
+//获取一年的第几天
+int dayofYear = ldDate.getDayOfYear();
+System.out.println("dayOfYear:" + dayofYear);
+
+//获取星期
+DayOfWeek dayOfWeek = ldDate.getDayOfWeek();
+System.out.println(dayOfWeek);
+System.out.println(dayOfWeek.getValue());
+
+//is开头的方法表示判断
+System.out.println(ldDate.isBefore(ldDate));
+System.out.println(ldDate.isAfter(ldDate));
+
+//with开头的方法表示修改，只能修改年月日
+LocalDate withLocalDate = ldDate.withYear(2000);
+System.out.println(withLocalDate);
+
+//minus开头的方法表示减少，只能减少年月日
+LocalDate minusLocalDate = ldDate.minusYears(1);
+System.out.println(minusLocalDate);
+
+
+//plus开头的方法表示增加，只能增加年月日
+LocalDate plusLocalDate = ldDate.plusDays(1);
+System.out.println(plusLocalDate);
+
+//-------------
+// 判断今天是否是你的生日
+LocalDate birDate = LocalDate.of(2000, 1, 1);
+LocalDate nowDate1 = LocalDate.now();
+
+MonthDay birMd = MonthDay.of(birDate.getMonthValue(), birDate.getDayOfMonth());
+MonthDay nowMd = MonthDay.from(nowDate1);
+
+System.out.println("今天是你的生日吗? " + birMd.equals(nowMd));//今天是你的生日吗?	
 ```
 
