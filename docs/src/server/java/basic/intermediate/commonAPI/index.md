@@ -869,3 +869,183 @@ public class A03_SimpleDateFormatDemo1 {
 
 #### 常用成员方法
 
+![image-20230318215858670](../../assets/b8224466d8c1efd644514b496d7efbc3.png)
+
+|                方法名                 |                             说明                             |
+| :-----------------------------------: | :----------------------------------------------------------: |
+| public static Calendar getInstance()  |           获取一个它的子类GregorianCalendar对象。            |
+|       public int get(int field)       | 获取某个字段的值。field参数表示获取哪个字段的值，<br/>可以使用Calender中定义的常量来表示：<br/>Calendar.YEAR : 年<br/>Calendar.MONTH ：月<br/>Calendar.DAY_OF_MONTH：月中的日期<br/>Calendar.HOUR：小时<br/>Calendar.MINUTE：分钟<br/>Calendar.SECOND：秒<br/>Calendar.DAY_OF_WEEK：星期 |
+| public void set(int field,int value)  |                       设置某个字段的值                       |
+| public void add(int field,int amount) |                 为某个字段增加/减少指定的值                  |
+
+```java
+// 使用get获取年月日等信息
+Calendar c = Calendar.getInstance();
+
+System.out.println(c.getTime());
+System.out.println(c.get(Calendar.YEAR)); // 获取年份
+System.out.println(c.get(Calendar.MONTH)); // 月份 ！=》 0表示1,11表示12
+System.out.println(c.get(Calendar.DAY_OF_MONTH));
+
+// 使用add计算日期
+c.add(Calendar.YEAR, 1); // 年份加1
+System.out.println(c.get((Calendar.YEAR)));
+c.add(Calendar.MONTH, -2); // 月份-2 -- 0-1=>11
+System.out.println(c.get(Calendar.MONTH));
+
+// Calendar和Date类型转换
+Calendar c1 = Calendar.getInstance();
+Date date = c1.getTime(); // Caledar格式转为Date格式
+System.out.println(date);
+
+Date newDate = new Date();
+Calendar c2 = Calendar.getInstance();
+c2.setTime(newDate);
+System.out.println(c2.get(Calendar.YEAR));
+```
+
+#### 	底层原理
+
+> 会根据系统的不同时区来获取不同的日历对象。把会把时间中的纪元，年，月，日，时，分，秒，星期，等等的都放到一个数组当中
+
+## Java JDK8
+
+![image-20230318220614239](../../assets/f9235b4fe5828c3cf6eb37d36e5e71d4.png)
+
+|  JDK8时间类类名   |          作用          |
+| :---------------: | :--------------------: |
+|      ZoneId       |          时区          |
+|      Instant      |         时间戳         |
+|   ZoneDateTime    |      带时区的时间      |
+| DateTimeFormatter | 用于时间的格式化和解析 |
+|     LocalDate     |       年、月、日       |
+|     LocalTime     |       时、分、秒       |
+|   LocalDateTime   | 年、月、日、时、分、秒 |
+|     Duration      | 时间间隔（秒，纳，秒） |
+|      Period       | 时间间隔（年，月，日） |
+|    ChronoUnit     |  时间间隔（所有单位）  |
+
+### ZoneId时区
+
+#### 在Java中，`ZoneId`是表示时区的类。时区可以通过UTC(协调世界时)的偏移量来计算，`ZoneId`提供了许多方法来获取时区信息、转换时区、比较时区
+
+#### 常用成员方法
+
+![image-20230318220735008](../../assets/ab3ad485d7c0846de45533922d0f82df.png)
+
+#### 基本用例
+
+```java
+/*
+	static Set<string>getAvailableZoneIds() 获取Java中支持的所有时区
+	static ZoneId systemDefault()			获取系统默认时区
+	static ZoneId of(String zoneId) 		获取一个指定时区
+*/
+//1.获取所有的时区名称
+Set<String> zoneIds = ZoneId.getAvailableZoneIds();
+System.out.println(zoneIds.size());//600
+System.out.println(zoneIds);// Asia/Shanghai
+
+//2.获取当前系统的默认时区
+ZoneId zoneId = ZoneId.systemDefault();
+System.out.println(zoneId);//Asia/Shanghai
+
+//3.获取指定的时区
+ZoneId zoneId1 = ZoneId.of("Asia/Pontianak");
+System.out.println(zoneId1);//Asia/Pontianak
+```
+
+### Instant时间戳
+
+Instant是Java8中的一个类，用于表示时间戳（即从1970年1月1日UTC开始经过的的秒数），它包含一个以秒为单位的时间戳和一个以纳秒为单位的时间戳，精确到纳秒级别。它通常用于处理时间和日期之间的转换或计算时间差
+
+#### 常用成员方法
+
+```java
+static Instant now() 获取当前时间的Instant对象(标准时间)
+static Instant ofXxxx(long epochMilli) 根据(秒/毫秒/纳秒)获取Instant对象
+ZonedDateTime atZone(ZoneIdzone) 指定时区
+boolean isxxx(Instant otherInstant) 判断系列的方法
+Instant minusXxx(long millisToSubtract) 减少时间系列的方法
+Instant plusXxx(long millisToSubtract) 增加时间系列的方法
+```
+
+#### 基本用例
+
+```java
+//1.获取当前时间的Instant对象(标准时间)
+Instant now = Instant.now();
+System.out.println(now);
+
+//2.根据(秒/毫秒/纳秒)获取Instant对象
+Instant instant1 = Instant.ofEpochMilli(0L);
+System.out.println(instant1);//1970-01-01T00:00:00z
+
+Instant instant2 = Instant.ofEpochSecond(1L);
+System.out.println(instant2);//1970-01-01T00:00:01Z
+
+Instant instant3 = Instant.ofEpochSecond(1L, 1000000000L);
+System.out.println(instant3);//1970-01-01T00:00:027
+
+//3. 指定时区
+ZonedDateTime time = Instant.now().atZone(ZoneId.of("Asia/Shanghai"));
+System.out.println(time);
+
+
+//4.isXxx 判断
+Instant instant4=Instant.ofEpochMilli(0L);
+Instant instant5 =Instant.ofEpochMilli(1000L);
+
+//5.用于时间的判断
+//isBefore:判断调用者代表的时间是否在参数表示时间的前面
+boolean result1=instant4.isBefore(instant5);
+System.out.println(result1);//true
+
+//isAfter:判断调用者代表的时间是否在参数表示时间的后面
+boolean result2 = instant4.isAfter(instant5);
+System.out.println(result2);//false
+
+//6.Instant minusXxx(long millisToSubtract) 减少时间系列的方法
+Instant instant6 =Instant.ofEpochMilli(3000L);
+System.out.println(instant6);//1970-01-01T00:00:03Z
+
+Instant instant7 =instant6.minusSeconds(1);
+System.out.println(instant7);//1970-01-01T00:00:02Z
+```
+
+### ZoneDateTime 带时区的时间
+
+ZonedDateTime是Java8中提供的带时区的时间类，它继承自LoaclDateTime类，可以表示时区的日期时间信息。
+
+#### 基本用例
+
+```java
+// 获取当前时间对象(带时区)
+ZonedDateTime now = ZonedDateTime.now();
+System.out.println(now);
+
+// 获取指定的时间对象（带时区）1/年月日时分秒的方式指定
+ZonedDateTime time1 = ZonedDateTime.of(2023, 10, 1,
+                                       11, 12, 12, 0, ZoneId.of("Asia/Shanghai"));
+System.out.println(time1);
+
+//通过Instant + 时区的方式指定获取时间对象
+Instant instant = Instant.ofEpochMilli(0L);
+ZoneId zoneId = ZoneId.of("Asia/Shanghai");
+ZonedDateTime time2 = ZonedDateTime.ofInstant(instant, zoneId);
+System.out.println(time2);
+
+
+//3.withXxx 修改时间系列的方法
+ZonedDateTime time3 = time2.withYear(2000);
+System.out.println(time3);
+
+//4. 减少时间
+ZonedDateTime time4 = time3.minusYears(1);
+System.out.println(time4);
+
+//5.增加时间
+ZonedDateTime time5 = time4.plusYears(1);
+System.out.println(time5);
+```
+
