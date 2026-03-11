@@ -1013,7 +1013,7 @@ Instant instant7 =instant6.minusSeconds(1);
 System.out.println(instant7);//1970-01-01T00:00:02Z
 ```
 
-### ZoneDateTime 带时区的时间
+### ZonedDateTime 带时区的时间
 
 ZonedDateTime是Java8中提供的带时区的时间类，它继承自LoaclDateTime类，可以表示时区的日期时间信息。
 
