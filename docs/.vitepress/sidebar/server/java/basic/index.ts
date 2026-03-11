@@ -31,6 +31,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "关键字",
                 link: "/server/java/basic/primary/keyword"
+            },
+            {
+                text: "知识加油站",
+                link: "/server/java/basic/primary/supplement"
             }
         ]
     },
