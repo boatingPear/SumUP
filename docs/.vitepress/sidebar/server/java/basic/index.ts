@@ -54,6 +54,14 @@ export default <DefaultTheme.SidebarItem>[
                 link: "/server/java/basic/intermediate/interface"
             },
             {
+                text: "枚举",
+                link: "/server/java/basic/intermediate/enum"
+            },
+            {
+                text: "常用类",
+                link: "/server/java/basic/intermediate/commonClass"
+            },
+            {
                 text: "内部类",
                 link: "/server/java/basic/intermediate/innerClass"
             },
