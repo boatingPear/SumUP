@@ -60,6 +60,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "常用API",
                 link: "/server/java/basic/intermediate/commonAPI"
+            },
+            {
+                text: "知识加油站",
+                link: "/server/java/basic/intermediate/supplement"
             }
         ]
     }
