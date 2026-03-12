@@ -75,4 +75,270 @@ public class StringDemo {
 
 > 当使用双引号直接赋值时，系统会检查该字符串在串池中是否存在。若不存在，则创建新的、存在则复用。
 
-​	
+### 	字符串的比较
+
+#### ==号的作用
+
+- 比较基本数据类型：比较的是具体的值
+- 比较引用数据类型：比较的是对象地址值
+
+#### equals方法的作用
+
+- 方法介绍
+
+  ```java
+  public boolean equals(String s);	// 比较两个字符串内容是否相同、区分大小写
+  ```
+
+- 基本用例
+
+  ```java
+  public class StringDemo02 {
+      public static void main(String[] args) {
+          //构造方法的方式得到对象
+          char[] chs = {'a', 'b', 'c'};
+          String s1 = new String(chs);
+          String s2 = new String(chs);
+  
+          //直接赋值的方式得到对象
+          String s3 = "abc";
+          String s4 = "abc";
+  
+          //比较字符串对象地址是否相同
+          System.out.println(s1 == s2); // false
+          System.out.println(s1 == s3); // false
+          System.out.println(s3 == s4); // true
+          System.out.println("--------");
+  
+          //比较字符串内容是否相同
+          System.out.println(s1.equals(s2)); // true
+          System.out.println(s1.equals(s3)); // true
+          System.out.println(s3.equals(s4)); // true
+      }
+  }
+  ```
+
+  #### equalsIgnoreCase是Java中的一个字符串方法，用于比较两个字符串是否相等，但忽略他们的大小写。它与`equals`方法相似，但不考虑大小写的区别
+
+  ```java
+  public boolean equalsIgnoreCase(String anoterString);
+  ```
+
+  ### 案例--手机号屏蔽
+
+  需求：以字符串的形式从键盘接收一个手机号，将中间四位用*代替
+
+  ```java
+  public class Test8手机号屏蔽 {
+      public static void main(String[] args) {
+          /*以字符串的形式从键盘接受一个手机号，将中间四位号码屏蔽
+          最终效果为：131****9468*/
+  
+          //1.键盘录入一个手机号码
+          Scanner sc = new Scanner(System.in);
+          System.out.println("请输入手机号码");
+          String phoneNumber = sc.next();//13112349408
+  
+          //2.截取手机号码中的前三位
+          String star = phoneNumber.substring(0, 3);
+  
+          //3.截取手机号码中的最后四位
+          //此时我用substring方法，是用1个参数的，还是两个参数的？1个参数的会更好
+          //因为现在我要截取到最后，所以建议使用1个参数的。
+          String end = phoneNumber.substring(7);
+  
+          //4.拼接
+          String result = star + "****" + end;
+  
+          System.out.println(result);
+      }
+  }
+  ```
+
+> 补充：在Java中，`substring`是字符串类中的一个方法，用于截取一个字符串的子串
+>
+> 这个方法有两个不同的用法：
+>
+> 1. 截取从指定位置开始到字符串末尾的子串：
+>
+>    ```java
+>    public String substring(int beginIndex);
+>    ```
+>
+>    其中`beginIndex`表示截取子串的起始位置。返回从`beginIndex`开始到字符串末尾的子串。
+>
+>    ```java
+>    String str = "Heelo,world!";
+>    String substr = str.substring(7);
+>    System.out.println(substr); // "world!"
+>    ```
+>
+> 2. 截取从指定位置开始到指定位置结束的子串：
+>
+>    ```java
+>    public String substring(int beginIndex, int endIndex);
+>    ```
+>
+>    其中`beginIndex`和`endIndex`分别表示截取子串的起始位置和结束位置。返回从`beginIndex`开始到`endIndex - 1`结束的子串。
+>
+>    ```java
+>    String str = "Hello, world!";
+>    String substr = str.substring(7, 12);  
+>    System.out.println(substr);// "world"
+>    ```
+>
+>    需要注意的是，`substring`方法返回的是一个新的字符串，而不是在原字符串上进行修改。如果`beginIndex`或`endIndex`超出了字符串的范围，会抛出`IndexOutOfBoundsExxception`异常
+
+### 案例--敏感词替换
+
+需求1：键盘录入一个字符串，如果字符串中包含（TMD），则使用***替代
+
+```java
+public class Test9敏感词替换 {
+    public static void main(String[] args) {
+        //1.定义一个变量表示骂人的话
+        String talk = "后裔你玩什么啊，TMD";
+
+
+        //2.把这句话中的敏感词进行替换
+        String result = talk.replaceAll("TMD", "***");
+
+        //3.打印
+        System.out.println(talk);
+        System.out.println(result);
+    }
+}
+```
+
+需求2：如果要替换的敏感词比较多怎么办？
+
+```java
+public class Test10多个敏感词替换 {
+    public static void main(String[] args) {
+        //实际开发中，敏感词会有很多很多
+
+        //1.先键盘录入要说的话
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入要说的话");
+        String talk = sc.next();//后裔你玩什么啊，TMD,GDX,ctmd,ZZ
+
+        //2.定义一个数组用来存多个敏感词
+        String[] arr = {"TMD","GDX","ctmd","ZZ","lj","FW","nt"};
+
+        //3.把说的话中所有的敏感词都替换为***
+
+        for (int i = 0; i < arr.length; i++) {
+            //i 索引
+            //arr[i] 元素 --- 敏感词
+            talk = talk.replaceAll(arr[i],"***");
+        }
+
+        //4.打印结果
+        System.out.println(talk);//后裔你玩什么啊，***,***,***,***
+    }
+}
+```
+
+> 补充：在 Java 中，`replace` 是字符串类中的一个方法，用于替换一个字符串中的某些字符或子串。****
+>
+> 这个方法有两种不同的用法：
+>
+> 1. 用新的字符串替换掉所有的旧字符串：
+>
+>    ```java
+>    public String replace(CharSequence target, CharSequence replacement)
+>    ```
+>
+>    其中，`target` 表示要被替换的旧字符串，`replacement` 表示用于替换的新字符串。返回一个新的字符串，其中所有的 `target` 都被替换成了 `replacement`。
+>
+>    例如：
+>
+>    ```java
+>    String str = "Hello, world!";
+>    String newStr = str.replace("o", "0");  // 替换所有的 "o" 为 "0"
+>    System.out.println(newStr);
+>    ```
+>
+> 2. 用新的字符串替换掉某个位置开始的一段子串：
+>
+>    ```java
+>     public String replace(int startIndex, int endIndex, String newStr)
+>    ```
+>
+>    其中，startIndex 和 endIndex 分别表示要被替换的子串的起始位置和结束位置（不包括 endIndex 所在的字符），newStr 表示用于替换的新字符串。返回一个新的字符串，其中从 startIndex 开始到 endIndex - 1 结束的子串都被替换成了 newStr。
+>    ```java
+>    String str = "Hello, world!";
+>    String newStr = str.replace(7, 12, "JAVA");  // 替换 "world" 为 "JAVA"
+>    System.out.println(newStr);
+>    ```
+>
+> 需要注意的是，`replace` 方法返回的是一个新的字符串，而不是在原字符串上进行修改。如果 `startIndex` 或 `endIndex` 超出了字符串的范围，会抛出 `IndexOutOfBoundsException` 异常。
+
+## StringBuilder类
+
+`StringBuilder`可以看成一个容器，创建之后里面的内容是可以变的。当我们在拼接字符串和反转字符串的时候会使用到
+
+### 常用方法
+
+| 方法名                           | 说明                                                |
+| -------------------------------- | --------------------------------------------------- |
+| public StringBuilder append(E e) | 添加数据，并返回对象本身                            |
+| public StringBuilder reverse()   | 反转容器中的内容                                    |
+| public int length()              | 返回长度(字符出现的个数)                            |
+| public String toString()         | 通过toString()就可以实现把StringBuilder转换为String |
+
+### 基本用例-基本使用
+
+```java
+public class StringBuilderDemo {
+     public static void main(String[] args) {
+        //1.创建对象
+        StringBuilder sb = new StringBuilder("abc");
+
+        //2.添加元素
+        /*sb.append(1);
+        sb.append(2.3);
+        sb.append(true);*/
+
+        //反转
+        sb.reverse();
+
+        //获取长度
+        int len = sb.length();
+        System.out.println(len);
+
+        //打印
+        //普及：
+        //因为StringBuilder是Java已经写好的类
+        //java在底层对他做了一些特殊处理。
+        //打印对象不是地址值而是属性值。
+        System.out.println(sb);
+    }
+}
+```
+
+#### 链式编程
+
+```java
+public class StringBuilderDemo4 {
+    public static void main(String[] args) {
+        //1.创建对象
+        StringBuilder sb = new StringBuilder();
+
+        //2.添加字符串
+        sb.append("aaa").append("bbb").append("ccc").append("ddd");
+
+        System.out.println(sb);//aaabbbcccddd
+
+        //3.再把StringBuilder变回字符串
+        String str = sb.toString();
+        System.out.println(str);//aaabbbcccddd
+    }
+}
+```
+
+::: warning 
+
+需要用`toString()`将他变成字符串，因为此时为`StringBuilder`容器而不是字符串
+
+:::
