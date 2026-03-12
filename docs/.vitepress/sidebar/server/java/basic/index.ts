@@ -66,5 +66,14 @@ export default <DefaultTheme.SidebarItem>[
                 link: "/server/java/basic/intermediate/supplement"
             }
         ]
+    },
+    {
+        text: "Java高级",
+        items: [
+            {
+                text: "集合类",
+                link: "/server/java/basic/high/collectionClass"
+            }
+        ]
     }
 ]
