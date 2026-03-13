@@ -346,3 +346,394 @@ coll.forEach(s -> System.out.println(s));
 
 ## List集合
 
+![image-20230420161417186](../assets/98c657043821bc48a217bfae55ba1a75.png)
+
+`Collection`的方法`List`都继承了，集合的方法列表也都继承了，`List`集合因为有索引，所以多了很多操作索引的方法。
+
+- 有序集合，这里的有序指的是存取顺序
+- 用户可以精确控制列表中每个元素的插入位置，用户可以通过整数索引访问元素，并搜索列表中的元素
+- 与`Set`集合不同，列表通常允许重复的元素
+
+**特点**
+
+- 存取有序
+- 可以重复
+- 有索引
+
+### 常用成员方法
+
+| 方法名                        | 描述                                   |
+| ----------------------------- | -------------------------------------- |
+| E remove(int index)           | 删除指定索引处的元素，返回被删除的元素 |
+| void add(int index,E element) | 在此集合中的指定位置插入指定的元素     |
+| E set(int index, E element)   | 修改指定索引处的元素，返回被修改的元素 |
+| E get(int index)              | 返回指定索引处的元素                   |
+
+#### add
+
+```java
+List<String> list = new ArrayList<>();
+list.add("aaa");
+list.add("bbb");//1
+list.add("ccc");
+// 或者
+list.add(1,"QQQ") // 在此集合中的指定位置插入指定的元素
+```
+
+> 原来索引上的元素会依次往后移
+
+#### remove
+
+```java
+List<String> list = new ArrayList<>();
+String remove = list.remove(0); //删除指定索引处的元素，返回被删除的元素
+System.out.println(remove);//aaa
+```
+
+#### set
+
+```java
+List<String> list = new ArrayList<>();
+String result = list.set(0, "QQQ"); //修改指定索引处的元素，返回被修改的元素
+System.out.println(result);
+```
+
+#### get
+
+```java
+List<String> list = new ArrayList<>();
+String s = list.get(0); //返回指定索引处的元素
+System.out.println(s); // bbb
+```
+
+#### 案例--基础操作
+
+```java
+public class MyListDemo {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("aaa");
+        list.add("bbb");
+        list.add("ccc");
+        //method1(list);
+        //method2(list);
+        //method3(list);
+        //method4(list);
+    }
+
+    private static void method4(List<String> list) {
+        //        E get(int index)		返回指定索引处的元素
+        String s = list.get(0);
+        System.out.println(s);
+    }
+
+    private static void method3(List<String> list) {
+        //        E set(int index,E element)	修改指定索引处的元素，返回被修改的元素
+        //被替换的那个元素,在集合中就不存在了.
+        String result = list.set(0, "qqq");
+        System.out.println(result);
+        System.out.println(list);
+    }
+
+    private static void method2(List<String> list) {
+        //        E remove(int index)		删除指定索引处的元素，返回被删除的元素
+        //在List集合中有两个删除的方法
+        //第一个 删除指定的元素,返回值表示当前元素是否删除成功
+        //第二个 删除指定索引的元素,返回值表示实际删除的元素
+        String s = list.remove(0);
+        System.out.println(s);
+        System.out.println(list);
+    }
+
+    private static void method1(List<String> list) {
+        //        void add(int index,E element)	在此集合中的指定位置插入指定的元素
+        //原来位置上的元素往后挪一个索引.
+        list.add(0,"qqq");
+        System.out.println(list);
+    }
+}
+```
+
+### 遍历方式
+
+此遍历方式，参考`Collection`集合遍历方式
+
+![image-20230328210559638](../assets/bbd4ca70b7435ade59be07b7dcc3dc52.png)
+
+```java
+package com.itheima.a02mylist;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+public class A03_ListDemo3 {
+    public static void main(String[] args) {
+        /*
+            List系列集合的五种遍历方式：
+                1.迭代器
+                2.列表迭代器
+                3.增强for
+                4.Lambda表达式
+                5.普通for循环
+         */
+
+
+        //创建集合并添加元素
+        List<String> list = new ArrayList<>();
+        list.add("aaa");
+        list.add("bbb");
+        list.add("ccc");
+
+        //1.迭代器
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+            String str = it.next();
+            System.out.println(str);
+        }
+
+
+        //2.增强for
+        //下面的变量s，其实就是一个第三方的变量而已。
+        //在循环的过程中，依次表示集合中的每一个元素
+       for (String s : list) {
+            System.out.println(s);
+        }
+
+        //3.Lambda表达式
+        //forEach方法的底层其实就是一个循环遍历，依次得到集合中的每一个元素
+        //并把每一个元素传递给下面的accept方法
+        //accept方法的形参s，依次表示集合中的每一个元素
+        list.forEach(s->System.out.println(s) );
+
+
+        //4.普通for循环
+        //size方法跟get方法还有循环结合的方式，利用索引获取到集合中的每一个元素
+        for (int i = 0; i < list.size(); i++) {
+            //i:依次表示集合中的每一个索引
+            String s = list.get(i);
+            System.out.println(s);
+        }
+
+        // 5.列表迭代器
+        //获取一个列表迭代器的对象，里面的指针默认也是指向0索引的
+
+        //额外添加了一个方法：在遍历的过程中，可以添加元素
+        ListIterator<String> it = list.listIterator();
+        while(it.hasNext()){
+            String str = it.next();
+            if("bbb".equals(str)){
+                //qqq
+                it.add("qqq");
+            }
+        }
+        System.out.println(list);
+    }
+}
+```
+
+## ArrayList集合
+
+- 什么是集合
+
+  提供一种存储空间可变的存储模型，存储的数据容量可以发生变化
+
+- `ArrayList`集合的特点
+
+  长度可以变化，只能存储引用数据类型--想存储基本数据类型可以使用包装类。
+
+- 泛型的使用
+
+  用于约束集合中存储元素的数据类型
+
+### 常用成员方法
+
+#### 构造方法
+
+| 方法名             | 说明                 |
+| ------------------ | -------------------- |
+| public ArrayList() | 创建一个空的集合对象 |
+
+#### 成员方法
+
+| 方法名                              | 说明                                     |
+| ----------------------------------- | ---------------------------------------- |
+| public boolean add(要删除的元素)    | 将指定的元素追加到此集合的末尾           |
+| public boolean remove(要删除的元素) | 删除指定元素，返回值表示是否删除成功     |
+| public E remove(int index)          | 删除指定索引处的元素，返回被删除的元素   |
+| public E set(int index, E e)        | 修改指定索引位置的元素，返回被修改的元素 |
+| public E get(int index)             | 返回指定索引位置的元素                   |
+| public int size()                   | 返回集合的总长度                         |
+
+```java
+public class ArrayListDemo02 {
+    public static void main(String[] args) {
+        //创建集合
+        ArrayList<String> array = new ArrayList<String>();
+
+        //添加元素
+        array.add("hello");
+        array.add("world");
+        array.add("java");
+
+        //public boolean remove(Object o)：删除指定的元素，返回删除是否成功
+        //        System.out.println(array.remove("world"));
+        //        System.out.println(array.remove("javaee"));
+
+        //public E remove(int index)：删除指定索引处的元素，返回被删除的元素
+        //        System.out.println(array.remove(1));
+
+        //IndexOutOfBoundsException
+        //        System.out.println(array.remove(3));
+
+        //public E set(int index,E element)：修改指定索引处的元素，返回被修改的元素
+        //        System.out.println(array.set(1,"javaee"));
+
+        //IndexOutOfBoundsException
+        //        System.out.println(array.set(3,"javaee"));
+
+        //public E get(int index)：返回指定索引处的元素
+        //        System.out.println(array.get(0));
+        //        System.out.println(array.get(1));
+        //        System.out.println(array.get(2));
+        //System.out.println(array.get(3)); //？？？？？？ 自己测试
+
+        //public int size()：返回集合中的元素的个数
+        System.out.println(array.size());
+
+        //输出集合
+        System.out.println("array:" + array);
+    }
+}
+```
+
+### 底层原理
+
+![image-20230328211534089](../assets/ce901882022f3c3ee2c84e9b574f8497.png)
+
+> - 当长度为m(m<=10)的数组，添加少于n(n<10)个数据时，数组长度是10。
+> - 当长度为m(m<=10)的数组，添加大于n(n>10)个数据时，数组长度为n+10
+> - 当长度为m(m>10)的数组，添加少于n(n<10)个数据时，数组长度是m*1.5
+> - 当长度为m(m>10)的数组，添加大于n(n>10)个数据时，数组长度是m+n
+
+源码分析
+
+> ```java
+> transient Object[] elementData; // non-private to simplify nested class access
+> ```
+>
+> **ArrayList底层是一个数组**
+>
+> 添加一个元素
+>
+> ![image-20230329090130680](../assets/dd607ab50a7c13b67abeb58bca0c4def.png)
+>
+> 添加十个元素
+>
+> ![image-20230329090105856](../assets/72f0c722cb825e3cd3621e37a88979c2.png)
+
+## LinkedList集合
+
+`LinkedList`是Java集合框架中的一个双向链表实现类，可以用来存储一组**有序的元素**。`LinkedList`的元素是通过链表连接在一起的，每个元素都包含了一个指向前一个元素和后一个元素的引用。因此，**插入和删除**元素的时间复杂度是`O(1)`的，而随机访问元素的时间复杂度是`O(n)`的，其中`n`是`LinkedList`中元素的个数。
+
+> **结构形式**
+>
+> ![image-20260313161856657](../assets/image-20260313161856657.png)
+>
+> **查找算法**
+>
+> ![image-20260313162015740](../assets/image-20260313162015740.png)
+
+### 常用成员方法
+
+| 方法名                    | 说明                                   |
+| ------------------------- | -------------------------------------- |
+| public void addFirst(E e) | 在该列表的开头插入指定的元素           |
+| public void addLast(E e)  | 将指定元素追加到列表的末尾             |
+| public E getFirst()       | 获取列表开头的元素                     |
+| public E getLast()        | 获取列表结尾的元素                     |
+| public E removeFirst()    | 删除列表开头的元素，且返回被删除的元素 |
+| public E removeLast()     | 删除列表结尾的元素，且返回被删除的元素 |
+
+```java
+public class MyLinkedListDemo4 {
+    public static void main(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("aaa");
+        list.add("bbb");
+        list.add("ccc");
+//        public void addFirst(E e)	在该列表开头插入指定的元素
+        //method1(list);
+
+//        public void addLast(E e)	将指定的元素追加到此列表的末尾
+        //method2(list);
+
+//        public E getFirst()		返回此列表中的第一个元素
+//        public E getLast()		返回此列表中的最后一个元素
+        //method3(list);
+
+//        public E removeFirst()		从此列表中删除并返回第一个元素
+//        public E removeLast()		从此列表中删除并返回最后一个元素
+        //method4(list);
+      
+    }
+
+    private static void method4(LinkedList<String> list) {
+        String first = list.removeFirst();
+        System.out.println(first);
+
+        String last = list.removeLast();
+        System.out.println(last);
+
+        System.out.println(list);
+    }
+
+    private static void method3(LinkedList<String> list) {
+        String first = list.getFirst();
+        String last = list.getLast();
+        System.out.println(first);
+        System.out.println(last);
+    }
+
+    private static void method2(LinkedList<String> list) {
+        list.addLast("www");
+        System.out.println(list);
+    }
+
+    private static void method1(LinkedList<String> list) {
+        list.addFirst("qqq");
+        System.out.println(list);
+    }
+}
+```
+
+### 底层原理
+
+![image-20230420183312596](../assets/f503667aa1abebb18dc84a683acca37f.png)
+
+> 当添加第1个元素时，会将头结点和尾结点指向第1个元素，并且第1元素的前索引和后索引都为空
+
+## Set集合
+
+`Set`集合是Java集合框架中的一种，它用于存储不重复的元素，具有无序性。
+
+**特点**
+
+- **无序**：存取顺序不一致
+- **不重复**：可以去除重复
+- **无索引**：没有带索引的方法，所以不能使用普通`for`循环遍历，也不能通过索引来获取元素
+
+### 常用成员方法
+
+
+
+| **方法名**                 | **说明**                           |
+| -------------------------- | ---------------------------------- |
+| boolean add(E e)           | 添加元素                           |
+| boolean remove(Object o)   | 从集合中移除指定的元素             |
+| boolean removeIf(Object o) | 根据条件进行移除                   |
+| void clear()               | 清空集合中的元素                   |
+| boolean contains(Object o) | 判断集合中是否存在指定的元素       |
+| boolean isEmpty()          | 判断集合是否为空                   |
+| int size()                 | 集合的长度，也就是集合中元素的个数 |
+
