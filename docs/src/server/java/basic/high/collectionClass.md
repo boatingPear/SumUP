@@ -737,3 +737,226 @@ public class MyLinkedListDemo4 {
 | boolean isEmpty()          | 判断集合是否为空                   |
 | int size()                 | 集合的长度，也就是集合中元素的个数 |
 
+> `Set`集合的方法基本上与`Collection`的API一致
+
+### 遍历方式
+
+![image-20230328210559638](../assets/4ac378b56e77e96c335ef7a530e0b4c1.png)
+
+```java
+public class A01_SetDemo1 {
+    public static void main(String[] args) {
+       /*
+           利用Set系列的集合，添加字符串，并使用多种方式遍历。
+            迭代器
+            增强for
+            Lambda表达式
+        */
+
+
+        //1.创建一个Set集合的对象
+        Set<String> s = new HashSet<>();
+
+        //2,添加元素
+        //如果当前元素是第一次添加，那么可以添加成功，返回true
+        //如果当前元素是第二次添加，那么添加失败，返回false
+        s.add("张三");
+        s.add("张三");
+        s.add("李四");
+        s.add("王五");
+
+        //3.打印集合
+        //无序
+        System.out.println(s);//[李四, 张三, 王五]
+
+        //迭代器遍历
+      	Iterator<String> it = s.iterator();
+        while (it.hasNext()){
+            String str = it.next();
+            System.out.println(str);
+        }
+
+        //增强for
+       for (String str : s) {
+            System.out.println(str);
+        }
+
+        // Lambda表达式
+        s.forEach( str->System.out.println(str));
+    }
+}
+```
+
+## HashSet集合
+
+**哈希值**
+
+- 含义：对象的整数表现形式
+
+  ![image-20230811231656961](../assets/378879aad5314b04924e3fdb9a154961.png)
+
+- 概述：
+  - 根据`hashCode`方法算出来的`int`类型的整数
+  - 该方法定义在`Object`类中，所有对象都可以调用，默认使用地址值进行计算
+  - 一般情况下，会重写`hashCode`方法、利用对象内部的属性值计算哈希值
+
+**对象的哈希特点：**
+
+- 如果没有重写`hashCode`方法，不同对象计算出的哈希值是不同的
+
+  ![image-20230421110116935](../assets/bf031a279c18222e6068f93d026a7276.png)
+
+- 如果已经重写`hashCode`方式，不同的对象只要属性值相同，计算出的哈希值就是一样的
+
+  ![image-20230421110409579](https://i-blog.csdnimg.cn/blog_migrate/959eb435a4d27845ebdc70889fa196b4.png)
+
+- 在小部分情况下，不同的属性值或者不同的地址值计算出来的哈希值也有可能一样。（哈希碰撞）
+
+  ![image-20230421110529071](../assets/4c0e79e572ca1bd68d847c3ee3d3e612.png)
+
+  `int`的取值范围用将近42亿中，如果此时创建20亿个对象，就有可能8亿hash值相同
+
+**示例：**
+
+```java
+        //1.创建对象
+        Student s1 = new Student("zhangsan",23);
+        Student s2 = new Student("zhangsan",23);
+
+        //2.如果没有重写hashCode方法，不同对象计算出的哈希值是不同的
+        //  如果已经重写hashcode方法，不同的对象只要属性值相同，计算出的哈希值就是一样的
+        System.out.println(s1.hashCode());//-1461067292
+        System.out.println(s2.hashCode());//-1461067292
+
+
+        //在小部分情况下，不同的属性值或者不同的地址值计算出来的哈希值也有可能一样。
+        //哈希碰撞
+        System.out.println("abc".hashCode());//96354
+        System.out.println("acD".hashCode());//96354
+```
+
+### 底层原理
+
+**`HashSet`底层原理**
+
+- `HashSet`集合底层采取哈希表存储数据
+- 哈希表是一种对增删改查数据性能都较好的结构
+
+**哈希表组成**
+
+- JDK8之前：数组+链表
+- JDK8开始：数组+链表+红黑树
+
+**JDK1.8以前：**
+
+![image-20230811230228107](../assets/b707f663d96acbf14000abb8d9dc691b.png)
+
+**JDK1.8以后：**
+
+- 节点个数少于等于8个：数组+链表
+- 节点个数多余8个：数组+红黑树
+
+![image-20230811225123292](../assets/443e285f0f857b44cc201aa420ae5b0f.png)
+
+> 加载因子：又叫`HashSet`的扩容时机
+>
+> 当数组内存储了16*0.75=12个元素时，次数数组的长度会扩容到原来的两倍，也就是32
+>
+> 当链表长度大于8而且数组长度大于等于64，链表就是转换为红黑树
+
+**底层流程：**
+
+![image-20230421112253380](../assets/638dbb030478a22197a537533043f931.png)
+
+![image-20230421112312925](../assets/496a06be205555bd41e6e25e14e130ac.png)
+
+### HashSet的三个问题
+
+![image-20230421112454766](../assets/ef3e577825b163940246e75de66f7aa0.png)
+
+::: tip
+
+当遍历数组时，下标为1索引时，存储为链表。链表中添加的数据不是按照指定的顺序存储的，数据在链表中的添加顺序不同，因此存和取的顺序不一样。`HashSet`的存储索引是 通过`hashCode`方法算出来的`int`类型的整数。
+
+:::
+
+![image-20230421112904950](../assets/2717189f51a9eef20cedacb0efed4701.png)
+
+::: tip
+
+`HashSet`底层是由数组、链表、红黑树组成。此时，在1索引的位置下挂着一个链表，如此多的元素都为1索引，看起来不合适，因此就取消掉了索引的机制
+
+:::
+
+![image-20230421113123565](../assets/52f66bb20c0efb20a7538348b88c02ad.png)
+
+::: tip
+
+`HashSet`是根据`HashCode`和`equals`方法，进行判断元素是否相同，若相同则不会添加到数组、链表或者红黑树当中。因此，在像`HashSet`中添加自定义对象是，一定要记得重写`HashCode`和`equals`方法，让底层的Hash值是根据对象的属性来生成
+
+:::
+
+**示例：**
+
+```java
+public class HashSetDemo02 {
+    public static void main(String[] args) {
+        //创建HashSet集合对象
+        HashSet<Student> hs = new HashSet<Student>();
+
+        //创建学生对象
+        Student s1 = new Student("林青霞", 30);
+        Student s2 = new Student("张曼玉", 35);
+        Student s3 = new Student("王祖贤", 33);
+
+        Student s4 = new Student("王祖贤", 33);
+
+        //把学生添加到集合
+        hs.add(s1);
+        hs.add(s2);
+        hs.add(s3);
+        hs.add(s4);
+
+        //遍历集合(增强for)
+        for (Student s : hs) {
+            System.out.println(s.getName() + "," + s.getAge());
+        }
+    }
+}
+```
+
+::: tip 
+
+`HashSet`集合存储自定义类型元素，想要实现元素的唯一要求，必须重写`hashCode`方法和`equals`方法
+
+```java
+@Override
+ public boolean equals(Object o) {
+     if (this == o) return true;
+     if (o == null || getClass() != o.getClass()) return false;
+
+     Student student = (Student) o;
+
+     if (age != student.age) return false;
+     return name != null ? name.equals(student.name) : student.name == null;
+ }
+
+ @Override
+ public int hashCode() {
+     int result = name != null ? name.hashCode() : 0;
+     result = 31 * result + age;
+     return result;
+ }
+```
+
+:::
+
+## LinkedHashSet集合
+
+### 底层原理
+
+- 有序、不重复、无索引。
+- 这里的有序指的是保证存储和取出的元素顺序一致
+- 原理：底层数据结构是依然是哈希表，只是每个元素又额外的多了一个双链表的机制记录存储的顺序
+
+![image-20230421114431793](../assets/fb158f1b632766a357d76cc2857656a9.png)
