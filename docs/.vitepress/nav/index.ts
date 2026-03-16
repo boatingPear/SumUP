@@ -71,7 +71,7 @@ export default <DefaultTheme.NavItem[]>[
         text: "其他",
         items: [
             {
-                text: "前端ai开发经验",
+                text: "前端ai开发面经",
                 link: "/others/ai-frontent-dev"
             },
             {
