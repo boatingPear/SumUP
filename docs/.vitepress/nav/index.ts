@@ -66,6 +66,19 @@ export default <DefaultTheme.NavItem[]>[
                 link: "/listOfEvents/2026/"
             },
         ]
+    },
+    {
+        text: "其他",
+        items: [
+            {
+                text: "前端ai开发经验",
+                link: "/others/ai-frontent-dev"
+            },
+            {
+                text: "agent开发转型起飞",
+                link: "/others/agent-dev-takeoff"
+            }
+        ]
     }
     // {
     //     text: '运维',
