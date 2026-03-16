@@ -35,10 +35,6 @@ export default <DefaultTheme.NavItem[]>[
                     { text: '微信小程序', link: '/frontend/other/wxapp' }, 
                 ]
             },
-            {
-                text: "经验总结",
-                link: "/frontend/experience/ai-frontent-dev"
-            }
         ]
     },
     {
