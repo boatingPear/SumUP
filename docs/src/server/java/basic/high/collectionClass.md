@@ -960,3 +960,508 @@ public class HashSetDemo02 {
 - 原理：底层数据结构是依然是哈希表，只是每个元素又额外的多了一个双链表的机制记录存储的顺序
 
 ![image-20230421114431793](../assets/fb158f1b632766a357d76cc2857656a9.png)
+
+```java
+public class demo {
+    public static void main(String[] args) {
+        // 创建4个学生对象
+        Student s1 = new Student("张三", 23);
+        Student s2 = new Student("李四", 24);
+        Student s3 = new Student("王五", 25);
+        
+        // 创建集合的对象
+        LinkedHashSet<Student> lhs = new LinkedHashSet<>();
+        lhs.add(s1);
+        lhs.add(s2);
+        lhs.add(s3);
+        
+        for(Student s : lhs) {
+            sout(s);
+        }
+        
+        // 打印集合
+        System.out.println(lhs);
+    }
+}
+```
+
+> `LinkedHashSet`存入和取出的数据是有序的
+
+## TreeSet集合
+
+### 概述
+
+**特点：**
+
+- 不重复、无索引、可排序
+- 可排序：按照元素的默认规则（由小到大）排序
+- TreeSet集合底层是基于红黑树的数据结构实现排序的，增删改查都较好
+
+**TreeSet集合默认的规则：**
+
+- 对于数值类型：`Integer`，`Double`，默认按照从小到大的顺序进行排序。
+- 对于字符、字符串类型：按照字符在ASCII码表中的数字升序进行排列。
+
+### 常用成员方法
+
+类似于`Set`，可以参考他的成员方法
+
+**基础示例：**
+
+```java
+//1.创建TreeSet集合对象
+TreeSet<Integer> ts = new TreeSet<>();
+
+//2.添加元素
+ts.add(4);
+ts.add(5);
+ts.add(1);
+ts.add(3);
+ts.add(2);
+
+//3.打印集合
+//System.out.println(ts);
+
+//4.遍历集合（三种遍历）
+//迭代器
+Iterator<Integer> it = ts.iterator();
+while(it.hasNext()){
+    int i = it.next();
+    System.out.println(i);
+}
+
+System.out.println("--------------------------");
+//增强for
+for (int t : ts) {
+    System.out.println(t);
+}
+System.out.println("--------------------------");
+//lambda
+ts.forEach( i-> System.out.println(i));
+```
+
+### 两种排序比较方式
+
+`Javabean`类实现`Comparable`接口指定比较规则
+
+```java
+public class Student implements Comparable<Student> {
+    private String name;
+    private int age;
+    
+    public Student() {
+        
+    }
+    
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    /**
+     * 获取
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * 设置
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * 获取
+     * @return age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * 设置
+     * @param age
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String toString() {
+        return "Student{name = " + name + ", age = " + age + "}";
+    }
+    
+    @Override
+    //this：表示当前要添加的元素
+    //o：表示已经在红黑树存在的元素
+	// 返回值：
+    // 负数：表示当前要添加的元素是小的，存左边
+    // 正数：表示当前要添加的元素是大的，存右边
+    // 0：表示当前要添加的元素已经存在，舍弃
+    public int compareTo(Student o) {
+        System.out.println("------------");
+        System.out.println("this:" + this);
+        System.out.println("o:" + o);
+        // 指定排序的规则
+        // 只看年龄、我想要按照年龄的升序进行排列
+        return this.getAge() - o.getAge();
+    }
+
+}
+```
+
+> 若需要将此类用于`TreeSet`，需要实现`Comparable`接口，并在实现时指定泛型的类
+
+```java
+public class A05_TreeSetDemo2 {
+    public static void main(String[] args) {
+        /*
+            需求：创建TreeSet集合，并添加3个学生对象
+            学生对象属性：
+                姓名，年龄。
+                要求按照学生的年龄进行排序
+                同年龄按照姓名字母排列（暂不考虑中文）
+                同姓名，同年龄认为是同一个人
+
+            方式一：
+                默认的排序规则/自然排序
+                Student实现Comparable接口，重写里面的抽象方法，再指定比较规则
+        */
+
+        //1.创建三个学生对象
+        Student s1 = new Student("zhangsan",23);
+        Student s2 = new Student("lisi",24);
+        Student s3 = new Student("wangwu",25);
+        Student s4 = new Student("zhaoliu",26);
+
+
+        //2.创建集合对象
+        TreeSet<Student> ts = new TreeSet<>();
+
+        //3.添加元素
+        ts.add(s3);
+        ts.add(s2);
+        ts.add(s1);
+        ts.add(s4);
+
+        //4.打印集合
+        System.out.println(ts);
+
+        //TreeSet 底层是红黑树
+    }
+}
+```
+
+**底层原理**：
+
+![image-20230421154711618](../assets/7210ee7384d96ea1938d258e952e8efc.png)
+
+#### 比较器排序
+
+创建`TreeSet`对象时候，传递比较器`Comparator`指定规则
+
+```java
+public class A06_TreeSetDemo3 {
+    public static void main(String[] args) {
+       /*
+            需求：请自行选择比较器排序和自然排序两种方式；
+            要求：存入四个字符串， “c”, “ab”, “df”, “qwer”
+            按照长度排序，如果一样长则按照首字母排序
+
+            采取第二种排序方式：比较器排序
+        */
+
+        //1.创建集合
+        //o1:表示当前要添加的元素
+        //o2：表示已经在红黑树存在的元素
+        //返回值规则跟之前是一样的
+        TreeSet<String> ts = new TreeSet<>((o1, o2)->{
+                // 按照长度排序
+                int i = o1.length() - o2.length();
+                //如果一样长则按照首字母排序
+                i = i == 0 ? o1.compareTo(o2) : i;
+                return i;s
+        });
+
+        //2.添加元素
+        ts.add("c");
+        ts.add("ab");
+        ts.add("df");
+        ts.add("qwer");
+
+        //3.打印集合
+        System.out.println(ts);
+    }
+}
+```
+
+### 方法返回值特点
+
+- 负数:表示当前要添加的元素是小的，存左边
+- 正数:表示当前要添加的元素是大的，存右边
+- 0:表示当前要添加的元素已经存在，舍弃
+
+## 单列集合应用场景（重点）
+
+1. 如果想要集合中的元素可重复
+   - **用`ArrayList`集合，基于数组的。（用的最多）**
+2. 如果想要集合中的元素可重复，而且当前的**增删操作明显多余查询**
+   - **用`LinkedList`集合，基于链表的**
+3. 如果想对集合中的元素去重
+   - **用`HashSet`集合，哈希表的。（用的最多）**
+4. 如果想对集合中的元素去重，而且**保证存取顺序**
+   - **用`LinkedHashSet`集合，基于哈希表和双链表，效率低于`HashSet`。**
+5. 如果想对集合中的元素进行**排序**
+   - **用`TreeSet`集合，基于红黑树。后续也可以用List集合实现排序。**
+
+## Map集合
+
+在Java中，`Map`是一种用于存储键值对的集合，每个键对应一个唯一的值。它是一种非常常用的集合，可用于快速查找和访问数据。
+
+**格式**
+
+```java
+interface Map<K, V> K: 键的类型；V: 值的类型
+```
+
+### 常用成员方法
+
+| 方法名                              | 说明                                 |
+| ----------------------------------- | ------------------------------------ |
+| V put(K key,V value)                | 添加元素                             |
+| V remove(Object key)                | 根据键删除键值对元素                 |
+| void clear()                        | 移除所有的键值对元素                 |
+| boolean containsKey(Objec key)      | 判断集合是否包含制定的键             |
+| boolean containsValue(Object value) | 判断集合是否包含制定的值             |
+| boolean isEmpty()                   | 判断集合是否为空                     |
+| int size()                          | 集合的长度，也就是集合中键值对的个数 |
+
+#### put
+
+```java
+Map<String, String> map = new HashMap<>();
+map.put("张无忌", "赵敏");
+map.put("郭靖", "黄蓉");
+map.put("杨过", "小龙女");
+```
+
+- 在添加数据的时候，如果键**不存在**，那么直接把键值对对象添加到`map`集合当中，方法返回`null`
+- 在添加数据的时候，如果键是**存在**的，那么会把原有的键值对对象覆盖，会返回被覆盖的值
+
+#### clear
+
+```java
+Map<String, String> map = new HashMap<String, String>();
+map.clear();
+```
+
+#### remove
+
+```java
+Map<String, String> map = new HashMap<String, String>();
+String result = map.remove("郭靖");
+```
+
+- 在删除数据的时候，如果键**不存在**，返回`null`
+- 在删除数据的时候，如果键是**存在**的，那么会把对应的键值对对象删除，且返回被删除键值对对象的值
+
+#### containsKey
+
+```java
+Map<String, String> map = new HashMap<String, String>();
+boolean keyResult = m.containsKey("郭靖");
+System.out.println(keyResult); // true
+```
+
+#### containsValue
+
+```java
+Map<String, String> map = new HashMap<String, String>();
+boolean valueResult = map.containsValue("小龙女");
+System.out.println(valueResult); // true
+```
+
+#### isEmpty
+
+```java
+Map<String,String> map = new HashMap<String,String>();    
+boolean result = map.isEmpty();
+System.out.println(result);
+```
+
+#### size
+
+```java
+Map<String,String> map = new HashMap<String,String>();   
+int size = map.size();
+System.out.println(size);
+```
+
+#### 案例--神话人物查询
+
+```java
+public class MapDemo02 {
+    public static void main(String[] args) {
+        //创建集合对象
+        Map<String,String> map = new HashMap<String,String>();
+
+        //V put(K key,V value)：添加元素
+        map.put("张无忌","赵敏");
+        map.put("郭靖","黄蓉");
+        map.put("杨过","小龙女");
+
+        //V remove(Object key)：根据键删除键值对元素
+//        System.out.println(map.remove("郭靖"));
+//        System.out.println(map.remove("郭襄"));
+
+        //void clear()：移除所有的键值对元素
+//        map.clear();
+
+        //boolean containsKey(Object key)：判断集合是否包含指定的键
+//        System.out.println(map.containsKey("郭靖"));
+//        System.out.println(map.containsKey("郭襄"));
+
+        //boolean isEmpty()：判断集合是否为空
+//        System.out.println(map.isEmpty());
+
+        //int size()：集合的长度，也就是集合中键值对的个数
+        System.out.println(map.size());
+
+        //输出集合对象
+        System.out.println(map);
+    }
+}
+```
+
+### 遍历方式
+
+#### 键找值
+
+概述：通过`Map`集合的键来获取值
+
+| 方法名              | 说明             |
+| ------------------- | ---------------- |
+| V get(Object key)   | 根据键获取值     |
+| Set keySet()        | 获取所有键的集合 |
+| Collection values() | 获取所有值的集合 |
+
+**基本用例：**
+
+```java
+public class MapDemo {
+    public static void main(String[] args) {
+        // 创建Map集合的对象
+        Map<String, String> map = new HashMap<>();
+        
+        // 添加元素
+        map.put("杨过", "小龙女");
+        map.put("郭靖", "黄蓉");
+        map.put("汪大东", "曾沛慈");
+        
+        // 通过键找值
+        // 获取所有的键，把这些键放到一个单列集合中
+        Set<String> keys = map.keySet();
+        // 使用增强for循环遍历单列集合，得到每个键
+        for (String key : keys) {
+            String value = map.get(key);
+            System.out.println(key + "=" + value);
+        }
+        
+        // 直接找值
+        Collection<String> values = map.values();
+        for (String value : values) {
+            System.out.println(value);
+        }
+    }
+}
+```
+
+#### 键值对
+
+概述：通过`Map`集合获取键值对
+
+**方法介绍：**
+
+| 方法名                          | 说明                     |
+| ------------------------------- | ------------------------ |
+| Set<Map.Entry<K, V>> entrySet() | 获取所有键值对对象的集合 |
+
+```java
+public class MapDemo03 {
+    public static void main(String[] args) {
+        //Map集合的第二种遍历方式
+        
+        //1.创建Map集合的对象
+        Map<String, String> map = new HashMap<>();
+
+        //2.添加元素
+        //键：人物的外号
+        //值：人物的名字
+        map.put("标枪选手", "马超");
+        map.put("人物挂件", "明世隐");
+        map.put("御龙骑士", "尹志平");
+
+        //3.Map集合的第二种遍历方式
+        //通过键值对对象进行遍历
+        //3.1 通过一个方法获取所有的键值对对象，返回一个Set集合
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        //3.2 遍历entries这个集合，去得到里面的每一个键值对对象
+        for (Map.Entry<String, String> entry : entries) {//entry  --->  "御龙骑士","尹志平"
+            //3.3 利用entry调用get方法获取键和值
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println(key + "=" + value);
+        }
+    }
+}
+```
+
+#### Lambda表达式
+
+概述：得益于JDK8开始的新技术Lambda表达式，提供了一种更简单、更直接的遍历集合的方法。
+
+```java
+public class MapDemo03 {
+    public static void main(String[] args) {
+       //Map集合的第三种遍历方式
+
+
+        //1.创建Map集合的对象
+        Map<String,String> map = new HashMap<>();
+
+        //2.添加元素
+        //键：人物的名字
+        //值：名人名言
+        map.put("鲁迅","这句话是我说的");
+        map.put("曹操","不可能绝对不可能");
+        map.put("刘备","接着奏乐接着舞");
+        map.put("柯镇恶","看我眼色行事");
+
+        //3.利用lambda表达式进行遍历
+        //底层：
+        //forEach其实就是利用第二种方式进行遍历，依次得到每一个键和值
+        //再调用accept方法
+        map.forEach(new BiConsumer<String, String>() {
+            @Override
+            public void accept(String key, String value) {
+                System.out.println(key + "=" + value);
+            }
+        });
+
+        System.out.println("-----------------------------------");
+
+        map.forEach((String key, String value)->{
+                System.out.println(key + "=" + value);
+            }
+        );
+
+        System.out.println("-----------------------------------");
+
+        map.forEach((key, value)-> System.out.println(key + "=" + value));
+    }
+}
+```
+
