@@ -1612,11 +1612,11 @@ public class Student implements Comparable<Student> {
 
 #### 常用成员方法
 
-| 方法名称                                 | 说明                                 |
-| ---------------------------------------- | ------------------------------------ |
-| static <E> List<E> of(E...elements)      | 创建一个具有指定元素的`List`集合对象 |
-| static <E> Set<E> of(E...elements)       | 床架一个具有指定元素的`Set`集合对象  |
-| static <K, V> Map<K, V> of(E...elements) | 创建一个具有指定元素的`Map`集合对象  |
+| 方法名称                                   | 说明                                 |
+| ------------------------------------------ | ------------------------------------ |
+| `static <E> List<E> of(E...elements)`      | 创建一个具有指定元素的`List`集合对象 |
+| `static <E> Set<E> of(E...elements)`       | 床架一个具有指定元素的`Set`集合对象  |
+| `static <K, V> Map<K, V> of(E...elements)` | 创建一个具有指定元素的`Map`集合对象  |
 
 #### 不可变的List集合
 
@@ -1799,13 +1799,12 @@ public class ImmutableDemo4 {
 
 | 方法名称                                                     | 说明                   |
 | ------------------------------------------------------------ | ---------------------- |
-| public static <T> boolean addAll(Collection<T> c, T... elements) | 批量添加元素           |
-| public static void shufle(List<?> list)                      | 打乱List集合元素的顺序 |
-| public static <T> void sort(List<T> list)                    | 排序                   |
-| public static <T> void sort(List<T> list, Comparator<T> c)   | 根据指定的规则进行排序 |
-| public static <T> int binarySearch(List<T> list,T key)       | 以二分查找法查找元素   |
-| public static <T> void copy(List<T> dest, List<T> src)       |                        |
+| `public static <T> boolean addAll(Collection<T> c, T... elements)` | 批量添加元素           |
+| `public static void shufle(List<?> list)`                    | 打乱List集合元素的顺序 |
+| `public static <T> void sort(List<T> list)`                  | 排序                   |
+| `public static <T> void sort(List<T> list, Comparator<T> c)` | 根据指定的规则进行排序 |
+| `public static <T> int binarySearch(List<T> list,T key)`     | 以二分查找法查找元素   |
+| `public static <T> void copy(List<T> dest, List<T> src)`     | 拷贝集合中的元素       |
 |                                                              |                        |
 |                                                              |                        |
 |                                                              |                        |
-
