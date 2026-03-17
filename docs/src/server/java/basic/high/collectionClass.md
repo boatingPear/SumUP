@@ -1592,3 +1592,220 @@ public class Student implements Comparable<Student> {
 
 参考资料：[集合进阶-17-TreeMap源码超详细解析（一）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1yW4y1Y7Ms/?p=18&spm_id_from=pageDriver&vd_source=dddaa7c77aa38a5c24657d40a4f357c9)
 
+## 不可变集合
+
+是一个长度不可变，内容也无法修改的集合
+
+### 使用场景
+
+如果某个数据不能被修改，把他防御性的**拷贝到不可变集合中**是个很好的方式。
+
+当集合对象被不可信的库调用时，不可变的形式是安全的。
+
+简单理解：不想让别人修改集合中的内容
+
+### 分类
+
+- 不可变的`List`集合
+- 不可变的`Set`集合
+- 不可变的`Map`集合
+
+#### 常用成员方法
+
+| 方法名称                                 | 说明                                 |
+| ---------------------------------------- | ------------------------------------ |
+| static <E> List<E> of(E...elements)      | 创建一个具有指定元素的`List`集合对象 |
+| static <E> Set<E> of(E...elements)       | 床架一个具有指定元素的`Set`集合对象  |
+| static <K, V> Map<K, V> of(E...elements) | 创建一个具有指定元素的`Map`集合对象  |
+
+#### 不可变的List集合
+
+```java
+public class ImmutableDemo1 {
+    public static void main(String[] args) {
+        /*
+            创建不可变的List集合
+            "张三", "李四", "王五", "赵六"
+        */
+
+        //一旦创建完毕之后，是无法进行修改的，在下面的代码中，只能进行查询操作
+        List<String> list = List.of("张三", "李四", "王五", "赵六");
+
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
+        System.out.println(list.get(3));
+
+        System.out.println("---------------------------");
+
+        for (String s : list) {
+            System.out.println(s);
+        }
+
+        System.out.println("---------------------------");
+
+
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+            String s = it.next();
+            System.out.println(s);
+        }
+        System.out.println("---------------------------");
+
+        for (int i = 0; i < list.size(); i++) {
+            String s = list.get(i);
+            System.out.println(s);
+        }
+        System.out.println("---------------------------");
+
+        //list.remove("李四");
+        //list.add("aaa");
+        list.set(0,"aaa");
+    }
+}
+```
+
+#### 不可变的Set集合
+
+```java
+public class ImmutableDemo2 {
+    public static void main(String[] args) {
+        /*
+           创建不可变的Set集合
+           "张三", "李四", "王五", "赵六"
+
+
+           细节：
+                当我们要获取一个不可变的Set集合时，里面的参数一定要保证唯一性
+        */
+
+        //一旦创建完毕之后，是无法进行修改的，在下面的代码中，只能进行查询操作
+        Set<String> set = Set.of("张三", "张三", "李四", "王五", "赵六");
+
+        for (String s : set) {
+            System.out.println(s);
+        }
+
+        System.out.println("-----------------------");
+
+        Iterator<String> it = set.iterator();
+        while(it.hasNext()){
+            String s = it.next();
+            System.out.println(s);
+        }
+
+        System.out.println("-----------------------");
+        //set.remove("王五");
+    }
+}
+```
+
+#### 不可变的Map集合
+
+- 键值对个数小于等于10
+
+```java
+public class ImmutableDemo3 {
+    public st	atic void main(String[] args) {
+       /*
+        创建Map的不可变集合
+            细节1：
+                键是不能重复的
+            细节2：
+                Map里面的of方法，参数是有上限的，最多只能传递20个参数，10个键值对
+            细节3：
+                如果我们要传递多个键值对对象，数量大于10个，在Map接口中还有一个方法
+        */
+
+        //一旦创建完毕之后，是无法进行修改的，在下面的代码中，只能进行查询操作
+        Map<String, String> map = Map.of("张三", "南京", "张三", "北京", "王五", "上海",
+                "赵六", "广州", "孙七", "深圳", "周八", "杭州",
+                "吴九", "宁波", "郑十", "苏州", "刘一", "无锡",
+                "陈二", "嘉兴");
+
+        Set<String> keys = map.keySet();
+        for (String key : keys) {
+            String value = map.get(key);
+            System.out.println(key + "=" + value);
+        }
+
+        System.out.println("--------------------------");
+
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println(key + "=" + value);
+        }
+        System.out.println("--------------------------");
+    }
+}
+```
+
+- 键值对个数大于10
+
+```java
+public class ImmutableDemo4 {
+    public static void main(String[] args) {
+
+        /*
+            创建Map的不可变集合,键值对的数量超过10个
+        */
+
+        //1.创建一个普通的Map集合
+        HashMap<String, String> hm = new HashMap<>();
+        hm.put("张三", "南京");
+        hm.put("李四", "北京");
+        hm.put("王五", "上海");
+        hm.put("赵六", "北京");
+        hm.put("孙七", "深圳");
+        hm.put("周八", "杭州");
+        hm.put("吴九", "宁波");
+        hm.put("郑十", "苏州");
+        hm.put("刘一", "无锡");
+        hm.put("陈二", "嘉兴");
+        hm.put("aaa", "111");
+
+        //2.利用上面的数据来获取一个不可变的集合
+/*
+        //获取到所有的键值对对象（Entry对象）
+        Set<Map.Entry<String, String>> entries = hm.entrySet();
+        //把entries变成一个数组
+        Map.Entry[] arr1 = new Map.Entry[0];
+        //toArray方法在底层会比较集合的长度跟数组的长度两者的大小
+        //如果集合的长度 > 数组的长度 ：数据在数组中放不下，此时会根据实际数据的个数，重新创建数组
+        //如果集合的长度 <= 数组的长度：数据在数组中放的下，此时不会创建新的数组，而是直接用
+        Map.Entry[] arr2 = entries.toArray(arr1);
+        //不可变的map集合
+        Map map = Map.ofEntries(arr2);
+        map.put("bbb","222");*/
+
+
+        //Map<Object, Object> map = Map.ofEntries(hm.entrySet().toArray(new Map.Entry[0]));
+
+        Map<String, String> map = Map.copyOf(hm);
+        map.put("bbb","222");
+    }
+}
+```
+
+## Collections集合工具类
+
+`java.util.Collections`：是集合工具类
+
+作用：`Collections`不是集合，而是集合的工具类
+
+### 常用成员方法
+
+| 方法名称                                                     | 说明                   |
+| ------------------------------------------------------------ | ---------------------- |
+| public static <T> boolean addAll(Collection<T> c, T... elements) | 批量添加元素           |
+| public static void shufle(List<?> list)                      | 打乱List集合元素的顺序 |
+| public static <T> void sort(List<T> list)                    | 排序                   |
+| public static <T> void sort(List<T> list, Comparator<T> c)   | 根据指定的规则进行排序 |
+| public static <T> int binarySearch(List<T> list,T key)       | 以二分查找法查找元素   |
+| public static <T> void copy(List<T> dest, List<T> src)       |                        |
+|                                                              |                        |
+|                                                              |                        |
+|                                                              |                        |
+

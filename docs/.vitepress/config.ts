@@ -20,13 +20,14 @@ export default defineConfig({
     },
     plugins: [
       groupIconVitePlugin()
-    ] 
+    ],
   },
   //markdown样式
   markdown: {
     config(md) {
       md.use(groupIconMdPlugin)
     },
+    html: true,
     lineNumbers: true,
     container: {
       tipLabel: "提示",
