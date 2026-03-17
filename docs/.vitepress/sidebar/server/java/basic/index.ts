@@ -81,6 +81,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "集合类",
                 link: "/server/java/basic/high/collectionClass"
+            },
+            {
+                text: "泛型",
+                link: "/server/java/basic/high/genericity"
             }
         ]
     }

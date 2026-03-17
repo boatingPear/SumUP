@@ -1234,8 +1234,8 @@ interface Map<K, V> K: 键的类型；V: 值的类型
 | V put(K key,V value)                | 添加元素                             |
 | V remove(Object key)                | 根据键删除键值对元素                 |
 | void clear()                        | 移除所有的键值对元素                 |
-| boolean containsKey(Objec key)      | 判断集合是否包含制定的键             |
-| boolean containsValue(Object value) | 判断集合是否包含制定的值             |
+| boolean containsKey(Objec key)      | 判断集合是否包含指定的键             |
+| boolean containsValue(Object value) | 判断集合是否包含指定的值             |
 | boolean isEmpty()                   | 判断集合是否为空                     |
 | int size()                          | 集合的长度，也就是集合中键值对的个数 |
 
@@ -1807,7 +1807,7 @@ public class ImmutableDemo4 {
 | `public static <T> void copy(List<T> dest, List<T> src)`     | 拷贝集合中的元素                  |
 | `public static <T> int fill(List<T> list, T obj)`            | 使用指定的元素填充集合            |
 | `public static <T> void max/min(Collection<T> coll)`         | 根据默认的自然排序获取最大/最小值 |
-| `public static <T> void swap(List<?> list, int i, int j)`    | 交换集合中制定位置的元素          |
+| `public static <T> void swap(List<?> list, int i, int j)`    | 交换集合中指定位置的元素          |
 
 ### 基本用例
 
