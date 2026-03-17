@@ -1465,3 +1465,130 @@ public class MapDemo03 {
 }
 ```
 
+## HashMap
+
+![image-20230424195034363](../assets/67ac31aa055c1ecf1842c13739eed053.png)
+
+`HashMap`是Java中的一个集合类，他实现了`Map`接口，可以用来存储键值对。
+
+**特点：**
+
+- `HashMap`中的键值对是无序的。
+- `HashMap`允许使用`null`作为键或值。
+- `HashMap`的键是唯一的，，如果插入了两个相同的键，则后插入的值会覆盖先插入的值。
+- `HashMap`是线程不安全的，如果多个线程同时对`HashMap`进行操作，可能会导致数据不一致。
+- `HashMap`的实现是基于哈希表的，使用哈希算法来确定键值对的存储位置，因此插入和查询的时间复杂度为`O(1)`。
+
+```java
+public class HashMapDemo {
+    public static void main(String[] args) {
+        //创建HashMap集合对象
+        HashMap<Student, String> hm = new HashMap<Student, String>();
+
+        //创建学生对象
+        Student s1 = new Student("林青霞", 30);
+        Student s2 = new Student("张曼玉", 35);
+        Student s3 = new Student("王祖贤", 33);
+        Student s4 = new Student("王祖贤 ", 33);
+
+        //把学生添加到集合
+        hm.put(s1, "西安");
+        hm.put(s2, "武汉");
+        hm.put(s3, "郑州");
+        hm.put(s4, "北京");
+
+        //遍历集合
+        Set<Student> keySet = hm.keySet();
+        for (Student key : keySet) {
+            String value = hm.get(key);
+            System.out.println(key.getName() + "," + key.getAge() + "," + value);
+        }
+    }
+}
+```
+
+### 底层原理
+
+![image-20230424204844400](../assets/0ad87bb4e6676fbdaeb0d795c070c495.png)
+
+> 此图为HashMap底层源码的改写版本，通俗易懂
+
+![image-20230811225217966](../assets/d961a0a0dc3ba7a713bd56de4bee6870.png)
+
+- HashMap底层是哈希表结构的
+- 依赖hashCode方法和equals方法保证**键的唯一**
+- 如果**键**要存储的是自定义对象，需要重写hashCode和equals方法。如果**值**要存储的是自定义对象，不需要重写hashCode和equals方法0
+
+参考资料：[集合进阶-13-HashMap源码超详细解析（一）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1yW4y1Y7Ms/?p=14&spm_id_from=pageDriver&vd_source=dddaa7c77aa38a5c24657d40a4f357c9)
+
+## LinkedHashMap集合
+
+![image-20230424195741868](../assets/bae2f0a465e203f27db136eae2c873c4.png)
+
+`LinkedHashMap`是`HashMap`的一个子类
+
+**特点：**
+
+- 不重复
+- 无索引
+- 有序性：`LinkedHashMap`中的元素按照插入顺序排序，也可以按照访问顺序排序(通过构造函数传入`accessOrder`参数为`true`实现)。
+
+### 底层原理
+
+底层数据结构是依然哈希表，只是每个键值对元素又额外的多了一个双链表的机制用来记录存储的顺序。跟`HashSet`一样
+
+## TreeMap集合
+
+**特点：**
+
+- `TreeMap`底层是红黑树结构
+- 依赖自然排序或者比较器排序，对键进行排序
+- 如果键存储的是自定义对象，需要实现`Comparable`接口或者在创建`TreeMap`对象时，给出比较器排序规则
+- **注意：**默认按照键的从小到大进行排序，也可以自己规定键的排序规则
+
+```java
+public class Test1 {
+    public static void main(String[] args) {
+      	// 创建TreeMap集合对象
+        TreeMap<Student,String> tm = new TreeMap<>();
+      
+		// 创建学生对象
+        Student s1 = new Student("xiaohei",23);
+        Student s2 = new Student("dapang",22);
+        Student s3 = new Student("xiaomei",22);
+      
+		// 将学生对象添加到TreeMap集合中
+        tm.put(s1,"江苏");
+        tm.put(s2,"北京");
+        tm.put(s3,"天津");
+      
+		// 遍历TreeMap集合,打印每个学生的信息
+        tm.forEach(
+                (Student key, String value)->{
+                    System.out.println(key + "---" + value);
+                }
+        );
+    }
+}
+```
+
+**在`student`类中进行接口实现**
+
+```java
+public class Student implements Comparable<Student> {
+    ......;
+    @Override
+    public int comparetO(Student o) {
+        // 按照年龄进行排序
+        int result = o.getAge() - this.getAge();
+        // 次要条件，按照姓名排序。
+        result = result == 0 ? o.getName().comPareTo(this.getName()) : result;
+        return result;
+    }
+}
+```
+
+### 底层原理
+
+参考资料：[集合进阶-17-TreeMap源码超详细解析（一）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1yW4y1Y7Ms/?p=18&spm_id_from=pageDriver&vd_source=dddaa7c77aa38a5c24657d40a4f357c9)
+
