@@ -52,7 +52,7 @@ export default <DefaultTheme.NavItem[]>[
     },
     { 
         text: '资源', 
-        link: '/resource/index'
+        link: '/resource/'
     },
     {
         text: "流水账",
@@ -63,19 +63,6 @@ export default <DefaultTheme.NavItem[]>[
             },
         ]
     },
-    {
-        text: "其他",
-        items: [
-            {
-                text: "前端ai开发面经",
-                link: "/others/ai-frontent-dev"
-            },
-            {
-                text: "agent开发转型起飞",
-                link: "/others/agent-dev-takeoff"
-            }
-        ]
-    }
     // {
     //     text: '运维',
     //     items: []

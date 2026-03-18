@@ -5,6 +5,7 @@ import frontendReactBasic from "./frontend/react/basic"
 import frontendTools from "./frontend/tools";
 import frontendOtherWxapp from "./frontend/other/wxapp";
 import serverJavaBasic from "./server/java/basic/";
+import resource from "./resource";
 import listOfEvents from "./listOfEvents";
 
 /**
@@ -23,6 +24,8 @@ export default <DefaultTheme.SidebarMulti>{
   "/frontend/other/wxapp/": frontendOtherWxapp,
   // 后端-java-基础
   "/server/java/basic/": serverJavaBasic,
+  // 资源
+  "/resource/": resource,
   // 流水账
   "/listOfEvents/": listOfEvents,
 };  
