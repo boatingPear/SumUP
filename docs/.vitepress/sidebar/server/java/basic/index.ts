@@ -85,6 +85,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "泛型",
                 link: "/server/java/basic/high/genericity"
+            },
+            {
+                text: "知识加油站",
+                link: "/server/java/basic/high/supplement"
             }
         ]
     }
