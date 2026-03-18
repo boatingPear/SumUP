@@ -3,6 +3,7 @@ import DefaultTheme from 'vitepress/theme'
 import Layout from './components/Layout.vue'
 
 import "./style/index.css"
+import './custom.css'
 import 'virtual:group-icons.css'
 
 export default {

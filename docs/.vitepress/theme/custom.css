@@ -15,3 +15,127 @@ blockquote {
   /* 可选：修改文字颜色 */
   color: #2c3e50;
 }
+
+/* 首页 features 布局：前两个模块独占一行，后三个模块在第二行 */
+.VPFeatures .items {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 24px !important;
+  padding: 20px;
+}
+
+.VPFeatures .items .item {
+  flex: 0 0 calc(33.333% - 16px) !important;
+  max-width: calc(33.333% - 16px) !important;
+}
+
+/* 第一行：我的目标和目前资金各占50%宽度 */
+.VPFeatures .items .item:nth-child(1),
+.VPFeatures .items .item:nth-child(2) {
+  flex: 0 0 calc(50% - 12px) !important;
+  max-width: calc(50% - 12px) !important;
+}
+
+/* 第二行：三个模块各占33.333% */
+.VPFeatures .items .item:nth-child(3),
+.VPFeatures .items .item:nth-child(4),
+.VPFeatures .items .item:nth-child(5) {
+  flex: 0 0 calc(33.333% - 16px) !important;
+  max-width: calc(33.333% - 16px) !important;
+}
+
+/* ===== 卡片基础样式 - 融入 VitePress 风格 ===== */
+.VPFeatures .items .item .VPFeature {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 24px;
+  color: var(--vp-c-text-1);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* 悬停效果 - 简洁的提升感 */
+.VPFeatures .items .item .VPFeature:hover {
+  transform: translateY(-4px);
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 标题样式 */
+.VPFeatures .items .item .VPFeature .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vp-c-text-1);
+}
+
+/* 详情文字样式 */
+.VPFeatures .items .item .VPFeature .details {
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+/* ===== 左侧强调线条 ===== */
+.VPFeatures .items .item .VPFeature {
+  position: relative;
+  overflow: hidden;
+}
+
+.VPFeatures .items .item .VPFeature::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--vp-c-brand);
+  transition: width 0.25s ease;
+}
+
+.VPFeatures .items .item .VPFeature:hover::before {
+  width: 6px;
+}
+
+/* ===== 不同模块的主题色 ===== */
+
+/* 我的目标 - 品牌主色 */
+.VPFeatures .items .item:nth-child(1) .VPFeature::before {
+  background: #f5576c;
+}
+
+/* 目前资金 - 成功绿 */
+.VPFeatures .items .item:nth-child(2) .VPFeature::before {
+  background: #42b883;
+}
+
+/* 工作薪资 - 信息蓝 */
+.VPFeatures .items .item:nth-child(3) .VPFeature::before {
+  background: #3b82f6;
+}
+
+/* 微信公众号 - 警告橙 */
+.VPFeatures .items .item:nth-child(4) .VPFeature::before {
+  background: #f59e0b;
+}
+
+/* 小程序卖货佣金 - 紫罗兰 */
+.VPFeatures .items .item:nth-child(5) .VPFeature::before {
+  background: #8b5cf6;
+}
+
+/* ===== 响应式适配 ===== */
+@media (max-width: 768px) {
+  .VPFeatures .items .item:nth-child(1),
+  .VPFeatures .items .item:nth-child(2),
+  .VPFeatures .items .item:nth-child(3),
+  .VPFeatures .items .item:nth-child(4),
+  .VPFeatures .items .item:nth-child(5) {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
