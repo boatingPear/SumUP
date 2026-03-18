@@ -25,7 +25,7 @@ hero:
 #     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 features:
   - title: 🎯 我的目标
-    details: 攒够200两百万退休
+    details: 攒够两百万退休
   - title: 💰 目前资金
     details: 0 元
   - title: 💼 工作薪资
