@@ -36,6 +36,10 @@ export default <DefaultTheme.SidebarItem>[
                 text: "十八日",
                 link: "/listOfEvents/2026/march/18.md"
             },
+            {
+                text: "十九日",
+                link: "/listOfEvents/2026/march/19.md"
+            },
         ]
     }
 ]

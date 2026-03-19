@@ -91,5 +91,14 @@ export default <DefaultTheme.SidebarItem>[
                 link: "/server/java/basic/high/supplement"
             }
         ]
+    },
+    {
+        text: "Java进阶篇一",
+        items: [
+            {
+                text: "Stream流",
+                link: "/server/java/basic/advanced1/stream"
+            }
+        ]
     }
 ]
