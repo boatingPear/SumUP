@@ -16,13 +16,13 @@ hero:
   image:
     src: /imgs/robot.svg
     alt: SumUP
-# features:
-#   - title: Feature A
-#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-#   - title: Feature B
-#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-#   - title: Feature C
-#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+features:
+  - title: Feature A
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Feature B
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Feature C
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 # features:
 #   - title: 🎯 我的目标
 #     details: 攒够两百万退休
@@ -34,5 +34,11 @@ hero:
 #     details: 内容创作收益
 #   - title: 📱 小程序卖货佣金
 #     details: 小程序销售分成
-# # ---
 
+---
+
+## 待办事项
+
+::: tip 
+做饭
+:::
