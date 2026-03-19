@@ -98,6 +98,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "Stream流",
                 link: "/server/java/basic/advanced1/stream"
+            },
+            {
+                text: "方法引用",
+                link :"/server/java/basic/advanced1/methodReference"
             }
         ]
     }
