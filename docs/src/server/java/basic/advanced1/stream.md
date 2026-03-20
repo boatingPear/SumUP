@@ -288,5 +288,159 @@ System.out.println(Arrays.toString(arr2));
 ### collect
 
 ```java
+ArrayList<String> list = new ArrayList<>();
+Collections.addAll(list, "张无忌-男-15", "周芷若-女-14", "赵敏-女-13", "张强-男-20",
+                   "张三丰-男-100", "张翠山-男-40", "张良-男-35", "王二麻子-男-37", "谢广坤-男-41");
+
+Map<String, Integer> map = list.stream()
+    .filter(s -> "男".equals(s.split("-")[1]))
+    .collect(Collectors.toMap(
+        new Function<String, String>() {
+            @Override
+            public String apply(String s) {
+                return s.split("-")[0];
+            }
+        },
+        new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) {
+                return Integer.valueOf(s.split("-")[2]);
+            }
+        }
+    ));
+// 或者
+Map<String, Integer> map2 = list.stream()
+    .filter(s -> "男".equals(s.split("-")[1]))
+    .collect(Collectors.toMap(
+        s -> s.split("-")[0],
+        s -> Integer.parseInt(s.split("-")[2])));
+System.out.println(map);// {张强=20, 张良=35, 张翠山=40, 王二麻子=37, 张三丰=100, 张无忌=15, 谢广坤=41}
 ```
 
+> `collect`方法配合工具类`Collectors.toList`或者`Collectors.toSet`或者`Collectors.toMap`方法，可完成`Stream`流的数据获取
+
+
+
+## 小结
+
+> 1. 概述：在Java8中，`Stream`是一种**处理集合**的机制，它可以对集合进行各种操作**(过滤、映射、排序等)**并生成新的集合，同时支持并行处理
+>
+> 2. 作用：结合了`Lambda`表达式，**简化**集合、数组的**操作**
+>
+> 3. 使用步骤：
+>
+>    1. **获取`Stream`流对象**
+>
+>       - `Collection`体系集合：使用默认方法`stream()`生成流
+>       - `Map`体系集合：把`Map`转成`Set`集合，间接的生成流
+>       - 数组：通过`Arrays`工具类中的静态方法`stream`生成流
+>       - 同种数据类型的多个零散数据：通过`Stream`接口的静态方法`of(T...values)`生成流
+>
+>    2. 使用**中间方法**处理数据
+>
+>       - **filter：过滤**
+>
+>         ```java
+>         list.stream().filter(new Predicate<String>() {
+>             @Override
+>             public boolean test(String s) {
+>                 return s.startsWith("张");
+>             }
+>         });
+>         list.stream().filter(s -> s.startsWith("张"));
+>         ```
+>
+>       - **limit：获取前几个元素**
+>
+>         ```java
+>         list.stream().limit(3);
+>         ```
+>
+>       - **skip：跳过前几个元素**
+>
+>         ```java
+>         list.stream().skip();
+>         ```
+>
+>       - **distinct：元素去重，（注意，当使用自定义对象进行去重时，依赖`hashCode`和`equals`方法）**
+>
+>         ```java
+>         list1.stream().distinct();
+>         ```
+>
+>       - **concat：合并a和b两个流为一个流**
+>
+>         ```java
+>         Stream.concat(list1.stream(), list2.stream());
+>         // 注意：在使用时，此处使用Stream对象中的concat静态方法
+>         ```
+>
+>       - **map：转换流中的数据类型**
+>
+>         ```java
+>         list.stream().mao(new Function<String, Integer>() {
+>             @Override
+>             public Integer apply(String s) {
+>                 String[] arr = s.split("-");
+>                 String ageString = arr[1];
+>                 int age = Integer.parseInt(ageString);
+>                 return age;
+>             }
+>         })
+>         ```
+>
+>    3. 使用**终结方法处理**数据
+>
+>       - **forEach：遍历**
+>
+>         ```java
+>         list.stream().forEach(new Consumer<String>() {
+>             @Override
+>             public void accept(String s) {
+>                 System.out.println(s);
+>             }
+>         })
+>         ```
+>
+>       - **count：统计**
+>
+>         ```java
+>         list.stream().count();
+>         ```
+>
+>       - **toArray：收集流中的数据，放到数组中**
+>
+>         ```java
+>         list.stream().toArray(new IntFunction<String[]>() {
+>             @Override
+>             public String[] apply(int value) {
+>                 return new String[value];
+>             }
+>         });
+>         System.out.println(Arrays.toString(arr));
+>         ```
+>
+>       - **collect：收集流中的数据，放到集合中**
+>
+>         ```java
+>         Map<String, Integer> map = list.stream()
+>             .filter(s -> "男".equals(s.split("-")[1]))
+>             .collect(Collectors.toMap(
+>                 new Function<String, String>() {
+>                     @Override
+>                     public String apply(String s) {
+>                         return s.split("-")[0];
+>                     }
+>                 },
+>                 new Function<String, Integer>() {
+>                     @Override
+>                     public Integer apply(String s) {
+>                         return Integer.valueOf(s.split("-")[2]);
+>                     }
+>                 }
+>             ));
+>         ```
+>
+>         
+>
+> 
