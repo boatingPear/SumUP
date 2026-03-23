@@ -106,6 +106,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "异常处理",
                 link: "/server/java/basic/advanced1/exception"
+            },
+            {
+                text: "File类",
+                link: "/server/java/basic/advanced1/file"
             }
         ]
     }
