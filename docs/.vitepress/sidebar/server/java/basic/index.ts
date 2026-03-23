@@ -102,6 +102,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "方法引用",
                 link :"/server/java/basic/advanced1/methodReference"
+            },
+            {
+                text: "异常处理",
+                link: "/server/java/basic/advanced1/exception"
             }
         ]
     }
