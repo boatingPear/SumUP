@@ -7,6 +7,7 @@ import frontendOtherWxapp from "./frontend/other/wxapp";
 import serverJavaBasic from "./server/java/basic/";
 import resource from "./resource";
 import listOfEvents from "./listOfEvents";
+import otherTrae from "./other/trae";
 
 /**
  * 侧边栏
@@ -28,4 +29,6 @@ export default <DefaultTheme.SidebarMulti>{
   "/resource/": resource,
   // 流水账
   "/listOfEvents/": listOfEvents,
+  // trae
+  "/other/trae/": otherTrae
 };  

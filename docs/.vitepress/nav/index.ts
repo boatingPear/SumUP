@@ -63,6 +63,15 @@ export default <DefaultTheme.NavItem[]>[
             },
         ]
     },
+    {
+        text: "其他",
+        items: [
+            { 
+                text: 'Trae', 
+                link: "other/trae"
+            },
+        ]
+    },
     // {
     //     text: '运维',
     //     items: []
