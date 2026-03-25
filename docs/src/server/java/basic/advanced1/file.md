@@ -344,10 +344,21 @@ System.out.println(Arrays.toString(arr2));
 > 1. File类：文件的抽象表示
 >    1. 构造方法：能直接使用路径，或父加子的形式
 >    2. 常用成员方法
->       1. isDir：判断是否是文件夹
->       2. isFile：判断是否是文件
->       3. exxist：判断是否存在
->       4. length：获取文件大小-字节英文一个，中文三个
->       5. getName：获取文件名称+后缀 // aaaa.txt
->       6. getAbPath：获取
->       7. 
+>       1. isDirectory 判断是否是文件夹
+>       2. isFile 判断是否是文件
+>       3. exists 判断是否存在
+>       4. length 获取文件的大小，单位字符--英文占一个字符，中文占是三个字符
+>       5. getName 获取文件名称，格式 aaa.txt --- 包含后缀
+>       6. getAbsolutePath 将当前项目的跟路径和指定路径拼接
+>       7. getPath 返回定义文件时使用的路径，就是new File时构造函数的传参
+>       8. lastModified 获取指定路径文件的最后修改时间
+>       9. createNewFile 根据指定路径创建文件
+>       10. mkdir 创建单层文件夹
+>       11. mkdirs 创建多层文件夹，也可以创建单层文件夹
+>       12. delete 删除指定文件或文件夹
+>           1. 如果删除成功，那么直接删除，不会再走回收站
+>       13. listRoots 列出当期设备上所有可用的根目录 return ["C:", "D:] ，返回的其实是String类型的
+>       14. list 获取指定路径目录下所有的文件 return ["aaa.java", "ccc"]  返回的也是String类型的
+>       15. list 可以使用文件筛选器过滤筛选
+>       16. listFiles 获取指定路径文件夹下所有的文件和文件夹
+>       17. listFiles 可以使用两种文件筛选器进行筛选返回
