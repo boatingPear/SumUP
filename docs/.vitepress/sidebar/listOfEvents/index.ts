@@ -51,6 +51,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "二十五号",
                 link: "/listOfEvents/2026/march/25.md"
+            },
+            {
+                text: "二十六号",
+                link: "/listOfEvents/2026/march/26.md"
             }
         ]
     }
