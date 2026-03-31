@@ -25,9 +25,9 @@ hero:
 #     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 # features:
 #   - title: 🎯 我的目标
-#     details: 百万红利退休
-#   - title: 💰 目前进度
-#     details: 2430
+#     details: 万元红利退休
+#   - title: 💰 目前进度：
+#     details: 24.70
 #   - title: 💼 工作薪资
 #     details: 主要收入来源
 #   - title: 📝 微信公众号
@@ -45,8 +45,8 @@ hero:
 
 ## 待办事项
 
-::: danger
-回家别忘了拔牙挂号
+::: tip
+英语磨耳朵
 :::
 
 ::: danger
@@ -57,10 +57,6 @@ hero:
 可以看看，学习怎么练习对文章对话的重点精华提取
 :::
 
-::: warning
-养个虾，现在想想真是不该把那个内存条卖了
-:::
-  
 ::: danger
-公众号必须更新一篇
+公众号先写几篇日记
 :::
