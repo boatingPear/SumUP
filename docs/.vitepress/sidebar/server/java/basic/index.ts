@@ -110,6 +110,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "File类",
                 link: "/server/java/basic/advanced1/file"
+            },
+            {
+                text: "IO流",
+                link: "/server/java/basic/advanced1/io"
             }
         ]
     }
