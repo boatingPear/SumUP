@@ -145,7 +145,6 @@ System.out.println(len1);//2
 String str1 = new String(bytes,0,len1);
 System.out.println(str1);
 
-
 int len2 = fis.read(bytes);
 System.out.println(len2);//2
 String str2 = new String(bytes,0,len2);
@@ -196,9 +195,17 @@ FileInputStream fis = new FileInputStream();
 int b1 = fis.read();
 ```
 
+![image-20230427084558787](../assets/fac9ce0452052894a1bb2c40094e2eb7.png)
 
+```java
+fis.close();
+```
 
+### 输出流-FileOutputStream
 
+#### 概述
+
+`FileOutputStream`是Java I/O包中的一个类，又叫字节输出流。用于操作本地文件的字节输出流，可以把程序中的数据写到本地文件中。
 
 
 
