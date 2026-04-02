@@ -7,6 +7,7 @@ export default <DefaultTheme.SidebarItem>[
     },
     {
         text: "三月",
+        collapsed: false,
         items: [
             {
                 text: "十日",
@@ -67,6 +68,15 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "三十号",
                 link: "/listOfEvents/2026/march/30.md"
+            }
+        ]
+    },
+    {
+        text: "四月",
+        items: [
+            {
+                text: "二号",
+                link: "/listOfEvents/2026/april/2.md"
             }
         ]
     }
