@@ -70,6 +70,10 @@ export default <DefaultTheme.NavItem[]>[
                 text: 'Trae', 
                 link: "other/trae"
             },
+            {
+                text: "菜谱",
+                link: "other/menu"
+            }
         ]
     },
     // {
