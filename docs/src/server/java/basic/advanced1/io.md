@@ -225,25 +225,62 @@ fos.close(); // 无论是写还是读完成后都要释放资源，才能进行�
 - `public FileOutputStream(File file)`：创建文件输出流以写入由指定的File对象表示的文件。
 - `public FileOutputStream(String name)`：创建文件输出流以指定的名称写入文件。
 
+##### FileOutputStream(File file)
 
+```jva
+File file = new File("a.txt");
+FileOutputStream fos = new FileOutputStream(file);
+```
 
+> - 如果文件不存在会创建一个新文件，但是要保证父级路径是存在的
+> - 如果文件已存在，则会清空文件
 
+##### FileOutputStream(String name)
 
+```java
+FileOutputStream fos = new FileOutputStream("b.txt");
+```
 
+#### 常用成员方法
 
+| 方法名称                                        | 说明                         |
+| ----------------------------------------------- | ---------------------------- |
+| `pubilc void write(int b)`                      | 一次写一个字节数据           |
+| `public void write(byte[] b)`                   | 一次写一个字节数组数据       |
+| `public void write(byte[] b, int off, int len)` | 一次写一个字节数组的部分数据 |
 
+##### write(int b)
 
+```java
+fos.write(97); // 一次写入一个字节数据
+```
 
+> `write`方法的参数是整数，但是实际上写到文件中的是整数在ASCII上对应的字符
 
+##### write(byte[] b)
 
+```java
+byte[] bytes = {97, 98, 99, 100, 101};
+fos.write(bytes); // 一次写一个字节数组
+```
 
+> 使用数组写入，每次写入多个字节，减少了系统间的IO操作次数，从而提高了读写的效率
 
+##### write(byte[] b, int off, int len)
 
+```java
+byte[] bytes = {97, 98, 99, 100, 101}; // 一次写一个字节数组的部分数据
+// 从索引1位开始，写入2为字节数
+fos.write(bytes, 1, 2); // b c
+```
 
+##### close()
 
+```java
+fis.close(); // 释放资源
+```
 
-
-
+> 每次使用完流之后都要释放资源
 
 
 
