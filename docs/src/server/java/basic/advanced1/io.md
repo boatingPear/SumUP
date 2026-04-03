@@ -207,9 +207,23 @@ fis.close();
 
 `FileOutputStream`是Java I/O包中的一个类，又叫字节输出流。用于操作本地文件的字节输出流，可以把程序中的数据写到本地文件中。
 
+#### 基本用例
 
+```java
+// 创建对象
+// 写出输出流 OutputStream
+// 本地文件 File
+FileOutputStream fos = new FileOutputStream("a.txt");
+// 写数据
+fos.write(100);
+// 释放资源
+fos.close(); // 无论是写还是读完成后都要释放资源，才能进行另一项操作
+```
 
+#### 构造方法
 
+- `public FileOutputStream(File file)`：创建文件输出流以写入由指定的File对象表示的文件。
+- `public FileOutputStream(String name)`：创建文件输出流以指定的名称写入文件。
 
 
 
