@@ -342,3 +342,27 @@ public class StringBuilderDemo4 {
 需要用`toString()`将他变成字符串，因为此时为`StringBuilder`容器而不是字符串
 
 :::
+
+## StringJoiner类
+
+主要是用作连接字符串
+
+### 构造方法
+
+| 方法名称                                                     | 说明                                       |
+| ------------------------------------------------------------ | ------------------------------------------ |
+| `public StringJoiner(String delimiter)`                      | 传递一个连接符，不包含开头结尾             |
+| `public StringJoiner(String delimiter, String prefix, String suffix)` | 三个参数分别为：连接符，开头符号，结尾符号 |
+
+```java
+public class Test1 {
+    static void main(String[] args) {
+        // 主要是字符串连接 三个参数分别为：
+        // 连接符 开头符号 结尾符号
+        StringJoiner sj = new StringJoiner(", ", "[", "]");
+        sj.add("aaa").add("bbb").add("ccc");
+        System.out.println(sj); // [aaa, bbb, ccc]
+    }
+}
+```
+
