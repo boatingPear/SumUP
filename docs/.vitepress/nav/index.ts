@@ -77,6 +77,10 @@ export default <DefaultTheme.NavItem[]>[
             {
                 text: "金融知识",
                 link: "other/finance"
+            },
+            {
+                text: "护肤",
+                link: "other/skin"  
             }
         ]
     },
