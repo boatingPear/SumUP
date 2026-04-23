@@ -341,23 +341,68 @@ fos.close();
 
 ### 案例-文件拷贝
 
+```java
+// 一个读，一个写
+FileInputStream fis = new FileInputStream("text1.txt"); // 读取流
+FileOutputStream fos = new FileOutputStream("text2.txt"); // 写入流
 
+try {
+    int b;
+    while((b = fis.read()) != -1) {
+        fos.write(b);
+    };
+    // 规则：先开的最后关闭
+    fos.close(); // 后开先关
+    fis.close(); // 先开后关
+    sout("拷贝成功且关闭读取和写入流");
+} catch(Exception e) {
+    sout(e)
+}
+```
 
+小知识：
 
+> 流的关闭原则，先开后关，后开先关
 
+弊端:
 
+![image-20230427085941843](../assets/4a9705a8e7d085e10f3d74cd6af4284d.png)
 
+> 若是大文件读取，则会非常的缓慢
 
+```java
+// 创建读取和写入流
+FileInputStream fis = new FileInputStream("text1.txt");
+FileOutputStream fos = nwe FileOutputStream("text2.txt");
 
+int b;
+byte[] bytes = new byte[1024 * 1024 * 5]; // 5MB
+while((b = fis.read(bytes)) != -1) {
+    fos.write(b);
+}
+// 释放资源
+fos.close();
+fis.close();
+```
 
+> 此时使用数组进行读取和写入，可以减少系统间的IO操作次数，从而提高了读写的效率
 
+## 字符基本流
 
+**特点：**
 
+- 输入流：一次读一个字节，遇到中文时，一次读多个字节
+- 输出流：底层会把数据按照指定的编码方式进行编码，变成字节再写到文件中。
 
+字符编码：字节与字符的对应规则。windows系统的中文编码默认是GBK编码表。IDEA中的编码默认是UTF-8编码表。
 
+### 输入流-FileReader
 
+#### 概述
 
+`FileReader`是Java I/O包中的一个类，用于从文件中读取字符数据。他的作用是把字符输入流换成字节输入流，读取文件中的字符数据，常用于读取文本文件。
 
+#### 基本用例
 
 
 
