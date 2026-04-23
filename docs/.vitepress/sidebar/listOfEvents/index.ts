@@ -7,7 +7,7 @@ export default <DefaultTheme.SidebarItem>[
     },
     {
         text: "三月",
-        collapsed: false,
+        collapsed: true,
         items: [
             {
                 text: "十日",

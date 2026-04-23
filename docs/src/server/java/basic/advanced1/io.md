@@ -282,25 +282,64 @@ fis.close(); // 释放资源
 
 > 每次使用完流之后都要释放资源
 
+#### 换行和续写
+
+```java
+// 创建对象
+FileOutputStream fos = new FileOutputStream("myio\\aa.txt", true); // 第二个参数为续写开关
+// 写出数据
+String str = "你好啊，李银河！";
+byte[] bytes1 = str.getBytes();
+fos.write(bytes1);
+
+// 再写出一个换行符就可以了
+String wrap = "\r\n";
+byte[] bytes2 = wrap.getBytes();
+fos.write(bytes2);
+
+String str2 = "666";
+byte[] bytes3 = str2.getBytes();
+fos.write(bytes3);
+
+// 释放资源
+fos.close();
+```
+
+**小知识：**
+
+> 1. 换行写：
+>    - 再次写出一个换行符就行了
+>    - windows：\r\n
+>    - Linux: \n
+>    - Mac: \r
+> 2. 细节：
+>    - 在windows操作系统重，java对回车换行进行了优化。
+>    - 虽然完整的是\r\n，但是我们写其中一个\\r或者\n，java也可以实现换行，因为java在底层补全
+> 3. 续写：
+>    - 如果想要续写，打开续写开关即可
+>    - 开关位置：创建对象的第二个参数
+>    - 默认false：表示关闭续写，此时创建对象会清空文件
+>    - 手动传递true：表示打开续写，此时创建对象不会清空文件
+
+#### 原理
+
+**输出流工作原理**
+
+![image-20230427080347014](../assets/9dfbc59c57ca2d0b77982ee453e22649.png)
 
 
 
+说明：
 
+> 通过write方法进行数据的传输
 
+![image-20230427080505671](../assets/fd7a963e3dfec101d1a9931f22af6816.png)
 
+说明：
 
+> 通过close方法将数据传输的通道销毁掉
 
-
-
-
-
-
-
-
-
-
-
-
+### 案例-文件拷贝
 
 
 
