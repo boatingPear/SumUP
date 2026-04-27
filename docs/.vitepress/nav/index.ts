@@ -81,6 +81,10 @@ export default <DefaultTheme.NavItem[]>[
             {
                 text: "护肤",
                 link: "other/skin"  
+            },
+            {
+                text: "健康",
+                link: "other/health/exercise.md"
             }
         ]
     },
