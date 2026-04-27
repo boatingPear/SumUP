@@ -40,6 +40,7 @@ export default <DefaultTheme.SidebarItem>[
     },
     {
         text: "Java中级",
+        collapsed: true,
         items: [
             {
                 text: "面向对象",   
@@ -77,6 +78,7 @@ export default <DefaultTheme.SidebarItem>[
     },
     {
         text: "Java高级",
+        collapsed: true,
         items: [
             {
                 text: "集合类",
