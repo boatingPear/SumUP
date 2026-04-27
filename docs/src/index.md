@@ -31,7 +31,7 @@ hero:
 #   - title: 💼 工作薪资
 #     details: 主要收入来源
 #   - title: 📝 微信公众号
-#     details: 内容创作收益
+#     details: 内容创作收益 
 #   - title: 📱 小程序卖货佣金
 #     details: 小程序销售分成
 
