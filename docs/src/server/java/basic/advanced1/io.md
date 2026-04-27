@@ -404,35 +404,187 @@ fis.close();
 
 #### 基本用例
 
+```java
+//1.创建对象并关联本地文件
+FileReader fr = new FileReader("myio\\a.txt");
+//2.读取数据 read()
+//字符流的底层也是字节流，默认也是一个字节一个字节的读取的。
+//如果遇到中文就会一次读取多个，GBK一次读两个字节，UTF-8一次读三个字节
 
+//read（）细节：
+//1.read():默认也是一个字节一个字节的读取的,如果遇到中文就会一次读取多个
+//2.在读取之后，方法的底层还会进行解码并转成十进制。
+//  最终把这个十进制作为返回值
+//  这个十进制的数据也表示在字符集上的数字
+//  英文：文件里面二进制数据 0110 0001
+//          read方法进行读取，解码并转成十进制97
+//  中文：文件里面的二进制数据 11100110 10110001 10001001
+//          read方法进行读取，解码并转成十进制27721
 
+// 我想看到中文汉字，就是把这些十进制数据，再进行强转就可以了
 
+int ch;
+while((ch = fr.read()) != -1){
+    System.out.print((char)ch);
+}
 
+//3.释放资源
+fr.close();
+```
 
+#### 构造方法
 
+- `FileReader(File file)`：创建一个新的FileReader，给定要读的File对象。
+- `FileReader(string fileName)`：创建一个新的FileReader，给定要读取的文件的名称。
 
+##### FileReader(File file)
 
+```java
+// 使用File对象创建流对象
+FileReader fr = new FileReader("b.txt");
+```
 
+#### 常用成员方法
 
+- `read`：每次可以读取一个字符的数据，提升为int类型，读取到文件末尾，返回`-1`
+- `read(char[] cbuf)`：每次读取b长度个字符到数组中，返回读取到的有效字符个数，读取到文件末尾，返回`-1`。
 
+##### read()  每次读取一个字符，结尾返回-1
 
+```java
+int b = fr.read();
+```
 
+> 每次读取一个字符，都会自动提升为int类型，因此需要强制转换才可得到数据
 
+##### read(char[] cbuf)
 
+```java
+// 作用：每次读取b长度个字符到数组中
+char[] cbuf = new char[2];
+// 循环读取
+int len = fr.read(cbuf);
+```
 
+说明：
 
+> 读取数据，解码，强转三步合并了，把强转之后的字符放到数组中
 
+##### close() 关闭读取流
 
+```> 
+// 释放资源
+fis.close();
+```
 
+> 解除资源占用
 
+#### 循环读取
 
+**循环单字符读取**
 
+```java
+// 使用文件名称创建流对象
+FileReader fr = new FileReader("text.txt");
+// 定义变量，保存数据
+int b;
+// 循环读取
+while ((b = fr.read()) != -1) {
+    sout((char)b); // 每次一个字输出
+}
+// 关闭资源
+fr.close();
+```
 
+**循环-字符数组读取**
 
+```java
+// 使用文件名称创建流对象
+FileReader = fr = new FileReader("text.txt");
+// 保存读取字符有效个数
+int len;
+// 定义字符数组，作为装字符数据的容器
+char[] cbuf = new char[2];
+// 循环读取
+while((len = fr.read(cbuf)) != -1) {
+    sout(len); // 这次读取的字符数
+    sout(new String(cbuf)); // 这次读取的字符
+}
+fr.close(); // 关闭资源
+```
 
+#### 原理
 
+**字符输入流底层原理**
 
+![image-20230427103636695](../assets/85b4ced15c2558d66d995b57031f6be1.png)
 
+![image-20230427103809065](../assets/96170161ef40069850aac3fcd6fceba6.png)
+
+![image-20230427104056436](../assets/995aff9b0931979c82cc12ec4e3a5fb6.png)
+
+> 代码执行时，打断点调试即可
+
+```java
+FileReader fr = new FileReader("text.txt");
+fr.read(); // 会把文件中的数据放到缓冲区当中
+// 清空文件
+FileWrite fw = new FileWriter("text.txt");
+// 请问，如果我再次使用fr进行读取
+// 会读取到数据吗？
+// 会把缓冲区的数据全部读取完毕
+// 正确答案：但是只能读取缓冲区的数据，文件中剩余的数据无法再次读取
+int ch;
+while((ch = fr.read()) != -1) {
+    sout((char)ch);
+}
+fw.close();
+fr.close();
+```
+
+### 输出流-FileWriter
+
+#### 概述
+
+`java.io.Writer`抽象类是用于写出字符流的所有类的超类，将指定的字符信息写出到目的地。他定义了字节输出流的基本共性功能方法。
+
+#### 基本用例
+
+```java
+// 创建写入输出流  true 表示续写
+FileWriter fw = new FileWriter("test5.txt", true);
+// 写数据
+fw.write(25105);
+// 释放资源
+fw.close();
+```
+
+#### 构造方法
+
+| 构造方法                                              | 说明                             |
+| ----------------------------------------------------- | -------------------------------- |
+| `public FileWriter(File file)`                        | 创建字符输出流关联本地文件       |
+| `public FileWriter(String pathname)`                  | 创建字符输出流关联本地文件       |
+| `public FileWriter(File file, boolean append)`        | 创建字符输出流关联本地文件，续写 |
+| `public FileWriter(String patchname, boolean append)` | 创建字符输出流关联本地文件，续写 |
+
+##### FileWriter(File file)
+
+```java
+// 使用File对象创建流
+File file = new File("text.txt");
+FileWriter fw = new FileWriter(file);
+```
+
+> - 如果文件不存在会创建一个新的文件，但是要保证父级路径是存在的
+> - 如果文件已经存在，则会清空文件，如果不想清空可以打开续写开关
+
+##### FileWriter(String pathName)
+
+```java
+// 作用：使用文件名称创建流对象
+FileWriter fw = new FileWriter("text.txt");
+```
 
 
 
