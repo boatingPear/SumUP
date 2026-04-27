@@ -21,7 +21,7 @@ export default defineConfig({
     },
     plugins: [
       groupIconVitePlugin()
-    ],
+    ],  
   },
   //markdown样式
   markdown: {
