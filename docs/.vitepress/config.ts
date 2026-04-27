@@ -14,7 +14,7 @@ export default defineConfig({
   // 所有的文档都放在src目录下
   srcDir: './src',
   ignoreDeadLinks: true, // 当设置为 true 时，VitePress 不会因为死链而导致构建失败。
-  base: "/",
+  base: "/SumUP/",
   vite: {
     server: {
       host: '0.0.0.0',
