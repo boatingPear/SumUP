@@ -704,31 +704,121 @@ public class FWWrite {
 
 ![image-20230427092438753](../assets/3ae7a83f2335f9dcd151a50e9fdbac14.png)
 
+![image-20230427092605878](../assets/b5f10337669cecbff17481e5f72606e3.png)
 
+### Java中编码与解码
 
+**编码的方法**
 
+| String类中的方法                             | 说明                 |
+| -------------------------------------------- | -------------------- |
+| `public byte[] getBytes()`                   | 使用默认方式进行编码 |
+| `public byte[] getBytes(String charsetName)` | 使用指定方式进行编码 |
 
+**解码的方法**
 
+| String类中的方法                            | 说明                 |
+| ------------------------------------------- | -------------------- |
+| `String(byte[] bytes)`                      | 使用默认方式进行解码 |
+| `String(byte[] byytes, String charsetName)` | 使用指定方式进行解码 |
 
+```java
+String s = "你好啊，李银河";
+byte[] bytes1 = s.getBytes(); // 默认编码
+byte[] bytes2 = s.getBytes("GBK"); // 指定编码
 
+String s1 = new String(bytes1); // 默认解码
+System.out.println(s1); // 你好啊，李银河
 
+String s2 = new String(bytes2, "GBK"); // 指定解码
+System.out.println(s2); // 你好啊，李银河
+```
 
+> - GBK编码使用两个字节来存储一个中文字符
+> - UTF-8编码使用三个字节来存储一个中文字符
 
+## 缓冲流
 
+### 概述
 
+#### 定义
 
+缓冲流，也叫高效流，是对4个基本的`FileXxx`流的增强，把基本流包装成高级流，提高**读取/写出**数据的性能。
 
+按照数据类型分类
 
+- **字节缓冲流：**`BufferedInputStream`，`BufferedOutputStream`
+- **字符缓冲流：**`BufferedReader`，`BufferedWriter`
 
+#### 体系结构
 
+![image-20230427112305233](../assets/3e4509325a7302593ddb835a068b5e61.png)
 
+### 字节缓冲流
 
+#### 输入流-BufferedInputStream
 
+##### 概述
 
+`BufferedINputStream`是Java I/O库提供的一个输入流类，它使用了内部缓冲区的方式提高了读取文件的效率
 
+##### 基本用例
 
+```java
+// 创建流对象
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream("jdk.exe"));
+// 读取数据
+int b = bis.read();
+// 关闭资源
+bis.close();
+```
 
+##### 构造方法
 
+`public BufferdInputStream(InputStream in)：`创建一个新的缓冲输入流。
+
+```java
+// 创建字节缓冲输入流
+BufferedInputStream bis = new BufferedInputStream(new FileINputStream("bis.txt"));
+```
+
+> ![image-20230427114025839](../assets/cb0aa396a8d5772e70a29c29088d7bc9.png)
+>
+> 当使用此构造方法时，Java会在底层执行new一个长度为8192的数组
+
+##### 常用成员方法
+
+**同字节基本流的输入流**
+
+#### 输出流-BufferedOutputStream
+
+##### 基本用例
+
+```java
+// 创建流对象
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("a.exe"));
+int len;
+byte[] bytes = new [1024 * 8]; // 8KB
+bos.write(bytes, 0, len);
+bos.close();
+```
+
+##### 构造方法
+
+```java
+/* 格式：
+	public BufferedOutputStream(OutputStream os)
+    作用：创建字节缓冲输出流对象*/
+ BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("myio\\a.txt"));
+```
+
+> ![image-20230427114223961](../assets/4b9d1af913414218615f05396845e146.png)
+>
+> 当使用此构造方法时，Java会在底层执行new一个长度为8192的数组
+
+##### 常用成员方法
+
+**同字节基本流的输出流**
 
 
 
