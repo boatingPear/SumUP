@@ -389,6 +389,18 @@ fis.close();
 
 ## 字符基本流
 
+> 1. 概述
+>    - 含义：从文件中读取字符数据
+>    - 体系结构![image-20230812102704912](../assets/76fef2505cd61c00b062a6dbf2bf8cdf.png)
+> 2. 构造方法
+>    1. 输入流
+>       - FileReader(File file)
+>       - FileReader(String fileName)
+>    2. 输出流
+>       - FileWrite(File file)
+>       - FileWrite(String fileName)
+> 3. 原理：底层读取数据后，会将4字节的数据保存到缓冲区，加快读取速度
+
 **特点：**
 
 - 输入流：一次读一个字节，遇到中文时，一次读多个字节
@@ -646,21 +658,49 @@ public class Test {
 
 ##### close() 关闭流、释放资源
 
+#### 续写和换行
 
+```java
+public class FWWrite {
+    public static void main(String[] args) throws IOException {
+        // 使用文件名称创建流对象，可以续写数据
+        FileWriter fw = new FileWriter("fw.txt"，true);     
+      	// 写出字符串
+        fw.write("黑马");
+      	// 写出换行
+      	fw.write("\r\n");
+      	// 写出字符串
+  		fw.write("程序员");
+      	// 关闭资源
+        fw.close();
+    }
+}
+输出结果:
+黑马
+程序员
+```
 
+> 在程序中手动写入换行符
 
+#### 原理
 
+**字符基础流的输出流原理**
 
+![image-20230427105006872](../assets/8b32a22b39cea9a34ca9e0e382500e23.png)
 
+> - 当写入数据时，java会先将数据写入内存缓冲区
+> - 当缓冲区长度满8192个字节时，则会自动写入文件
+> - 当IO流关闭时，也会将缓冲区的内容写入文件
 
+## 字符集
 
+**字符集是将一个字符集中字符的映射为一个或多个数字的方法**
 
+![image-20230427093521471](../assets/4f8ee70a856d91161bd751044f76150a.png)
 
+![image-20230427093511799](../assets/c8b7cf3aaeb886982a98dca37c848c8f.png)
 
-
-
-
-
+### 乱码产生的原因
 
 
 
