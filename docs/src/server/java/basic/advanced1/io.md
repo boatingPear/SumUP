@@ -820,6 +820,129 @@ bos.close();
 
 **同字节基本流的输出流**
 
+#### 案例-文件拷贝
+
+```
+// 方式一：
+//1.创建缓冲流的对象
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream("myio\\a.txt"));
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("myio\\a.txt"));
+//2.循环读取并写到目的地
+int b;
+while ((b = bis.read()) != -1) {
+    bos.write(b);
+}
+//3.释放资源
+bos.close();
+bis.close();
+
+// -----------------------
+
+// 方式二：
+//1.创建缓冲流的对象
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream("myio\\a.txt"));
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("myio\\copy2.txt"));
+//2.拷贝（一次读写多个字节）
+byte[] bytes = new byte[1024];
+int len;
+while((len = bis.read(bytes)) != -1){
+    bos.write(bytes,0,len);
+}
+//3.释放资源
+bos.close();
+bis.close();
+```
+
+> 当使用缓冲流来创建对象时，只需要释放缓冲流对象的资源，不需要释放文件输入和输出流的资源。因为Java会在底层进行自动的关闭操作。
+>
+> ![image-20230427114552934](../assets/0efc5ca43944c75da5db9648adccaeef.png)
+
+#### 原理
+
+字节缓冲流高效率原理
+
+![image-20230427134512840](../assets/e7c4aea11cc01313bff1aba191eab5fd.png)
+
+> 缓冲区调高效率，是在内存中开辟了一块区域，命名为缓冲区。缓冲区的作用，减少了内存与硬盘的频繁读写，从而提高了硬盘区域的读写效率
+
+![image-20230427134445862](../assets/2479f2487550bf07916350392a669562.png)
+
+> 当通过定义数组的方式来进行读写数据时，实际上是加快了数据在内存中的频繁读写，从而提高了内存区域的读写效率。
+
+### 字符缓冲流
+
+#### 输入流-BufferedReader
+
+##### 概述
+
+`BufferedReader`是Java中的一个字符缓冲输入流，可以提供一次读取一行或多行文本数据的方法，并且能够保证输入流的顺序读取
+
+##### 基本用例
+
+```java
+// 1.创建流对象
+BufferedReader br = new BufferedReader(new FileReader("in.txt"));
+// 2.读取数据
+String line = bis.readLine();
+// 3.关闭资源
+br.close();
+```
+
+##### 构造方法
+
+```java
+/* 格式：
+	public BufferedReader(Reader in) 
+	作用：创建字符缓冲输入流对象*/
+// 示例
+BufferedReader br = new BufferedReader(new FileReader("br.txt"));
+```
+
+##### 常用成员方法
+
+- `public String readLine()：`读一行文字。
+- 其余常用方法，参见字符基本输入流。
+
+###### readLine() 一次性读取一整行数据
+
+```java
+/* 格式：
+	BufferedReader对象.readLine()
+	作用：一次性读取一整行数据，读到换行符为止
+	读不到内容（文件末尾） → 返回 null
+ String line = br.readLine()
+```
+
+#### 输出流-BufferedWriter
+
+`BufferdWriter`是Java IO中的一种字符输出流，可以将文本数据，写入到字符输出流中，提供缓冲区，可以提高写入的效率
+
+##### 基本用例
+
+```java
+// 1.创建流对象
+BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+// 2.写出数据
+bw.write("黑马");
+// 3.写出换行
+bw.newLine();
+// 4.关闭资源
+bw.close();
+```
+
+##### 构造方法
+
+```java
+/* 格式：
+	public BufferedReader(Reader in) 
+	作用：创建字符缓冲输出流对象*/
+BufferedWriter bw = new BufferedWriter(new FileWriter("bw.txt"))
+```
+
+##### 常用成员方法
+
+- `public void newLine()：写入系统自带的换行符，不同系统不一样
+- 
 
 
 
@@ -839,18 +962,7 @@ bos.close();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
