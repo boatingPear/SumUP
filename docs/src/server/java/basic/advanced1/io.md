@@ -586,21 +586,65 @@ FileWriter fw = new FileWriter(file);
 FileWriter fw = new FileWriter("text.txt");
 ```
 
+#### 常用成员方法
 
+| 成员方法                                    | 说明                               |
+| ------------------------------------------- | ---------------------------------- |
+| `void write(int c)`                         | 写出一个字符                       |
+| `void write(String str)`                    | 写出一个字符串                     |
+| `void write(String str, int off, int len)`  | 写出一个字符串的一部分             |
+| `void write(char[] cbuf)`                   | 写出一个字符数组                   |
+| `void write(char[] cbuf, int off, int len)` | 写出字符数组的一部分               |
+| `public void flush()`                       | 将缓冲区中的数据，刷新到本地文件中 |
+| `public void close()`                       | 释放资源/关流                      |
 
+##### write(int/string c) 写出一个字符或字符串
 
+> - 未调用`close`方法，数据只是保存到了缓冲区，并未写出到文件中
+> - 如果`write`方法的参数是整数，但是实际上写到本地文件中的是整数在字符集上对应的字符
 
+##### write(char[] cbuf) 写出一个字符数组
 
+```java
+char[] chars = "你好啊，李银河".toCharArray();
+fw.write(chars); // 你好啊，李银河
+```
 
+##### write(char[] cbuf,int off, int len) 写出字符数组的一部分
 
+```java
+char[] chars = "你好啊，李银河".toCharArray();
+fw.write(b, 2, 4); // 啊，李银
+```
 
+##### flush() 不会等流关闭或者缓存区满了再写入，而是强制直接写入
 
+```java
+// 不会等流关闭或者缓存区满了再写入，而是强制直接写入
+// close是关闭时再写入，flush不会关闭流
+public class Test {
+	public static void main(Sting[] args) thows IOException{
+		FileWrite fw = new FileWrite("text.txt");
+		fw.write('开');		
+        fw.flush(); // 不会管java的优化机制，直接将现在缓存区的内容写入文件
+         fw.flush();
+        fw.write('新'); // 继续写出第2个字符，写出成功
+        fw.flush();
+      
+      	// 写出数据，通过close
+        fw.write('关'); // 写出第1个字符
+        fw.close();
+        fw.write('闭'); // 继续写出第2个字符,【报错】java.io.IOException: Stream closed
+        fw.close();
+	}
+}
+```
 
+> `FileWriter`自带缓冲区，不是一个字、立刻就往文件里存，先放入缓冲区，在缓冲区装满或调用`flush/close`时才会一次性将当前缓冲区到的内容写入文件。
+>
+> 即便是flush方法写出了数据，操作的最后还是要调用close方法，释放系统资源
 
-
-
-
-
+##### close() 关闭流、释放资源
 
 
 
