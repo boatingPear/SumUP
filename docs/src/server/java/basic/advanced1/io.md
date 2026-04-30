@@ -1125,11 +1125,46 @@ Java提供了一种对象序列化的机制，用一个字节序列可以表示�
 
 `public ObjectOutputStream(OutputStream out)`：创建一一个指定OutputStream的ObjectOutputStream
 
- 
+ **ObjectOutputStream(OutputStream out)**
 
+```java
+/* 格式：
+	public ObjectOutputStream(OutputStream out)
+    作用：创建序列化流*/
+ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("employee.txt"));
+```
 
+> - 该类必须实现java.io.Serializable 接口，Serializable 是一个标记接口，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出NotSerializableException 。
+>
+> - 该类的所有属性必须是可序列化的。如果有一个属性不需要可序列化的，则该属性必须注明是瞬态的，使用transient 关键字修饰。
+>
+> - ```java
+>   public class Employee implements java.io.Serializable {
+>       public String name;
+>       public String address;
+>       public transient int age; // transient瞬态修饰成员,不会被序列化
+>       public void addressCheck() {
+>         	System.out.println("Address  check : " + name + " -- " + address);
+>       }
+>   }
+>   ```
 
+#### 成员方法
 
+`public final void writeObject(Object obj)`：将指定的对象写出
+
+```java
+/* 格式：
+	ObjectOutputStream对象.writeObject(Object obj)
+    作用：将指定的对象写出*/
+out.writeObject(e);
+```
+
+### 反序列化流-ObjectInputStream
+
+#### 概述
+
+`ObjectInputStream`反序列化流，将之前使用ObjectOutputStream序列化的原始数据恢复为对象。
 
 
 
