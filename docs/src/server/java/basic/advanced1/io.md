@@ -1117,7 +1117,13 @@ Java提供了一种对象序列化的机制，用一个字节序列可以表示�
 
 ### 序列化流-ObjectOutputStream
 
+#### 概述
 
+`java.io.ObjectOutputStream类`，将Java的对象的原始数据类型写出到文件，实现对象的持久存储。
+
+#### 构造方法
+
+`public ObjectOutputStream(OutputStream out)`：创建一一个指定OutputStream的ObjectOutputStream
 
  
 
