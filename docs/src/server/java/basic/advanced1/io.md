@@ -942,23 +942,180 @@ BufferedWriter bw = new BufferedWriter(new FileWriter("bw.txt"))
 ##### 常用成员方法
 
 - `public void newLine()：写入系统自带的换行符，不同系统不一样
-- 
+- 其余常用方法，参见字符基本输出流
 
+```java
+/* 格式：
+	BufferedWriter对象.newLine()
+	作用：换行*/
+bw.newLine();
+```
 
+#### 成员方法
 
+特有的输出方法，会根据当前的操作系统进行判断使用那种换行服
 
+#### 原理
 
+缓冲流的原理是在创建流的时候，同时创建一个缓冲区数组，默认大小是8192字节[8kb]，通过缓冲区读写，减少系统IO次数，从而提高读写的效率。
 
+参考上一节`字节缓冲流的原理`
 
+## 转换流
 
+### 概述
 
+#### 定义
 
+转换流`java.io.InputStreamReader`，是`Reader`的子类，是字节流到字符流的桥梁。他读取字节，并使用指定的字符集将其解码为字符。他的字符集可以由名称指定，也可以接受平台的默认字符集。
 
+![image-20230427210449500](../assets/0b640a8508baf021eca6077c0df56cc4.png)
 
+#### 体系结构
 
+![image-20230427210243751](../assets/6b76648b82773718d42cafe08bb7e4ac.png)
 
+### 输入流-InputStreamReader
 
+#### 构造方法
 
+- `InputStreamReader(InputStream in)`：创建一个使用默认字符集的字符流。
+- `InputStreamReader(InputStream in, String charsetName)`： 创建一个自定字符集的字符流。
+
+```java
+InputStreamReader isr =  new InputStreamReader(new FileInputStream("a.txt"));
+// 创建一个指定字符集的字符流
+InputStreamReader isr2 = new InputStreamReader(new FileInputReader("a.txt"), "GBK");
+```
+
+#### 常用成员方法
+
+**常用方法，参见字符基本输入流**
+
+```java
+public class ReaderDemo2 {
+    public static void main(String[] args) throws IOException {
+      	// 定义文件路径,文件为gbk编码
+        String FileName = "E:\\file_gbk.txt";
+      	// 创建流对象,默认UTF8编码
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(FileName));
+      	// 创建流对象,指定GBK编码
+        InputStreamReader isr2 = new InputStreamReader(new FileInputStream(FileName) , "GBK");
+		// 定义变量,保存字符
+        int read;
+      	// 使用默认编码字符流读取,乱码
+        while ((read = isr.read()) != -1) {
+            System.out.print((char)read); // ��Һ�
+        }
+        isr.close();
+      
+      	// 使用指定编码字符流读取,正常解析
+        while ((read = isr2.read()) != -1) {
+            System.out.print((char)read);// 大家好
+        }
+        isr2.close();
+    }
+}
+```
+
+> 以上代码在JDK11被字符基本输入流给替代
+
+```java
+FileReader fr = new FileReader("myio\\gbkfile.txt", Charset.forName("GBK"));
+//2.读取数据
+int ch;
+while ((ch = fr.read()) != -1){
+    System.out.print((char)ch);
+}
+//3.释放资源
+fr.close();
+```
+
+### 输出流-OutputStreamWriter
+
+#### 构造方法
+
+- `OutputStreamWriter(OutputStream in)`: 创建一个使用默认字符集的字符流。
+- `OutputStreamWriter(OutputStream in, String charsetName)`：创建一个指定字符集的字符流
+
+```java
+OutputStreamWriter isr = new OutputStreamWriter(new FileOutputStream("out.txt"));
+OutputStreamWriter isr2 = new OutputStreamWriter(new FileOutputStream("out.txt") , "GBK");
+```
+
+#### 常用成员方法
+
+**常用方法，参见字符基本输出流**
+
+```java
+public class OutputDemo {
+    public static void main(String[] args) throws IOException {
+      	// 定义文件路径
+        String FileName = "E:\\out.txt";
+      	// 创建流对象,默认UTF8编码
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(FileName));
+        // 写出数据
+      	osw.write("你好"); // 保存为6个字节
+        osw.close();
+      	
+		// 定义文件路径
+		String FileName2 = "E:\\out2.txt";
+     	// 创建流对象,指定GBK编码
+        OutputStreamWriter osw2 = new OutputStreamWriter(new FileOutputStream(FileName2),"GBK");
+        // 写出数据
+      	osw2.write("你好");// 保存为4个字节
+        osw2.close();
+    }
+}
+```
+
+> 以上代码在JDK11被字符基本输出流给替代
+
+```java
+FileWriter fw = new FileWriter("myio\\c.txt", Charset.forName("GBK"));
+fw.write("你好你好");
+fw.close();
+```
+
+### 案例-文件编码转换
+
+```java
+//1.JDK11以前的方案
+/* InputStreamReader isr = new InputStreamReader(new FileInputStream("myio\\b.txt"),"GBK");
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("myio\\d.txt"),"UTF-8");
+
+        int b;
+        while((b = isr.read()) != -1){
+            osw.write(b);
+        }
+
+        osw.close();
+        isr.close();*/
+
+//2.替代方案
+FileReader fr = new FileReader("myio\\b.txt", Charset.forName("GBK"));
+FileWriter fw = new FileWriter("myio\\e.txt",Charset.forName("UTF-8"));
+int b;
+while ((b = fr.read()) != -1){
+    fw.write(b);
+}
+fw.close();
+fr.close();
+```
+
+## 序列化流
+
+### 概述
+
+#### 定义
+
+Java提供了一种对象序列化的机制，用一个字节序列可以表示一个对象，该字节序列包含该`对象的数据`、`对象的类型`和`对象中存储的属性`等信息。字节序列写出到文件会后，相当于文件中持久保存了一个对象的信息。
+
+#### 体系结构
+
+![image-20230427214856115](../assets/69c4870864241e2766aa0258b4542f45.png)
+
+### 序列化流-ObjectOutputStream
 
 
 
