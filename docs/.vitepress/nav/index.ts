@@ -23,6 +23,10 @@ export default <DefaultTheme.NavItem[]>[
                 ]
             },
             {
+                text: "浏览器模型",
+                link: "/frontend/browser/IndexedDB-API.md"
+            },
+            {
                 text: '工具',
                 link: '/frontend/tools/'
             },    
