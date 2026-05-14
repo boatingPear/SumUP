@@ -1,5 +1,13 @@
 # IndexedDB API
 
+## 目录
+
+::: details 点击展开目录 
+
+[[toc]] 
+
+:::
+
 ## 概述
 
 一文入门IndexedDB
