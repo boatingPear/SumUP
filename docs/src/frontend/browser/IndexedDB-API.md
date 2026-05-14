@@ -51,17 +51,17 @@
 
 概念解释
 
-#### 数据库
+### 数据库
 
 数据库是一系列相关数据的容器，每月域名都可以新建任意多个数据库。
 
 `IndexedDB`有版本的概念，同一时刻只能有一个版本的数据库纯在，如果要修改数据结构（修改删除表结构，删除索引和主键）。
 
-#### 对象仓库
+### 对象仓库
 
 每个数据可都包含若干个对象仓库，他们相当于关系型数据库中的表。
 
-#### 数据记录
+### 数据记录
 
 对象仓库存储的是数据记录。每条记录类似于关系型数据库的行，但是只有主键和数据体两部分。主键用来建立默认的索引，必须是不同的否则会报错。主键可以是数据记录里的一个属性，也可以指定为一个递增的整数编号.
 
@@ -73,11 +73,11 @@
 
 数据体可以是任意数据类型，不限于对象。
 
-#### 索引
+### 索引
 
 为了加速数据的检索，可以在对象仓库里面，为了不同的属性建立索引。
 
-#### 事务
+### 事务
 
 数据记录的读写和删改，都要通过事务实现，事务可以实现回滚操作，操作错误或需要中断操作时，可以将数据库回滚到操作前的状态。
 
@@ -330,11 +330,13 @@ request.onsuccess = function (e) {
 }
 ```
 
-## indexedDB 对象
+## API介绍
+
+### indexedDB 对象
 
 浏览器原生提供`indexedDB`对象，作为开发者的操作接口。
 
-### indexedDB.open()
+#### indexedDB.open()
 
 `indexedDB.open()`方法用于打开数据库。这是一个异步操作，但是会立刻返回一个 IDBOpenDBRequest 对象。
 
@@ -378,7 +380,7 @@ openRequest.onerror = function (e) {
 
 上面代码有两个地方需要注意。首先，`open()`方法返回的是一个对象（IDBOpenDBRequest），监听函数就定义在这个对象上面。其次，`success`事件发生后，从`openRequest.result`属性可以拿到已经打开的`IndexedDB`数据库对象。
 
-### indexedDB.deleteDatabase()
+#### indexedDB.deleteDatabase()
 
 `indexedDB.deleteDatabase()`方法用于删除一个数据库，参数为数据库的名字。它会立刻返回一个`IDBOpenDBRequest`对象，然后对数据库执行异步删除。删除操作的结果会通过事件通知，`IDBOpenDBRequest`对象可以监听以下事件。
 
@@ -401,7 +403,7 @@ DBDeleteRequest.onsuccess = function (event) {
 
 注意，删除不存在的数据库并不会报错。
 
-### indexedDB.cmp()
+#### indexedDB.cmp()
 
 `indexedDB.cmp()`方法比较两个值是否为 indexedDB 的相同的主键。它返回一个整数，表示比较的结果：`0`表示相同，`1`表示第一个主键大于第二个主键，`-1`表示第一个主键小于第二个主键。
 
@@ -416,7 +418,7 @@ window.indexedDB.cmp(1, true) // 报错
 window.indexedDB.cmp({}, {}) // 报错
 ```
 
-## IDBRequest 对象
+### IDBRequest 对象
 
 IDBRequest 对象表示打开的数据库连接，`indexedDB.open()`方法和`indexedDB.deleteDatabase()`方法会返回这个对象。数据库的操作都是通过这个对象完成的。
 
@@ -439,7 +441,7 @@ IDBOpenDBRequest 对象继承了 IDBRequest 对象，提供了两个额外的事
 - `IDBOpenDBRequest.onblocked`：指定`blocked`事件（`upgradeneeded`事件触发时，数据库仍然在使用）的监听函数。
 - `IDBOpenDBRequest.onupgradeneeded`：`upgradeneeded`事件的监听函数。
 
-## IDBDatabase 对象
+### IDBDatabase 对象
 
 打开数据成功以后，可以从`IDBOpenDBRequest`对象的`result`属性上面，拿到一个`IDBDatabase`对象，它表示连接的数据库。后面对数据库的操作，都通过这个对象完成。
 
@@ -457,7 +459,7 @@ DBOpenRequest.onsuccess = function(event) {
 };
 ```
 
-### 属性
+#### 属性
 
 IDBDatabase 对象有以下属性。
 
@@ -479,7 +481,7 @@ if (!db.objectStoreNames.contains('firstOS')) {
 
 上面代码先判断某个对象仓库是否存在，如果不存在就创建该对象仓库。
 
-### 方法
+#### 方法
 
 IDBDatabase 对象有以下方法。
 
@@ -547,7 +549,7 @@ var t = db.transaction(['items'], 'readwrite');
 
 `transaction()`方法接受两个参数：第一个参数是一个数组，里面是所涉及的对象仓库，通常是只有一个；第二个参数是一个表示操作类型的字符串。目前，操作类型只有两种：`readonly`（只读）和`readwrite`（读写）。添加数据使用`readwrite`，读取数据使用`readonly`。第二个参数是可选的，省略时默认为`readonly`模式。
 
-## IDBObjectStore 对象
+### IDBObjectStore 对象
 
 IDBObjectStore 对象对应一个对象仓库（object store）。`IDBDatabase.createObjectStore()`方法返回的就是一个 IDBObjectStore 对象。
 
@@ -560,7 +562,7 @@ db.transaction(['test'], 'readonly')
   .onsuccess = function (e) {}
 ```
 
-### 属性
+#### 属性
 
 IDBObjectStore 对象有以下属性。
 
@@ -570,7 +572,7 @@ IDBObjectStore 对象有以下属性。
 - `IDBObjectStore.transaction`：返回当前对象仓库所属的事务对象。
 - `IDBObjectStore.autoIncrement`：布尔值，表示主键是否会自动递增。
 
-### 方法
+#### 方法
 
 IDBObjectStore 对象有以下方法。
 
@@ -806,7 +808,7 @@ cursor.onsuccess = function (event) {
 IDBObjectStore.openKeyCursor()
 ```
 
-## IDBTransaction 对象
+### IDBTransaction 对象
 
 IDBTransaction 对象用来异步操作数据库事务，所有的读写操作都要通过这个对象进行。
 
@@ -868,7 +870,7 @@ IDBTransaction 对象有以下方法。
 - `IDBTransaction.abort()`：终止当前事务，回滚所有已经进行的变更。
 - `IDBTransaction.objectStore(name)`：返回指定名称的对象仓库 IDBObjectStore。
 
-## IDBIndex 对象
+### IDBIndex 对象
 
 IDBIndex 对象代表数据库的索引，通过这个对象可以获取数据库里面的记录。数据记录的主键默认就是带有索引，IDBIndex 对象主要用于通过除主键以外的其他键，建立索引获取对象。
 
@@ -920,7 +922,7 @@ IDBIndex 对象有以下方法，它们都是异步的，立即返回的都是�
 - `IDBIndex.openCursor()`：用来获取一个 IDBCursor 对象，用来遍历索引里面的所有条目。
 - `IDBIndex.openKeyCursor()`：该方法与`IDBIndex.openCursor()`方法相似，区别是遍历所有条目的主键。
 
-## IDBCursor 对象
+### IDBCursor 对象
 
 IDBCursor 对象代表指针对象，用来遍历数据仓库（IDBObjectStore）或索引（IDBIndex）的记录。
 
@@ -961,7 +963,7 @@ IDBCursor 对象有如下方法。
 - `IDBCursor.delete()`：用来删除当前位置的记录，返回一个 IDBRequest 对象。该方法不会改变指针的位置。
 - `IDBCursor.update()`：用来更新当前位置的记录，返回一个 IDBRequest 对象。它的参数是要写入数据库的新的值。
 
-## IDBKeyRange 对象
+### IDBKeyRange 对象
 
 IDBKeyRange 对象代表数据仓库（object store）里面的一组主键。根据这组主键，可以获取数据仓库或索引里面的一组记录。
 
