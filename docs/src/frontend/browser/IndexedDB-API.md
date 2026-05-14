@@ -131,11 +131,28 @@ request.onsuccess = (event) => {
 
 ```js
 request.upgradeneeded = (e) => {
-    
+    const db = e.target.result; // 这也能获取到db数据库对象
 }
 ```
 
+### 新建数据库
 
+新建数据库与打开数据库是同一操作。如果指定的数据库不存在，这时就是新建。不同在于，后续操作主要在`upgradeneeded`事件中进行，在创建时版本从0到1也可以看做更新版本
+
+通常新建数据库后，首先要做的就是创建对象仓库（ObjectStore）。
+
+```js
+request.upgradeneeded = (e) => {
+    const db = e.target.result;
+    // 在创建对象仓库前最好判断一下是否存在
+    let objectStore;
+    if (!db.objectStoreNames.contains("person")) {
+        objectStore = db.createObjectStore("person", {
+            keyPath: "id"
+        })
+    }
+}
+```
 
 
 
