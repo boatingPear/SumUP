@@ -7,6 +7,7 @@ export default <DefaultTheme.SidebarItem>[
     },
     {
         text: "Java基础",
+        collapsed: true,
         items: [
             {
                 text: "语法",
@@ -96,6 +97,7 @@ export default <DefaultTheme.SidebarItem>[
     },
     {
         text: "Java进阶篇一",
+        collapsed: true,
         items: [
             {
                 text: "Stream流",
@@ -120,6 +122,15 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "知识加油站",
                 link: "/server/java/basic/advanced1/supplement"
+            }
+        ]
+    },
+    {
+        text: "Java进阶二", 
+        items: [
+            {
+                text: "多线程",
+                link: "/server/java/basic/advanced2/multiThread"
             }
         ]
     }
