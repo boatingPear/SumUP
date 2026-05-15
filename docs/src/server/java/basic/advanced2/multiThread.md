@@ -90,7 +90,13 @@
 | `void run( )`   | 在线程开启后，此方法将被调用执行            |
 | `void start( )` | 使此线程开始执行，Java虚拟机会调用run方法() |
 
+#### 案例-打印线程
 
+**实现步骤：**
+
+1. 定义一个类`MyThread`继承`Thread`类
+2. 在`MyThread`类中重写`run()`方法
+3. 创建`MyThread`类的对象
 
 
 
