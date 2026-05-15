@@ -116,6 +116,10 @@ export default <DefaultTheme.SidebarItem>[
             {
                 text: "IO流",
                 link: "/server/java/basic/advanced1/io"
+            },
+            {
+                text: "知识加油站",
+                link: "/server/java/basic/advanced1/supplement"
             }
         ]
     }
