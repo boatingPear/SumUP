@@ -88,7 +88,7 @@ export default <DefaultTheme.NavItem[]>[
             },
             {
                 text: "健康",
-                link: "other/health/exercise.md"
+                link: "other/health/training-plan.md"
             }
         ]
     },
