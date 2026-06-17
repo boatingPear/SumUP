@@ -58,15 +58,15 @@ export default <DefaultTheme.NavItem[]>[
         text: '资源', 
         link: '/resource/'
     },
-    {
-        text: "流水账",
-        items: [
-            { 
-                text: '2026年',
-                link: "/listOfEvents/2026/"
-            },
-        ]
-    },
+    // {
+    //     text: "流水账",
+    //     items: [
+    //         { 
+    //             text: '2026年',
+    //             link: "/listOfEvents/2026/"
+    //         },
+    //     ]
+    // },
     {
         text: "其他",
         items: [
@@ -89,6 +89,10 @@ export default <DefaultTheme.NavItem[]>[
             {
                 text: "健康",
                 link: "other/health/training-plan.md"
+            },
+            {
+                text: "情感",
+                link: "other/emotion"
             }
         ]
     },
