@@ -1,0 +1,1 @@
+import{_ as e,o as a,c as o}from"./chunks/framework.D8u9WiMi.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"examples/idea/psychology.md","filePath":"examples/idea/psychology.md"}'),t={name:"examples/idea/psychology.md"};function s(c,p,r,n,l,d){return a(),o("div")}const _=e(t,[["render",s]]);export{m as __pageData,_ as default};

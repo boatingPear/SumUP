@@ -46,8 +46,6 @@ docs/
 │   │   ├── resource/      # AI资源侧边栏（Agent、模型、RAG、Dify、ComfyUI 等）
 │   │   ├── other/         # 其他侧边栏（健康、Trae）
 │   │   ├── listOfEvents/  # 个人流水账（按年/月组织的日记）
-│   │   ├── guide.ts       # suitex 框架使用指南侧边栏
-│   │   └── module.ts      # suitex 模块文档侧边栏
 │   └── theme/
 │       ├── index.ts       # 自定义主题入口，继承 DefaultTheme
 │       ├── components/

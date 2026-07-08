@@ -1,40 +1,21 @@
-import type { DefaultTheme } from "vitepress";
-import guide from "./guide";
-import module from "./module";
-import frontendReactBasic from "./frontend/react/basic"
-import frontendBrowser from "./frontend/browser/"
-import frontendTools from "./frontend/tools";
-import frontendOtherWxapp from "./frontend/other/wxapp";
-import serverJavaBasic from "./server/java/basic/";
-import resource from "./resource";
-import listOfEvents from "./listOfEvents";
-import otherTrae from "./other/trae";
-import otherHealth from "./other/health";
+import type { DefaultTheme } from "vitepress"
+import frontend from "./frontend"
+import server from "./server"
+import resource from "./resource"
+import listOfEvents from "./listOfEvents"
+import other from "./other"
 
 /**
  * 侧边栏
+ *
+ * 新增规则：
+ *   - 新增子模块（如 another-topic）→ 在对应分类的 index.ts 中添加
+ *   - 新增顶级分类（如 design） → 在此文件添加一行 import + 展开
  */
 export default <DefaultTheme.SidebarMulti>{
-  //指南
-  "/guide/": guide,
-  //模块
-  "/module/": module,
-  // 前端-react-基础
-  "/frontend/react/basic/": frontendReactBasic,
-  // 前端-浏览器模型
-  "/frontend/browser/": frontendBrowser,
-  // 前端-工具
-  "/frontend/tools/": frontendTools,
-  // 前端-其他-微信小程序
-  "/frontend/other/wxapp/": frontendOtherWxapp,
-  // 后端-java-基础
-  "/server/java/basic/": serverJavaBasic,
-  // 资源
+  ...frontend,
+  ...server,
   "/resource/": resource,
-  // 流水账
   "/listOfEvents/": listOfEvents,
-  // trae
-  "/other/trae/": otherTrae,
-  // health
-  "/other/health/": otherHealth
-};  
+  ...other,
+}
