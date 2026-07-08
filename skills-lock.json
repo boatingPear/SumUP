@@ -25,6 +25,18 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "93f53fd1c0352d3d7ec17b8f73d7351bf76f4821e55d123c9d2abc2c53ba48e4"
     },
+    "gifgrep": {
+      "source": "steipete/clawdis",
+      "sourceType": "github",
+      "skillPath": "skills/gifgrep/SKILL.md",
+      "computedHash": "9ce6aa79ae46f8363badd9c97d4fc3504d68baf060d3013eae85a8d3d9823ab5"
+    },
+    "just-scrape": {
+      "source": "scrapegraphai/just-scrape",
+      "sourceType": "github",
+      "skillPath": "skills/just-scrape/SKILL.md",
+      "computedHash": "bcf0ee77f3ed7512147e4f18f831f6346c072e2f0ba7d23655c1bfaab96f0c62"
+    },
     "pixijs-scene-gif": {
       "source": "pixijs/pixijs-skills",
       "sourceType": "github",
