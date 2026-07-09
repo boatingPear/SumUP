@@ -1,4 +1,5 @@
 /* .vitepress/theme/style/sidebarIcon.css */
+/* 图标使用内联 base64 data URI，避免 base 路径问题 */
 
 /* 侧边栏缩放 */
 .group:has([role='button']) .VPSidebarItem.level-0 .items {
@@ -8,56 +9,50 @@
   transition: background-color 0.25s;
 }
 
-/* 侧边栏图标 */
-/* 选中所有 .VPSidebarItem 元素，排除带有 .is-link 类的 */
+/* ── 折叠分组图标（闭合文档） ── */
 #VPSidebarNav .VPSidebarItem:not(.is-link).collapsed >.item {
     display: inline-flex;
-    align-items: center;  /* 垂直居中对齐图标和文本 */
+    align-items: center;
 }
-
-/* 为所有不带 .is-link 的 .VPSidebarItem 折叠状态添加图标 */
 #VPSidebarNav .VPSidebarItem:not(.is-link).collapsed >.item::before {
     content: '';
-    background-image: url('/svg/document.svg'); /* 设置图标路径 */
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    vertical-align: middle;  /* 确保图标与文本垂直居中 */
-    background-size: cover;
-    margin-right: 4px;  /* 给图标和文本之间增加间距 */
-}
-
-#VPSidebarNav .VPSidebarItem:not(.is-link) >.item {
-    display: inline-flex;
-    align-items: center;  /* 垂直居中对齐图标和文本 */
-}
-
-/* 为所有不带 .is-link 的 .VPSidebarItem 非折叠状态添加图标 */
-#VPSidebarNav .VPSidebarItem:not(.is-link) >.item::before {
-    content: '';
-    background-image: url('/svg/document-open.svg'); /* 设置图标路径 */
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    vertical-align: middle;  /* 确保图标与文本垂直居中 */
-    background-size: cover;
-    margin-right: 4px;  /* 给图标和文本之间增加间距 */
-}
-
-/* 选中带有 .is-link 的 .VPSidebarItem 的直接子元素 .item */
-#VPSidebarNav .VPSidebarItem.is-link > .item {
-    display: inline-flex;
-    align-items: center;  /* 垂直居中图标和文字 */
-}
-
-/* 为选中的 .item 添加图标 */
-#VPSidebarNav .VPSidebarItem.is-link > .item::before {
-    content: '';
-    background-image: url('/svg/file.svg'); /* 图标路径 */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik04MzIgMzIwSDU3NmMtMTcuNiAwLTMyLTE0LjQtMzItMzJWMzJIMjU2Yy0zNS4yIDAtNjQgMjguOC02NCA2NHY4MzJjMCAzNS4yIDI4LjggNjQgNjQgNjRoNTc2YzM1LjIgMCA2NC0yOC44IDY0LTY0VjM4NGMwLTM1LjItMjguOC02NC02NC02NHogbS02NCA1MTJIMzIwYy0xNy42IDAtMzItMTQuNC0zMi0zMnMxNC40LTMyIDMyLTMyaDQ0OGMxNy42IDAgMzIgMTQuNCAzMiAzMnMtMTQuNCAzMi0zMiAzMnogbTAtMTkySDMyMGMtMTcuNiAwLTMyLTE0LjQtMzItMzJzMTQuNC0zMiAzMi0zMmg0NDhjMTcuNiAwIDMyIDE0LjQgMzIgMzJzLTE0LjQgMzItMzIgMzJ6IiBmaWxsPSIjMjk3QUZGIi8+PC9zdmc+');
     width: 16px;
     height: 16px;
     display: inline-block;
     vertical-align: middle;
     background-size: cover;
-    margin-right: 4px;  /* 图标与文字间距 */
+    margin-right: 4px;
+}
+
+/* ── 展开分组图标（打开文档/文件夹） ── */
+#VPSidebarNav .VPSidebarItem:not(.is-link) >.item {
+    display: inline-flex;
+    align-items: center;
+}
+#VPSidebarNav .VPSidebarItem:not(.is-link) >.item::before {
+    content: '';
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzUwODM5OTAwMzc5IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijg4ODQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiI+PHBhdGggZD0iTTgzMC41NjY0IDQxMC4wMDk2SDMyNi4zNDg4Yy00My4xMTA0IDAtODAuOTk4NCAyOC4zNjQ4LTkzLjE4NCA2OS43MzQ0bC03MS40NzUyIDI0Mi44OTI4Yy0yLjY2MjQgOC45MDg4LTMuOTkzNiAxOC4xMjQ4LTMuOTkzNiAyNy40NDMyIDAgMjcuOTU1MiAxMS44Nzg0IDUzLjI0OCAzMC44MjI0IDcwLjk2MzItNDQuNDQxNi04LjkwODgtNzcuODI0LTQ4LjIzMDQtNzcuODI0LTk1LjIzMiAwLTkuNDIwOCAxLjMzMTItMTguNzM5MiAzLjk5MzYtMjcuNzUwNGw3OC43NDU2LTI2NC40OTkyYzEyLjI4OC00MS4xNjQ4IDUwLjE3Ni02OS40MjcyIDkzLjA4MTYtNjkuNDI3Mmg1NDguODY0Yy02Ljc1ODQtNDcuMDAxNi00Ny4yMDY0LTgzLjI1MTItOTYuMTUzNi04My4yNTEySDQ5OC40ODMycy0yOC4wNTc2LTMzLjQ4NDgtODQuMTcyOC0xMDAuMzUySDIwNS43MjE2Yy01My42NTc2IDAtOTcuMTc3NiA0My41Mi05Ny4xNzc2IDk3LjE3NzZ2NDQ4YzAgNDcuOTIzMiAzNC43MTM2IDg3Ljc1NjggODAuMzg0IDk1Ljc0NCAxNy4zMDU2IDE1Ljk3NDQgNDAuNDQ4IDI1LjcwMjQgNjUuODQzMiAyNS43MDI0aDQ5MS4wMDhjNDEuMzY5NiAwIDc4LjEzMTItMjYuMTEyIDkxLjc1MDQtNjUuMTI2NGw4NC43ODcyLTI0Mi44OTI4YzMuNTg0LTEwLjI0IDUuNDI3Mi0yMS4wOTQ0IDUuNDI3Mi0zMi4wNTEyIDAtNTMuNTU1Mi00My41Mi05Ny4wNzUyLTk3LjE3NzYtOTcuMDc1MnoiIGZpbGw9IiNGMkIyMjQiIHAtaWQ9Ijg4ODUiPjwvcGF0aD48L3N2Zz4=');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: cover;
+    margin-right: 4px;
+}
+
+/* ── 页面链接图标（文件） ── */
+#VPSidebarNav .VPSidebarItem.is-link > .item {
+    display: inline-flex;
+    align-items: center;
+}
+#VPSidebarNav .VPSidebarItem.is-link > .item::before {
+    content: '';
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzUwODMwMjQ1MzkyIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE3NzkzIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiPjxwYXRoIGQ9Ik02MjMuMTA0IDc2Ljh2MTU5LjIzMmMwIDMwLjcyIDI1LjA4OCA1NS44MDggNTUuODA4IDU1LjgwOGgxNjkuNDcybC0yMjUuMjgtMjE1LjA0eiIgZmlsbD0iIzI5N0FGRiIgcC1pZD0iMTc3OTQiPjwvcGF0aD48cGF0aCBkPSJNODQ4LjM4NCAzMTcuNDRoLTE4OS45NTJjLTM0LjMwNCAwLTYyLjQ2NC0yOC4xNi02Mi40NjQtNjIuNDY0Vjc2LjhoLTM1OC40Yy0zNC4zMDQgMC02Mi40NjQgMjguMTYtNjIuNDY0IDYyLjQ2NHY3NDUuNDcyYzAgMzQuMzA0IDI4LjE2IDYyLjQ2NCA2Mi40NjQgNjIuNDY0aDU0OC44NjRjMzQuMzA0IDAgNjIuNDY0LTI4LjE2IDYyLjQ2NC02Mi40NjRMODQ4LjM4NCAzMTcuNDR6IG0tNTc4LjU2IDEwMS4zNzZoMjcxLjg3MmMxOC40MzIgMCAzMy43OTIgMTUuMzYgMzMuNzkyIDMzLjc5MnMtMTUuMzYgMzMuNzkyLTMzLjc5MiAzMy43OTJIMjY5LjgyNGMtMTguNDMyIDAtMzMuNzkyLTE1LjM2LTMzLjc5Mi0zMy43OTJzMTUuMzYtMzMuNzkyIDMzLjc5Mi0zMy43OTJ6IG00MjIuNCAzODIuNDY0SDI2OS44MjRjLTE4LjQzMiAwLTMzLjc5Mi0xNS4zNi0zMy43OTItMzMuNzkyIDAtMTguNDMyIDE1LjM2LTMzLjc5MiAzMy43OTItMzMuNzkyaDQyMi40YzE4LjQzMiAwIDMzLjc5MiAxNS4zNiAzMy43OTIgMzMuNzkyIDAgMTguOTQ0LTE0Ljg0OCAzMy43OTItMzMuNzkyIDMzLjc5MnogbTE2LjM4NC0xNTcuMTg0SDI2OS44MjRjLTE4LjQzMiAwLTMzLjc5Mi0xNS4zNi0zMy43OTItMzMuNzkyczE1LjM2LTMzLjc5MiAzMy43OTItMzMuNzkyaDQzOC43ODRjMTguNDMyIDAgMzMuNzkyIDE1LjM2IDMzLjc5MiAzMy43OTJzLTE0Ljg0OCAzMy43OTItMzMuNzkyIDMzLjc5MnoiIGZpbGw9IiMyOTdBRkYiIHAtaWQ9IjE3Nzk1Ij48L3BhdGg+PC9zdmc+');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: cover;
+    margin-right: 4px;
 }

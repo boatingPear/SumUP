@@ -51,7 +51,11 @@ export default <DefaultTheme.NavItem[]>[
                 items: [
                     { text: 'java基础', link: '/server/java/basic/' },
                 ]
-            }
+            },
+            {
+                text: "数据库",
+                link: '/server/database',
+            },
         ]
     },
     { 

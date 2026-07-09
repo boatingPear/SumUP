@@ -62,6 +62,7 @@ File file4 = new File(parentDir, child);
 | `public String getName()`         | 返回文件的名称，带后缀             |
 | `public long lastModified()`      | 返回文件的最后修改时间(时间毫秒值) |
 
+
 #### isDirectory()、isFile()、exists()
 
 - `isDirectory`：判断此路径名表示的File是否是文件夹
