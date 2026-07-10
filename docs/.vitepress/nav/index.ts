@@ -108,8 +108,4 @@ export default <DefaultTheme.NavItem[]>[
     //     text: '产品',
     //     items: []
     // },
-    // {
-    //     text: '个人记录', 
-    //     items: []
-    // }
 ];
