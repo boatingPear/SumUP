@@ -13,6 +13,10 @@ export default <DefaultTheme.SidebarItem>[
                 text: "MySQL 概述",
                 link: "/server/database/mysql/overview.md"
             },
+            {
+                text: "SQL",
+                link: "/server/database/mysql/sql.md"
+            },
         ]
     },
 ]
