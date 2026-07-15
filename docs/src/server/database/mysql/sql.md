@@ -113,9 +113,161 @@ MySQL中的数据类型主要分为三类：数值类型、字符串类型、日
 
 ## 表操作
 
+**表操作-案例**
+
+![img](https://i-blog.csdnimg.cn/direct/27bb128ffa514fa2ae3df71789319b53.png)
+
+```sql
+create table worker (
+	`id` int comment '编号',
+    `job_num` varchar(10) comment '工号',
+    `name` varchar(10) comment '姓名',
+    `gender` char(1) comment '性别',
+    `age` tinyint unsigned comment '年龄',
+    `id_card` char(18) comment '身份证号',
+    `entry_time` date comment '入职时间‑YYYY‑MM‑DD',
+    primary key(`id`)
+) comment = '员工表';
+```
+
+#### 表操作-修改
+
+**添加字段**
+
+```sql 
+alter table 表名 add 字段名 类型 (长度) [ comment 注释 ] [ 约束 ];
+```
+
+案例：
+
+为woker表增加一个新的字段，字段名为nickname-昵称，类型为varchar(20)
+
+```sql
+alter table worker add nickname varchar(20) comment '昵称';
+```
+
+**修改数据类型**
+
+```sql
+alter table 表名 modify 字段名 新数据类型(长度);
+```
+
+**修改字段名和字段类型**
+
+```sql
+alter table 表名 change 旧字段名 新字段名 类型(长度) [ comment 注释 ] [ 约束 ];
+```
+
+案例：
+
+将worker表的nickname字段修改为username，类型为varchar(20);
+
+```sql
+alter table worker change nickname username varchar(20)comment '昵称';
+```
+
+**删除字段**
+
+```sql
+alter table worker drop 字段名;
+```
+
+案例：将worker表的字段username删除
+
+```sql
+alter table worker drop username;
+```
+
+**修改表名**
+
+```sql 
+alter table 表名 rename to 新表名;
+```
+
+案例：将worker表名改为employee
+
+```sql
+alter table worker rename to employee;
+```
+
+#### 表操作-删除
+
+**删除表**
+
+```sql
+drop table [ iif exists ] 表名;
+```
+
+- 可选项if exists代表，只有该表存在时，才会触发删除表操作，表不存在，，则不执行删除操作(如果不加该参数项，三处一张不存在的表，执行将会报错)。
+
+案例：如果tb_user表存在，则删除tb_user表
+
+```sql
+drop table if exists tb_user;
+```
+
+**销毁重新创建表-用来清空数据**
+
+```sql
+truncate table 表名;
+```
+
 ## DML
 
 ### 添加数据
+
+#### 添加数据
+
+**给自定字段添加数据**
+
+```sql
+insert into 表名 (字段名1，字段名2，...) values (值1，值2，...);
+```
+
+案例：给employee表所有字段添加数据;
+
+```sql
+insert into employee (id, job_num, name, gender, age, id_card, entrytime) values (1, '1', 'iTCAST', '男', 10, '123456789012345678',, '2002-01-01');
+```
+
+**给全部字段添加数据**
+
+```sql
+insert into 表名 values (值1，值2,...);
+```
+
+案例插入数据到employee表
+
+```sql
+insert into employee values (2, '2 ', '张无忌 ', '男 ',18, '123456789012345670 ', '2005-01-	01 ');
+```
+
+**批量添加数据**
+
+案例：批量插入数据到employee表，具体的SQL如下
+
+```sql
+insert into employee values (3, '3 ', '韦一笑', '男',38, '123456789012345670', '2005-01-
+01'), (4, '4 ', '赵敏 ', '女',18, '123456789012345670', '2005-01-01');
+```
+
+> - 插入数据时，指定的字段顺序需要与值的顺序是一一对应的。
+> - 字符串和日期型数据应该包含在引号中。
+> - 插入的数据大小，应该在字段的规定范围内。
+
+**修改数据**
+
+```sql
+update 表名 set 字段名1 = 值1, 字段名2 = 值2, ... [ where 条件 ];
+```
+
+
+
+
+
+
+
+
 
 **给指定字段添加数据：**`INSERT INTO 表名(字段1,字段2,...) VALUES (值,值2, ...);`
 
