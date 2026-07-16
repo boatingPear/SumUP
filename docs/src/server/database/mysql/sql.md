@@ -128,7 +128,6 @@ create table worker (
     `entry_time` date comment '入职时间‑YYYY‑MM‑DD',
     primary key(`id`)
 ) comment = '员工表';
-```
 
 #### 表操作-修改
 
@@ -297,31 +296,185 @@ delete from employee;
 
 :::
 
+## DQL
 
+DQL英文全称是 Data Query Language数据查询语言，用来查询数据库中表的记录。
 
+### 基本语法
 
+```sql
+select 字段列表
+from 表名列表
+where 条件列表
+group by 分组字段列表
+having 分组后条件列表
+order by 排序字段列表
+limit 分页参数 select 字段列表
+```
 
-**给指定字段添加数据：**`INSERT INTO 表名(字段1,字段2,...) VALUES (值,值2, ...);`
+### 基础查询
 
-**给全部字段添加数据：**`INSERT INTO 表名 VALUES (值1,值2,...);`
+**查询多个字段**
 
-**批量添加数据：**
+```sql
+select 字段1， 字段2， 字段3， ...from 表名;
+select * from 表名;
+select 字段1 [ 别名1 ]，字段2[ 别名2 ] ... from 表名;
+```
 
-- `INSERT INTO 表名(字段名1,字段名2,...) VALUES (值1,值2,...),(值1,值2,...);`
-- `INSERT INTO 表名 VALUES (值1,值2,...),(值1,值2,...);`
+::: tip
 
-::: warning
-
-- 插入数据时，指定的字段孙旭需要与值的顺序一一对应的。
-- 字符串和日期数据应该包含在引号中。
-- 插入的数据大小，应该在字段的规定范围内。
+*号代表查询所有字段，在实际开发中尽量少用(不直观且影响效率)。
 
 :::
 
-**修改数据：**`UPDATE 表名 SET 字段名1 = 值1，字段名2 = 值2,...[WHERE 条件];`
+**字段设置别名**
 
-::: warning
+```sql
+select 字段1 [ as 别名1 ]， 字段2 [ as 别名2 ] ... from 表名;
+select 字段1 [ 别名1 ]，字段2 [ 别名2 ] ... from 表名;
+```
 
-修改语句的条件可以有，也可以没有，如果没有条件，则会修改整张表的所有数据。
+**去除重复记录**
 
-:::
+```sql
+select distinct 字段列表 from 表名;
+```
+
+案例：
+
+```sql 
+// 查询自定字段name，workno，age并返回
+select name,, workno, age from emp;
+
+// 查询所有字段并返回
+select id ,workno,name,gender,age,idcard,workaddress,entrydate from emp;
+select * from emp; // 实际开发中不要用，，用上面的
+
+// 查询所有员工的工作地址起别名
+select workaddress as '工作地址' from emp;
+select workaddress '工作地址' from emp;
+
+// 查询公司员工的上班地址有哪些(不要重复的)
+select distinct workaddress '工作地址' from emp;
+```
+
+### 条件查询
+
+**语法**
+
+```sql
+select 字段列表 from 表名 where 条件列表;
+```
+
+**条件**
+
+| 比较运算符      | 功能                                         |
+| --------------- | -------------------------------------------- |
+| >               | 大于                                         |
+| \>=             | 大于等于                                     |
+| <               | 小于                                         |
+| <=              | 小于等于                                     |
+| =               | 等于                                         |
+| <> 或 !=        | 不等于                                       |
+| betwee...and... | 在某个范围内(含最小值和最大值)               |
+| in(...)         | 在in之后的列表中的值，多选一                 |
+| link占位符      | 模糊平匹配(_匹配单个字符，，%匹配任意个字符) |
+| is null         | 判断是否是null                               |
+
+| 逻辑运算符 | 功能                        |
+| ---------- | --------------------------- |
+| AND 或 &&  | 并且 (多个条件同时成立)     |
+| OR 或 \|\| | 或者 (多个条件任意一个成立) |
+| NOT 或 !   | 非 , 不是                   |
+
+案例
+
+```sql
+// 查询年龄等于88的员工
+select * from emp where age = 88;
+
+// 查询年纪小于20的员工
+select * from emp where age < 20;
+
+// 查询年纪小于等于20的员工信息
+select * from emp where age <= 20;
+```
+
+### 聚合函数
+
+**介绍**
+
+其作用是将一列数据作为一个整体，进行纵向计算。
+
+**常见的聚合函数**
+
+| 函数  | 功能     |
+| ----- | -------- |
+| count | 统计数量 |
+| max   | 最大值   |
+| min   | 最小值   |
+| avg   | 平均值   |
+| sum   | 求和     |
+
+**语法**
+
+```sql
+select 聚合函数(字段列表) from 表名;
+// 注意：null值是不参与所有聚合函数运算的。
+```
+
+案例：
+
+```sql
+// 统计业务代码
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
