@@ -428,20 +428,129 @@ select 聚合函数(字段列表) from 表名;
 
 ```sql
 // 统计该企业员工数量 
-select count(*) from emp;
+select count(*) from emp; // 统计的是总记录数
+select count (idcard)from emp; // 统计的是idcard字段不为null
+
+// 统计该企业员工的平均年龄
+select avg(age) from emp;
+
+// 统计该企业员工的最大年龄
+select max(age) from emp;
+
+// 统计该企业员工的最小年龄
+select min(age) from emp;
+
+// 统计西安地区员工的年龄之和
+select sum(age) from emp where workaddress = '西安';
 ```
 
+### 分组查询
 
+**语法**
 
+```sql
+select 字段列表 from 表名 [ where 条件] group by 分组字段名 [ having 分组后过滤条件 ];
+```
 
+**where与having区别**
 
+- 执行时机不同：where是分组之前进行过滤，不满足where条件，不参与分组，而having是分组之后对结果进行过滤。
 
+- 判断条件不同：where不能对聚合函数进行判断，而having可以。
 
+::: tip
 
+- 分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义。
+- 执行顺序：where>聚合函数>having。
+- 支持多字段分组，具体语法为：group by columnA,columnB
 
+:::
 
+案例
 
+```sql
+// 根据性别分组，统计男性员工和女性员工的数量
+select gender, count(gender) total from emp group by gender;
+[{gender: "男",, total: 10}, {gender: "女",, total: 12}]
 
+// 根据性别分组，统计男性员工和女性员工的平均年龄
+select gender, avg(age) avg_age from emp group by gender;
+
+// 查询年龄小于45的员工，并根据工作地址分组，获取员工数量大于等于3的工作地址
+select workaddress, sum(*) total from emp where age < 45 group by workaddress having total >= 3;
+
+// 统计各个工作地址上班的男性及女性员工的数量
+select workaddress, gender, count(*) total from emp group by workaddress, gender; 
+```
+
+### 排序查询
+
+- 排序在日常开发中是非常常见的一个操作，有升序排序，也有降序排序。
+
+**语法**
+
+```sql
+select 字段列表 from 表名 order by 字段1 排序方式， 字段2 排序方式;
+```
+
+**排序方式**
+
+- ASC:升序（默认值）
+- DESC:降序
+
+::: tip 
+
+- 默认排序方式为升序，如果要求是升序，可以不指定排序方式ASC;
+- 如果是多字段排序，当第一个字段值相同时，才会根据第二个字段进行排序；
+
+:::
+
+案例：
+
+```sql
+// 根据年龄对公司的员工进行升序排序
+select * from emp order by age asc;
+select * from emp order by age; // asc可以省略
+
+// 根据入职时间，对员工进行降序排序
+select * from emp order by entrydate desc;
+// 根据年龄对公司的员工进行升序排序，年龄相同，再按照入职时间进行降序排序
+select *  from emp  order by age asc, enrydate desc;
+```
+
+### 分页查询
+
+- 分页操作在业务系统开发时，也是非常常见的一个功能，我们在网站中看到的各种各样的分页条，后台都需要借助于数据库的分页操作
+
+**语法**
+
+```sql
+select 字段列表 from 表名 limit 起始索引，查询记录数;
+```
+
+> - 起始索引从0开始，起始索引=(查询页码-1)*每页显示记录数。
+> - 分页查询是数据库的方言，不同的数据库有不同的实现，MySQL中是limit
+> - 如果查询的是第一页数据，起始索引可以省略，直接简写limit 10
+
+```sql
+// 查询第一页员工数据，每页展示10条记录
+select * from emp limit 0, 10;
+select * from emp limit 10;
+// 查询第二页员工数据，每页展示10条数据
+select * from emp limit 10, 10;
+```
+
+### 综合案例
+
+```sql
+// 查询年龄为20,21,22,23的员工信息
+select * from emp where age in(20,21,22,23);
+select * from emp where age between 20 and 23; // between左右都是闭区间
+// 查询性别为男，并且年龄在20-40岁(含)以内的姓名为三个字的员工; 
+select * from emp where gender = '男' and (age between 20 and 40) and name link '---';
+// 统计员工表中，年龄小于60岁的，男性员工和女性员工的人数
+select gender, count(*) total from emp where age < 60 group by gender;
+```
 
 
 
