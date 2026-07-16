@@ -427,7 +427,8 @@ select 聚合函数(字段列表) from 表名;
 案例：
 
 ```sql
-// 统计业务代码
+// 统计该企业员工数量 
+select count(*) from emp;
 ```
 
 
