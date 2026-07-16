@@ -550,18 +550,61 @@ select * from emp where age between 20 and 23; // between左右都是闭区间
 select * from emp where gender = '男' and (age between 20 and 40) and name link '---';
 // 统计员工表中，年龄小于60岁的，男性员工和女性员工的人数
 select gender, count(*) total from emp where age < 60 group by gender;
+// 查询所有年龄小于等于35岁员工的姓名和年龄，并对查询结果按年龄升序排序，如果年龄相同按入职时间降序排序
+select name, age from emp where age <= 35 order by age asc, entrydate desc;
+// 查询性别为男，且年龄在20-40岁(含)以内的前5个员工信息，对查询的结果按年龄升序排序，年龄相同按入职时间升序排序
+select * from emp where gender = '男' and (age between 20 and 40) order by age asc,entrydata desc limit 5;
 ```
 
+### 执行顺序
 
+![img](https://i-blog.csdnimg.cn/direct/86becc9c47b449bca067a339eeaab686.png)
 
+```sql
+// 执行顺序
+// 查询年龄大于15的员工姓名、年龄，并根据年龄进行升序排序
+select name, age from emp where age > 15 order by age asc;
+// 给emp表起一个别名e，然后在select及where中使用该别名
+select e.name, e.age from emp e where e.age > 15 order by age asc;
+```
 
+## DCL
 
+- DCL英文全称是Data Control Language(数据控制语言)，引用来管理数据库用户、控制数据库的访问权限。
 
+### 管理用户
 
+**查询用户**
 
+```sql
+select * from mysql.user;
+```
 
+![img](https://i-blog.csdnimg.cn/direct/cd61940e227a43b39dd7709453b71262.png)
 
+- Host代表当前用户访问的主机，如果为localhost，仅代表只能够在当前本机访问，是不可以远程访问的。
+- User代表的是访问改数据库的用户名，在MySQL中需要通过Host和User来唯一标识一个用户。
 
+****
+
+**创建用户**
+
+```sql
+select user '用户名' @ '主机名' identified by '密码';
+```
+
+案例：
+
+```sql
+// 创建用户
+create user 'itcast'@'loaclhost' identified by '1234';
+```
+
+使用新创建的用户itcast登录MySQL，查询数据库，发现其只能访问两个数据库，其他数据库没有权限
+
+![img](https://i-blog.csdnimg.cn/direct/9a4049ace9494378acc26b8d0c837e21.png)
+
+**修改用户密码**
 
 
 
